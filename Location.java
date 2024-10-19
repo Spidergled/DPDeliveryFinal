@@ -7,8 +7,8 @@
  */
 public class Location
 {
-    public int x;  //TODO cambiar a private
-    public int y;  //TODO cambiar a private
+    private int x;  //he cambiado de public a private
+    private int y;  //he cambiado de public a private
 
     /**
      * Model a location in the city.
@@ -58,7 +58,30 @@ public class Location
         //TODO ahora mismo este método devuelve directamente el destino final
         //PERO DEBERIA ir calculando y devolviendo la siguiente posición por la que 
         // va pasando la persona que reparte hasta llegar al destino
-        return destination;
+        
+        int nextX = this.x;
+        int nextY = this.y;
+        Location nuevoDestino;
+        
+        //Ajustar las cordenadas en X
+        if(this.x < destination.getX()){
+            nextX++;
+        }else if(this.x > destination.getX()){
+            nextX--;
+        }
+        
+        //Ajustar las cordenadas en Y
+        if(this.y < destination.getY()){
+            nextY++;
+        }else if(this.y > destination.getY()){
+            nextY--;
+        }
+        
+        //Crear la nueva posición
+        nuevoDestino = new Location(nextX, nextY);
+    
+        //Devolver la nueva posicion, no el destino
+        return nuevoDestino;
     }
 
     /**
@@ -70,7 +93,28 @@ public class Location
     public int distance(Location destination)
     {
         //TODO implementar este método que devuelve el número total de pasos para alcanzar el destino
-        return 1;
+        
+        int diferenciaX = this.x - destination.getX();
+        int diferenciaY = this.y - destination.getY();
+        int mayor = 0;
+        
+        //Convertir los valores en absolutos
+        if(diferenciaX < 0){
+            diferenciaX = -diferenciaX;
+        }
+        if(diferenciaY < 0){
+            diferenciaY = -diferenciaY;
+        }
+        
+        //Devolver el valor mayor entre diferenciaX y diferenciaY
+        
+        if(diferenciaX > diferenciaY){
+            mayor = diferenciaX;
+        }else{
+            mayor = diferenciaY;
+        }
+        
+        return mayor;
     }
 
     /**
