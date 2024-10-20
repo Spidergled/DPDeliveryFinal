@@ -8,12 +8,12 @@
  */
 public class Order
 {
-    //declarar campo sendingName
+    private String sedingName;//declarar campo sendingName
     private Location location;
     private Location destination;
-    //declarar campo deliveryTime
-    //declarar campo weight
-    //declarar campo destinationName
+    private int deliveryTime;//declarar campo deliveryTime
+    private double weight;//declarar campo weight
+    private String destinationName;//declarar campo destinationName
     private String deliveryPersonName;
     
     /**
@@ -38,6 +38,12 @@ public class Order
         }
         this.location = location;
         this.destination = destination;
+        this.sedingName = sedingName;
+        this.deliveryTime = deliveryTime;
+        this.weight = weight;
+        this.destinationName = destinationName;
+        this.deliveryPersonName = ""; //Inicializacion como vacio si no hay repartidor asignado aun
+        
         //incluir inicialización del resto de campos
     }
 
@@ -47,7 +53,7 @@ public class Order
     public String getDeliveryPersonName()
     {
     //TODO Debe poder devolver el nombre de la persona de reparto.
-    return "";
+    return deliveryPersonName;
     }
 
     /**
@@ -57,6 +63,7 @@ public class Order
     public void setDeliveryPersonName(String deliveryPersonName)
     {
     //TODO Debe poder modificarse el nombre de la persona de reparto.
+    this.deliveryPersonName = deliveryPersonName;
     }
 
     /**
@@ -65,7 +72,7 @@ public class Order
     public Location getDestination()
     {
      //TODO Debe poder devolver la localización donde hay que llevar el Order.
-        return null;
+        return destination;
     }
 
     /**
@@ -81,11 +88,12 @@ public class Order
     /**
      * Show the final information about the order, including the sender's name, the 
      * destination and name of the deliveryPerson who delivers it.
+     * @return String con la informacion final del pedido
      */
     public String showFinalInfo()
     {
         // TODO
-        return "";
+        return "Pedido de "+ sedingName +" entregado a "+ destinationName +" por "+ deliveryPersonName+" en la ubicación: " +destination+ ".";
     }
 
 }
