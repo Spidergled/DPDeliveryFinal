@@ -8,7 +8,7 @@
  */
 public class Order
 {
-    private String sedingName;//declarar campo sendingName
+    private String sendingName;//declarar campo sendingName
     private Location location;
     private Location destination;
     private int deliveryTime;//declarar campo deliveryTime
@@ -38,7 +38,7 @@ public class Order
         }
         this.location = location;
         this.destination = destination;
-        this.sedingName = sedingName;
+        this.sendingName = sendingName;
         this.deliveryTime = deliveryTime;
         this.weight = weight;
         this.destinationName = destinationName;
@@ -74,6 +74,20 @@ public class Order
      //TODO Debe poder devolver la localización donde hay que llevar el Order.
         return destination;
     }
+    
+    /**
+     * 
+     */
+    public int getDeliveryTime() {
+    return deliveryTime;
+    }
+    
+    /**
+     * 
+     */
+    public String getSendingName() {
+    return sendingName;
+    } 
 
     /**
      * Return details of the passenger, such as where it is.
@@ -93,7 +107,7 @@ public class Order
     public String showFinalInfo()
     {
         // TODO
-        return "Pedido de "+ sedingName +" entregado a "+ destinationName +" por "+ deliveryPersonName+" en la ubicación: " +destination+ ".";
+        return "Pedido de "+ sendingName +" entregado a "+ destinationName +" por "+ deliveryPersonName+" en la ubicación: " +destination+ ".";
     }
 
 }
