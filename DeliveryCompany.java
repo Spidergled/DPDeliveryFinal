@@ -11,13 +11,16 @@ public class DeliveryCompany
 {
     // TODO definir todos sus campos
     private String name;  //nombre de la compañía
-
+    private List<DeliveryPerson> deliveryPersons;
+    private List<Order> orders;
     /**
      * Constructor for objects of class DeliveryCompany
      */
     public DeliveryCompany(String name)
     {
         this.name = name;
+        this.deliveryPersons = new ArrayList<>();
+        this.orders = new ArrayList<>();
         //TODO implementar el resto del constructor 
 
     }
@@ -35,9 +38,7 @@ public class DeliveryCompany
      */
     public List<DeliveryPerson> getDeliveryPersons()
     {       
-        //TODO implementar el método 
-
-        return null;
+        return deliveryPersons;
     }
 
     /**
@@ -45,9 +46,7 @@ public class DeliveryCompany
      */
     public List<Order> getOrders()
     {
-        //TODO implementar el método 
-
-        return null;
+        return orders;
     }
 
     /**
@@ -55,7 +54,7 @@ public class DeliveryCompany
      */
     public void addDeliveryPerson(DeliveryPerson dp)
     {
-        //TODO implementar el método 
+        deliveryPersons.add(dp);
     }
 
     /**
@@ -64,8 +63,7 @@ public class DeliveryCompany
      */
     public void addOrder(Order order)
     {
-        //TODO implementar el método 
-
+       orders.add(order);
     }
 
     /**
@@ -74,7 +72,11 @@ public class DeliveryCompany
      */
     private DeliveryPerson getDeliveryPerson()
     {
-        //TODO implementar el método 
+        for (DeliveryPerson dp : deliveryPersons) {
+            if (dp.isFree()) {
+                return dp;
+            }
+        }
 
         return null;
     }
@@ -86,8 +88,12 @@ public class DeliveryCompany
      */
     public boolean requestPickup(Order order)
     {
-        //TODO implementar el método 
-        return true;
+        DeliveryPerson dp = getDeliveryPerson();
+        if (dp != null) {
+            dp.pickup(order);
+            return true;
+        }
+        return false;
     }
 
     /**
