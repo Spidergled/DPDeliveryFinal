@@ -12,7 +12,7 @@ public class DeliveryCompany
     // TODO definir todos sus campos
     private String name;  //nombre de la compañía
     private List<DeliveryPerson> deliveryPersons;
-    private List<Order> orders;
+    private WareHouse warehouse;
     /**
      * Constructor for objects of class DeliveryCompany
      */
@@ -20,7 +20,7 @@ public class DeliveryCompany
     {
         this.name = name;
         this.deliveryPersons = new ArrayList<>();
-        this.orders = new ArrayList<>();
+        
         //TODO implementar el resto del constructor 
 
     }
@@ -46,7 +46,7 @@ public class DeliveryCompany
      */
     public List<Order> getOrders()
     {
-        return orders;
+        return warehouse.getOrders();
     }
 
     /**
@@ -63,7 +63,7 @@ public class DeliveryCompany
      */
     public void addOrder(Order order)
     {
-       orders.add(order);
+       warehouse.addOrder(order);
     }
 
     /**
