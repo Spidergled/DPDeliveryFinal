@@ -20,7 +20,7 @@ public class DeliveryCompany
     {
         this.name = name;
         this.deliveryPersons = new ArrayList<>();
-        
+        this.warehouse = warehouse;
         //TODO implementar el resto del constructor 
 
     }
