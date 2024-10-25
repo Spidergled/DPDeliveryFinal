@@ -7,12 +7,18 @@
  */
 public class DeliveryPerson 
 {
-    private DeliveryCompany company;   
-    private Location location;     
-    private  Location targetLocation;    //he cambiado todo a private 
-    private int idleCount;    
-    private String name; 
-    private int contadorDeliver;
+    // The Delivery Company of this DeliveryPerson.
+    public DeliveryCompany company;   //TODO cambiar a private
+    // Where the person is.
+    public Location location;     //TODO cambiar a private
+    // Where the person is headed.
+    public  Location targetLocation;   //TODO cambiar a private
+    // Record how often the person has nothing to do.
+    public int idleCount;       //TODO cambiar a private
+    //name of the delivery person
+    public String name; //TODO cambiar a private
+    //TODO añadir campos necesarios
+
     /**
      * Constructor of class DeliveryPerson
      * @param company The delivery person's company. Must not be null.
@@ -150,7 +156,7 @@ public class DeliveryPerson
     public boolean isFree()
     {
         //TODO  implementar este método
-        return targetLocation == null;
+        return true;
     }
 
     /**
@@ -158,7 +164,7 @@ public class DeliveryPerson
      */
     public void notifyPickupArrival()
     {
-        company.arrivedAtPickup(this);
+        //TODO  implementar este método
     }
 
     /**
@@ -166,7 +172,7 @@ public class DeliveryPerson
      */
     public void notifyOrderArrival(Order order)
     {
-        company.arrivedAtDestination(this, order);
+        //TODO  implementar este método
     }
 
     /**
@@ -176,8 +182,7 @@ public class DeliveryPerson
      */
     public void pickup(Order order)
     {
-        setTargetLocation(order.getDestination());
-        order.setDeliveryPersonName(getName()); 
+        //TODO  implementar este método
 
     }
 
@@ -186,8 +191,7 @@ public class DeliveryPerson
      */
     public void deliverOrder()
     {
-        clearTargetLocation();
-        incrementOrdersDelivered();
+        //TODO  implementar este método
     }
 
     /**
@@ -195,8 +199,8 @@ public class DeliveryPerson
      */
     public int ordersDelivered()
     {
-        
-        return contadorDeliver;
+        //TODO  implementar este método
+        return 1;
     }
 
     /**
@@ -204,7 +208,7 @@ public class DeliveryPerson
      */
     protected void incrementOrdersDelivered()
     {
-        contadorDeliver++;
+        //TODO  implementar este método
     }
 
     /**
@@ -213,10 +217,8 @@ public class DeliveryPerson
      */
     public int distanceToTheTargetLocation()
     {
-        if(targetLocation != null){
-            return location.distance(targetLocation);
-        }
-        return -1;
+        //TODO  implementar este método
+        return 1;
 
     }
 
@@ -225,26 +227,10 @@ public class DeliveryPerson
      */
     public void act()
     {
-        if (hasTargetLocation()){ //si tiene un destino asignado
-            Location nextMove = location.nextLocation(targetLocation);//el repartidor tiene que moverse a la siguiente 
-            setLocation(nextMove);                                    //posición correspondiente en el camino       
-            
-            if (location.equals(targetLocation)){//si la posicion es = al destino 
-                if(company.getOrders().contains(targetLocation)){
-                     notifyPickupArrival();
-                } else {
-                    notifyOrderArrival(null);
-                    contadorDeliver++;
-                }
-            }
-            
-        } else {
-            incrementIdleCount();
-            
-        }
+        //TODO  implementar este método
     }
  
-    /**  
+    /**
      * Return details of the delivery person, such as the name, the location,
      * number of delivered orders and time (steps) without moving.
      * @return A string representation of the delivery person.
@@ -252,7 +238,7 @@ public class DeliveryPerson
     public String showFinalInfo()
     {
         //TODO  implementar este método
-        return String.format(getName() + "ha entregado" + ordersDelivered() + "pedidos y tuvo:" + idleCount + "pasos inactivo. Su ubicacion actual es:" +location);
+        return "";
 
     }
 
