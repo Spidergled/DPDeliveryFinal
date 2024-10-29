@@ -1,0 +1,57 @@
+Project documentation
+<---- javadoc command: ---->
+C:\Program Files\BlueJ\jdk\bin\javadoc.exe
+-sourcepath
+C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial
+-source
+21
+-classpath
+C:\Program Files\BlueJ\lib\bluejcore.jar;C:\Program Files\BlueJ\lib\javafx-base-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-controls-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-fxml-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-graphics-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-media-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-swing-21.0.3-win.jar;C:\Program Files\BlueJ\lib\javafx-web-21.0.3-win.jar;C:\Program Files\BlueJ\lib\junit-4.12.jar;C:\Program Files\BlueJ\lib\junit-jupiter-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-jupiter-api-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-jupiter-engine-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-jupiter-params-5.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-commons-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-engine-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-launcher-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-platform-suite-api-1.5.2.jar;C:\Program Files\BlueJ\lib\junit-vintage-engine-5.5.2.jar;C:\Program Files\BlueJ\lib\hamcrest-core-1.3.jar;C:\Program Files\BlueJ\lib\opentest4j-1.2.0.jar;C:\Program Files\BlueJ\lib\lang-stride.jar;C:\Program Files\BlueJ\lib\javafx\javafx.base.jar;C:\Program Files\BlueJ\lib\javafx\javafx.controls.jar;C:\Program Files\BlueJ\lib\javafx\javafx.fxml.jar;C:\Program Files\BlueJ\lib\javafx\javafx.graphics.jar;C:\Program Files\BlueJ\lib\javafx\javafx.media.jar;C:\Program Files\BlueJ\lib\javafx\javafx.properties.jar;C:\Program Files\BlueJ\lib\javafx\javafx.swing.jar;C:\Program Files\BlueJ\lib\javafx\javafx.web.jar;C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial
+-d
+C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial\doc
+-encoding
+UTF-8
+-charset
+UTF-8
+-doctitle
+DPDeliveryInicial
+-windowtitle
+DPDeliveryInicial
+-author
+-version
+-nodeprecated
+-package
+-Xdoclint:none
+-link
+https://docs.oracle.com/en/java/javase/21/docs/api/
+C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial/Order.java
+C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial/DemoInicial.java
+C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial/DemoOneOrder.java
+C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial/DeliveryPersonTest.java
+C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial/LocationTest.java
+C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial/OrderTest.java
+C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial/ComparadorNombreDeliveryPerson.java
+C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial/DeliveryPerson.java
+C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial/DemoAvanzada.java
+C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial/WareHouse.java
+C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial/DeliveryCompany.java
+C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial/DeliveryDemo.java
+C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial/Location.java
+<---- end of javadoc command ---->
+Loading source file C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial\Order.java...
+Loading source file C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial\DemoInicial.java...
+Loading source file C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial\DemoOneOrder.java...
+C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial\DemoOneOrder.java:99: error: ')' or ',' expected
+        Collections.sort(orders, Comparator.comparingInt(Order::getDeliveryTime)
+                                                                                ^
+Loading source file C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial\DeliveryPersonTest.java...
+Loading source file C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial\LocationTest.java...
+Loading source file C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial\OrderTest.java...
+Loading source file C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial\ComparadorNombreDeliveryPerson.java...
+Loading source file C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial\DeliveryPerson.java...
+Loading source file C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial\DemoAvanzada.java...
+Loading source file C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial\WareHouse.java...
+Loading source file C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial\DeliveryCompany.java...
+Loading source file C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial\DeliveryDemo.java...
+Loading source file C:\Users\PC\OneDrive\Documentos\GitHub\DPDeliveryInicial\Location.java...
+1 error
