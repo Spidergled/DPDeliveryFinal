@@ -74,6 +74,14 @@ public class Order
      //TODO Debe poder devolver la localización donde hay que llevar el Order.
         return destination;
     }
+        /**
+     * @return The destination location.
+     */
+    public Location getLocationOrder()
+    {
+     //TODO Debe poder devolver la localización donde hay que llevar el Order.
+        return location;
+    }
     
     /**
      * 
@@ -81,12 +89,24 @@ public class Order
     public int getDeliveryTime() {
     return deliveryTime;
     }
+    /**
+     * 
+     */
+    public double getWeight() {
+    return weight;
+    }
     
     /**
      * 
      */
     public String getSendingName() {
     return sendingName;
+    } 
+     /**
+     * 
+     */
+    public String getDestinationName() {
+    return destinationName;
     } 
 
     /**

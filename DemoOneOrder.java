@@ -1,6 +1,5 @@
 import java.util.*;
 
-
 /**
  * Provide a simple demonstration of running a stage-one
  * scenario. A single order and delivery person are created, and a pickup
@@ -95,7 +94,8 @@ public class DemoOneOrder
         List<Order> orders = company.getOrders();
         
         //TODO: Ordenar los pedidos ascendentemente por su hora de llegada y 
-        //en caso de empate por el nombre de la persona de destino  
+        //en caso de empate por el nombre de la persona de destino 
+        Collections.sort(orders, new ComparadorOrdersHoraDestino());
         for(Order order : orders) {
             if(!company.requestPickup(order)) {
                 throw new IllegalStateException("Failed to find a pickup.");        
@@ -114,12 +114,17 @@ public class DemoOneOrder
         System.out.println("-->> ------------------------------- <<--");
         Collections.sort(actors, new ComparadorNombreDeliveryPerson());
 
-        System.out.println("Person "+actors.get(0).getName()+"at"+ actors.get(0).getLocation().toString());        
+        System.out.println("DeliveryPerson "+actors.get(0).getName()+"at"+ actors.get(0).getLocation().toString());        
         System.out.println("-->> Orders to be picked up <<--");
-        Collections.sort(company.getOrders(), 
-        new ComparadorNombreDeliveryPersonOrder());
-        System.out.println("Order"+company.getOrders().get(0).getDeliveryPersonName()+"is sent from"+company.getOrders().get(0).getSendingName() + "to"+
-        company.getOrders().get(0).getDestination().toString()); 
+        System.out.println("-->> ------------------------------- <<--");
+        
+        Collections.sort(company.getOrders(), new ComparadorNombreDeliveryPersonOrder());
+        
+        System.out.println("Order from: "+company.getOrders().get(0).getDeliveryPersonName()+"to"+
+        company.getOrders().get(0).getSendingName()+"at: "+company.getOrders().get(0).getDeliveryTime()+"weight: "
+        +company.getOrders().get(0).getWeight()+"from: "+company.getOrders().get(0).getLocationOrder().toString()+"to "+ company.getOrders()
+        .get(0).getDestination().toString()); 
+        
         System.out.println("-->> ---------------------- <<--");
         //TODO ordenar (por el nombre de la persona que envía) y mostrar los pedidos
         //para ordenar una colección aplicando un comparador, esta sería 
@@ -147,6 +152,8 @@ public class DemoOneOrder
 
         System.out.println("-->> Delivery persons final information <<--");
         System.out.println("-->> ---------------------------------- <<--");
+        Collections.sort(actors, new ComparadorPedidosEntregadosNombre());
+        System.out.println(actors.get(0).showFinalInfo());
         //TODO ordenar (por número de pedidos entregados y si empate por nombre) 
         // y mostrar los objetos delivery persons
 
@@ -155,6 +162,7 @@ public class DemoOneOrder
         System.out.println("-->> ------------------------ <<--");
         //TODO ordenar (por hora de entrega y si empate por nombre de la persona 
         //  que recibe el pedido) y mostrar los pedidos
+       // Collections.sort(company.getOrders(), new ComparadorOrdersHoraNombre());
+    }}
+       
 
-    }
-}

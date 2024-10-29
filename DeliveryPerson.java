@@ -13,6 +13,7 @@ public class DeliveryPerson
     private int idleCount;    
     private String name; 
     private int contadorDeliver;
+    private int ordersDelivered;
     /**
      * Constructor of class DeliveryPerson
      * @param company The delivery person's company. Must not be null.
@@ -132,6 +133,13 @@ public class DeliveryPerson
     public void incrementIdleCount()
     {
         idleCount++;
+    }
+    /**
+     * @return on how many steps this delivery person has been idle.
+     */
+    public int getOrderesDelivered()
+    {
+        return ordersDelivered();
     }
 
     /**
