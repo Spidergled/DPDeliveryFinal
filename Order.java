@@ -74,36 +74,38 @@ public class Order
      //TODO Debe poder devolver la localización donde hay que llevar el Order.
         return destination;
     }
-        /**
-     * @return The destination location.
+    
+    /**
+     * @return Devuelve la localizacion del Order.
      */
     public Location getLocationOrder()
     {
-     //TODO Debe poder devolver la localización donde hay que llevar el Order.
         return location;
     }
     
     /**
-     * 
+     * @return La hora de la entrega.
      */
     public int getDeliveryTime() {
     return deliveryTime;
     }
+    
     /**
-     * 
+     * @return El peso del pedido
      */
     public double getWeight() {
     return weight;
     }
     
     /**
-     * 
+     * @return El nombre de la persona
      */
     public String getSendingName() {
     return sendingName;
     } 
+    
      /**
-     * 
+     * @return El nombre de la persona que recibe el pedido
      */
     public String getDestinationName() {
     return destinationName;
