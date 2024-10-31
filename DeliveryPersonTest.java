@@ -39,7 +39,7 @@ public class DeliveryPersonTest
         Location destination = new Location(5, 6);
 
          
-        order = new Order("Kevin", pickup, destination,10, 1.2, "Decathon Cáceres");
+        order = new Order("Kevin", pickup, destination,10, 1.2, "Decathlon Cáceres");
         dp = new DeliveryPerson(company, dpLocation,"DP1");
         //TODO
         //Completar (si es necesario) este método
@@ -62,6 +62,10 @@ public class DeliveryPersonTest
     public void testCreation()
     {
         assertEquals(true, dp.isFree());
+        assertEquals(new Location(0,0), dp.getLocation()); // Verifica que la ubicación inicial del repartidor es (0,0).
+        assertEquals("DP1", dp.getName()); // Verifica que el nombre del repartidor es el esperado.
+        assertEquals(0,dp.ordersDelivered()); // Verifica que el numero de entregas realizadas es cero.
+        
         //TODO puede ser implementado comparando otros campos
     }
 
@@ -73,6 +77,9 @@ public class DeliveryPersonTest
     public void testPickup()
     {
         //TODO implementar este método
+        dp.pickup(order);  // EL repartidor recoge el pedido.
+        assertEquals(false,dp.isFree()); // Verifica que el repartidor ya no esta libre.
+        assertEquals(order.getDestination(), dp.getTargetLocation()); // Verifica que el destino coincida con el del pedido.
     }
 
     /**
@@ -82,6 +89,10 @@ public class DeliveryPersonTest
     public void testDeliverOrder()
     {
         //TODO implementar este método
+        dp.pickup(order); // El repartidor recoge el pedido.
+        dp.deliverOrder(); // El repartidor entrega el pedido.
+        assertEquals(true,dp.isFree()); // Verifica que el repartidor esta libre despues de la entrega.
+        assertEquals(1, dp.ordersDelivered()); // Verifica que el contador de entregas ha incrementado.
     }
 
     /**
@@ -91,6 +102,24 @@ public class DeliveryPersonTest
     public void testDelivery()
     {
         //TODO implementar este método
+        dp.pickup(order);
+        
+        int pasos = 0;
+        
+        while(!dp.getLocation().equals(order.getDestination()) && pasos < 100){
+            dp.act();
+            pasos++;
+        }
+        
+        assertEquals(order.getDestination(), dp.getLocation());
+        
+        dp.deliverOrder();
+        
+        assertEquals(true, dp.isFree());
+        assertEquals(1, dp.ordersDelivered());
+        
+        assertEquals(true, pasos < 100);
+        
     }
 }
 

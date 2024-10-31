@@ -12,7 +12,6 @@ public class DeliveryPerson
     private  Location targetLocation;    //he cambiado todo a private 
     private int idleCount;    
     private String name; 
-    private int contadorDeliver;
     private int ordersDelivered;
     /**
      * Constructor of class DeliveryPerson
@@ -30,8 +29,10 @@ public class DeliveryPerson
         }
         this.company = company;
         this.location = location;
+        this.name = name;
         targetLocation = null;
         idleCount = 0;
+        ordersDelivered = 0;
         //TODO resto de inicializaciones pendientes
     }
 
@@ -137,7 +138,7 @@ public class DeliveryPerson
     /**
      * @return on how many steps this delivery person has been idle.
      */
-    public int getOrderesDelivered()
+    public int getOrdersDelivered()
     {
         return ordersDelivered();
     }
@@ -204,7 +205,7 @@ public class DeliveryPerson
     public int ordersDelivered()
     {
         
-        return contadorDeliver;
+        return ordersDelivered;
     }
 
     /**
@@ -212,7 +213,7 @@ public class DeliveryPerson
      */
     protected void incrementOrdersDelivered()
     {
-        contadorDeliver++;
+        ordersDelivered++;
     }
 
     /**
@@ -242,7 +243,7 @@ public class DeliveryPerson
                      notifyPickupArrival();
                 } else {
                     notifyOrderArrival(null);
-                    contadorDeliver++;
+                    ordersDelivered++;
                 }
             }
             
