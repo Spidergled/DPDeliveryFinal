@@ -103,8 +103,7 @@ public class DemoInicial
      */
     private void runSimulation() {
         List<Order> orders = company.getOrders();
-        //TODO: Ordenar los pedidos ascendentemente por su hora de llegada y 
-        //en caso de empate por el nombre de la persona de destino
+        Collections.sort (orders, new ComparadorOrdersHoraNombre());
         for(Order order : orders) {
             if(!company.requestPickup(order)) {
                 throw new IllegalStateException("Failed to find a pickup.");        
@@ -122,8 +121,10 @@ public class DemoInicial
         System.out.println("-->> Delivery persons of the company <<--");
         System.out.println("-->> ------------------------------- <<--");
         //TODO ordenar (por su nombre) y mostrar los objetos delivery persons
-        //Collections.sort(lista de objetos DeliveryPersons, new ComparadorNombreDeliveryPerson());
-
+        Collections.sort(actors, new ComparadorNombreDeliveryPerson());
+        for(DeliveryPerson actor:actors){
+            System.out.println("DeliveryPerson"+actor.getName()+"at location"+actor.getLocation().toString());
+        }
         System.out.println(" ");        
         System.out.println("-->> Orders to be picked up <<--");
         System.out.println("-->> ---------------------- <<--");

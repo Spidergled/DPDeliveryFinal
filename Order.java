@@ -129,7 +129,7 @@ public class Order
     public String showFinalInfo()
     {
         // TODO
-        return "Pedido de "+ sendingName +" entregado a "+ destinationName +" por "+ deliveryPersonName+" en la ubicación: " +destination+ ".";
+        return "Pedido de "+ sendingName +" entregado a "+ destinationName +" por "+ deliveryPersonName+" en la ubicación: " +destination.toString()+ ".";
     }
 
 }
