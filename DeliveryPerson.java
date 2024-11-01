@@ -13,6 +13,7 @@ public class DeliveryPerson
     private int idleCount;    
     private String name; 
     private int ordersDelivered;
+    private Order currentOrder;
     /**
      * Constructor of class DeliveryPerson
      * @param company The delivery person's company. Must not be null.
@@ -33,6 +34,7 @@ public class DeliveryPerson
         targetLocation = null;
         idleCount = 0;
         ordersDelivered = 0;
+        currentOrder = null;
         //TODO resto de inicializaciones pendientes
     }
 
@@ -168,6 +170,8 @@ public class DeliveryPerson
     public void notifyPickupArrival()
     {
         company.arrivedAtPickup(this);
+        System.out.println("<<<< DeliveryPerson " + getName() + " at location " + getLocation() + " picks up Order from " + currentOrder.getSendingName() + 
+                           " to: location " + currentOrder.getDestination().getX() + ", " + currentOrder.getDestination().getY()); 
     }
 
     /**
@@ -176,6 +180,8 @@ public class DeliveryPerson
     public void notifyOrderArrival(Order order)
     {
         company.arrivedAtDestination(this, order);
+        System.out.println("<<<< DeliveryPerson " + getName() + " at location " + getLocation() + " delivers Order at: " + currentOrder.getDeliveryTime() + 
+        " from: " + currentOrder.getSendingName() + " to: " + currentOrder.getDestinationName());
     }
 
     /**
@@ -187,6 +193,7 @@ public class DeliveryPerson
     {
         setTargetLocation(order.getDestination());
         order.setDeliveryPersonName(getName()); 
+        currentOrder = order; //Asigna el pedido actual
 
     }
 
@@ -231,28 +238,31 @@ public class DeliveryPerson
         return -1;
 
     }
-
+    
+    
     /**
      * Carry out a delivery person's actions.
      */
     public void act()
     {
+
         if (hasTargetLocation()){ //si tiene un destino asignado
+
             Location nextMove = location.nextLocation(targetLocation);//el repartidor tiene que moverse a la siguiente 
-            setLocation(nextMove);                                    //posición correspondiente en el camino       
+            setLocation(nextMove);                                    //posición correspondiente en el camino
             
-            if (location.equals(targetLocation)){//si la posicion es = al destino 
-                if(company.getOrders().contains(targetLocation)){
-                     notifyPickupArrival();
-                } else {
-                    notifyOrderArrival(null);
-                }
-            }
+            System.out.println("@@@  DeliveryPerson: " + getName() + " moving to: " + getLocation()); // Muestra movimiento
             
-        } else {
-            incrementIdleCount();
-            
+            if (location.equals(currentOrder.getLocationOrder())){// Si ha llegado a la ubicación de recogida 
+                notifyPickupArrival(); //Notifica a la compañia de la recogida
+              
+            }else if(location.equals(currentOrder.getDestination())){ // Si ha llegado a la ubicación de entrega
+                notifyOrderArrival(currentOrder); // Notifica a la compañia de la entrega
+                deliverOrder(); // Entrega el pedido
         }
+    }else{
+        incrementIdleCount();
+    }
     }
  
     /**  

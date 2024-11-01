@@ -25,6 +25,7 @@ public class DemoOneOrder
         company = new DeliveryCompany("Compañía DP Delivery Cáceres", warehouse);
         actors = new ArrayList<>();
         reset();
+        run();
     }
 
     /**
@@ -105,6 +106,7 @@ public class DemoOneOrder
         });
         
         for(Order order : orders) {
+            System.out.println(order.showFinalInfo());
             if(!company.requestPickup(order)) {
                 throw new IllegalStateException("Failed to find a pickup.");        
             }
