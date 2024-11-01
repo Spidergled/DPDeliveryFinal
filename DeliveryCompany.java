@@ -16,7 +16,7 @@ public class DeliveryCompany
     /**
      * Constructor for objects of class DeliveryCompany
      */
-    public DeliveryCompany(String name)
+    public DeliveryCompany(String name, WareHouse warehouse)
     {
         this.name = name;
         this.deliveryPersons = new ArrayList<>();

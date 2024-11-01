@@ -11,6 +11,7 @@ dependency11.type=UsesDependency
 dependency12.from=DeliveryPerson
 dependency12.to=Location
 dependency12.type=UsesDependency
+<<<<<<< HEAD
 dependency13.from=DeliveryPerson
 dependency13.to=Order
 dependency13.type=UsesDependency
@@ -31,10 +32,33 @@ dependency18.to=Location
 dependency18.type=UsesDependency
 dependency19.from=WareHouse
 dependency19.to=Order
+=======
+dependency13.from=DemoOneOrder
+dependency13.to=ComparadorNombreDeliveryPerson
+dependency13.type=UsesDependency
+dependency14.from=DemoOneOrder
+dependency14.to=ComparadorNombreDeliveryPersonOrder
+dependency14.type=UsesDependency
+dependency15.from=DemoOneOrder
+dependency15.to=ComparadorPedidosEntregadosNombre
+dependency15.type=UsesDependency
+dependency16.from=DemoOneOrder
+dependency16.to=ComparadorOrdersHoraNombre
+dependency16.type=UsesDependency
+dependency17.from=ComparadorNombreDeliveryPersonOrder
+dependency17.to=Order
+dependency17.type=UsesDependency
+dependency18.from=DemoInicial
+dependency18.to=DeliveryCompany
+dependency18.type=UsesDependency
+dependency19.from=DemoInicial
+dependency19.to=DeliveryPerson
+>>>>>>> ef329c1797f488a0efe82e864be4581a67efe6ac
 dependency19.type=UsesDependency
 dependency2.from=ComparadorNombreDeliveryPersonOrder
 dependency2.to=Order
 dependency2.type=UsesDependency
+<<<<<<< HEAD
 dependency20.from=DeliveryCompany
 dependency20.to=DeliveryPerson
 dependency20.type=UsesDependency
@@ -61,6 +85,34 @@ dependency27.to=Order
 dependency27.type=UsesDependency
 dependency28.from=DemoOneOrder
 dependency28.to=ComparadorOrdersHoraDestino
+=======
+dependency20.from=DemoInicial
+dependency20.to=Location
+dependency20.type=UsesDependency
+dependency21.from=DemoInicial
+dependency21.to=Order
+dependency21.type=UsesDependency
+dependency22.from=DemoInicial
+dependency22.to=ComparadorOrdersHoraNombre
+dependency22.type=UsesDependency
+dependency23.from=DemoInicial
+dependency23.to=ComparadorNombreDeliveryPerson
+dependency23.type=UsesDependency
+dependency24.from=DemoAvanzada
+dependency24.to=DeliveryCompany
+dependency24.type=UsesDependency
+dependency25.from=DemoAvanzada
+dependency25.to=DeliveryPerson
+dependency25.type=UsesDependency
+dependency26.from=DemoAvanzada
+dependency26.to=Location
+dependency26.type=UsesDependency
+dependency27.from=DemoAvanzada
+dependency27.to=Order
+dependency27.type=UsesDependency
+dependency28.from=DeliveryDemo
+dependency28.to=DemoOneOrder
+>>>>>>> ef329c1797f488a0efe82e864be4581a67efe6ac
 dependency28.type=UsesDependency
 dependency29.from=DemoOneOrder
 dependency29.to=ComparadorNombreDeliveryPerson
@@ -74,6 +126,7 @@ dependency30.type=UsesDependency
 dependency31.from=DemoOneOrder
 dependency31.to=ComparadorPedidosEntregadosNombre
 dependency31.type=UsesDependency
+<<<<<<< HEAD
 dependency32.from=DemoOneOrder
 dependency32.to=ComparadorOrdersHoraNombre
 dependency32.type=UsesDependency
@@ -82,6 +135,16 @@ dependency33.to=Location
 dependency33.type=UsesDependency
 dependency34.from=DemoInicial
 dependency34.to=DeliveryCompany
+=======
+dependency32.from=DeliveryPersonTest
+dependency32.to=DeliveryPerson
+dependency32.type=UsesDependency
+dependency33.from=DeliveryPersonTest
+dependency33.to=Order
+dependency33.type=UsesDependency
+dependency34.from=DeliveryPersonTest
+dependency34.to=WareHouse
+>>>>>>> ef329c1797f488a0efe82e864be4581a67efe6ac
 dependency34.type=UsesDependency
 dependency35.from=DemoInicial
 dependency35.to=DeliveryPerson
@@ -98,6 +161,7 @@ dependency38.type=UsesDependency
 dependency39.from=DemoInicial
 dependency39.to=ComparadorNombreDeliveryPerson
 dependency39.type=UsesDependency
+<<<<<<< HEAD
 dependency4.from=DeliveryPersonTest
 dependency4.to=DeliveryPerson
 dependency4.type=UsesDependency
@@ -117,11 +181,27 @@ dependency7.from=DeliveryPersonTest
 dependency7.to=Location
 dependency7.type=UsesDependency
 dependency8.from=ComparadorOrdersHoraDestino
+=======
+dependency4.from=ComparadorOrdersHoraDestino
+dependency4.to=Order
+dependency4.type=UsesDependency
+dependency5.from=ComparadorNombreDeliveryPerson
+dependency5.to=DeliveryPerson
+dependency5.type=UsesDependency
+dependency6.from=ComparadorPedidosEntregadosNombre
+dependency6.to=DeliveryPerson
+dependency6.type=UsesDependency
+dependency7.from=WareHouse
+dependency7.to=Location
+dependency7.type=UsesDependency
+dependency8.from=WareHouse
+>>>>>>> ef329c1797f488a0efe82e864be4581a67efe6ac
 dependency8.to=Order
 dependency8.type=UsesDependency
 dependency9.from=ComparadorPedidosEntregadosNombre
 dependency9.to=DeliveryPerson
 dependency9.type=UsesDependency
+<<<<<<< HEAD
 editor.fx.0.height=822
 editor.fx.0.width=780
 editor.fx.0.x=761
@@ -131,12 +211,27 @@ objectbench.width=1511
 package.divider.horizontal=0.6001314060446781
 package.divider.vertical=0.8477546549835707
 package.editor.height=612
+=======
+editor.fx.0.height=816
+editor.fx.0.width=780
+editor.fx.0.x=-6
+editor.fx.0.y=0
+objectbench.height=111
+objectbench.width=901
+package.divider.horizontal=0.5997361477572559
+package.divider.vertical=0.8368017524644031
+package.editor.height=605
+>>>>>>> ef329c1797f488a0efe82e864be4581a67efe6ac
 package.editor.width=1384
 package.editor.x=0
 package.editor.y=0
 package.frame.height=830
 package.frame.width=1550
+<<<<<<< HEAD
 package.numDependencies=41
+=======
+package.numDependencies=39
+>>>>>>> ef329c1797f488a0efe82e864be4581a67efe6ac
 package.numTargets=19
 package.showExtends=true
 package.showUses=true
