@@ -140,7 +140,7 @@ public class DeliveryPerson
      */
     public int getOrdersDelivered()
     {
-        return ordersDelivered();
+        return ordersDelivered;
     }
 
     /**
@@ -195,8 +195,11 @@ public class DeliveryPerson
      */
     public void deliverOrder()
     {
-        clearTargetLocation();
+        if(!isFree()){  // Solo permite entregar si hay un pedido en curso
+        notifyOrderArrival(null);
         incrementOrdersDelivered();
+        clearTargetLocation();
+      }
     }
 
     /**
@@ -243,7 +246,6 @@ public class DeliveryPerson
                      notifyPickupArrival();
                 } else {
                     notifyOrderArrival(null);
-                    ordersDelivered++;
                 }
             }
             

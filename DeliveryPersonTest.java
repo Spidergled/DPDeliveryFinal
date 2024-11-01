@@ -31,7 +31,9 @@ public class DeliveryPersonTest
     @Before
     public void setUp()
     {
-        DeliveryCompany company = new DeliveryCompany("Compañía DP Delivery Cáceres");
+        WareHouse warehouse = new WareHouse();
+        
+        DeliveryCompany company = new DeliveryCompany("Compañía DP Delivery Cáceres", warehouse);
         // Starting position for the taxi.
         Location dpLocation = new Location(0, 0);
         // Locations for the order.
@@ -80,12 +82,14 @@ public class DeliveryPersonTest
         dp.pickup(order);  // EL repartidor recoge el pedido.
         assertEquals(false,dp.isFree()); // Verifica que el repartidor ya no esta libre.
         assertEquals(order.getDestination(), dp.getTargetLocation()); // Verifica que el destino coincida con el del pedido.
+        assertEquals(dp.getName(), order.getDeliveryPersonName()); // Verifica que el nombre del repartidor se asigno al pedido.
     }
 
     /**
      * Test that a delivery person becomes free again after delivering
      * an order.
      */
+    @Test
     public void testDeliverOrder()
     {
         //TODO implementar este método
@@ -99,6 +103,7 @@ public class DeliveryPersonTest
      * Test that a delivery person picks up and delivers an order within
      * a reasonable number of steps.
      */
+    @Test
     public void testDelivery()
     {
         //TODO implementar este método
