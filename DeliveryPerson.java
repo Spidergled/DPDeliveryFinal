@@ -263,7 +263,7 @@ public class DeliveryPerson
     public String showFinalInfo()
     {
         //TODO  implementar este método
-        return String.format(getName() + " ha entregado " + ordersDelivered() + " pedidos y tuvo: " + idleCount + " pasos inactivo. Su ubicacion actual es: " +location);
+        return "DeliveryPerson " + getName() + " at location " + getLocation() + " - orders delivered: " + ordersDelivered() + " - non active for: " + getIdleCount() + " times";
 
     }
 

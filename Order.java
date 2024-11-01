@@ -128,8 +128,11 @@ public class Order
      */
     public String showFinalInfo()
     {
-        // TODO
-        return "Pedido de "+ sendingName +" entregado a "+ destinationName +" por "+ deliveryPersonName+" en la ubicación: " +destination.toString()+ ".";
+        
+        
+        return "Order from: "+ getSendingName() + " to: " + getDestinationName() + " at: " + getDeliveryTime() +
+                           " weight: " + getWeight() + " from: " + getLocationOrder() +
+                           " to: " + getDestination();
     }
 
 }

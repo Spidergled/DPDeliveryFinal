@@ -96,7 +96,7 @@ public class DemoOneOrder
         
         //TODO: Ordenar los pedidos ascendentemente por su hora de llegada y 
         //en caso de empate por el nombre de la persona de destino 
-        Collections.sort(orders, (o1, o2) ->{
+        Collections.sort(orders, (o1, o2) -> {
             int timeCom = Integer.compare(o1.getDeliveryTime(), o2.getDeliveryTime());
         if (timeCom == 0) {
             return o1.getDestinationName().compareTo(o2.getDestinationName());
@@ -134,10 +134,7 @@ public class DemoOneOrder
         // Ordenar los pedidos (Orders) por nombre de la persona que envía y luego por hora de entrega
         Collections.sort(company.getOrders(), new ComparadorNombreDeliveryPersonOrder());
         for (Order order : company.getOrders()) {
-        System.out.println("Order from: " + order.getSendingName() + " to: " +
-                           order.getDestinationName() + " at: " + order.getDeliveryTime() +
-                           " weight: " + order.getWeight() + " from: " + order.getLocationOrder() +
-                           " to: " + order.getDestination());
+        System.out.println(order.showFinalInfo());
         }
         
         //TODO ordenar (por el nombre de la persona que envía) y mostrar los pedidos
@@ -167,7 +164,9 @@ public class DemoOneOrder
         System.out.println("-->> Delivery persons final information <<--");
         System.out.println("-->> ---------------------------------- <<--");
         Collections.sort(actors, new ComparadorPedidosEntregadosNombre());
-        System.out.println(actors.get(0).showFinalInfo());
+        for (DeliveryPerson dp : actors) {
+        System.out.println(dp.showFinalInfo());
+        }
         //TODO ordenar (por número de pedidos entregados y si empate por nombre) 
         // y mostrar los objetos delivery persons
 
@@ -177,7 +176,11 @@ public class DemoOneOrder
         //TODO ordenar (por hora de entrega y si empate por nombre de la persona 
         //  que recibe el pedido) y mostrar los pedidos
         Collections.sort(company.getOrders(), new ComparadorOrdersHoraNombre());
-        company.getOrders().get(0).showFinalInfo();
-    }}
+        for (Order order : company.getOrders()) {
+        System.out.println(order.showFinalInfo());
+        }
+
+    }
+}
        
 
