@@ -95,6 +95,12 @@ public class DeliveryCompany
         }
         return false;
     }
+    /**
+     * @return Devuelve el almacen
+     */
+    public WareHouse getWarehouse(){
+        return warehouse;
+    }
 
     /**
      * A delivery person has arrived at a pickup point.

@@ -57,6 +57,7 @@ public class WareHouse
         });
     }
     
+
      /**
      * Devuelve y elimina el primer pedido de la lista de pedidos.
      * @return El pedido más prioritario (si existe), o null si no hay pedidos.
