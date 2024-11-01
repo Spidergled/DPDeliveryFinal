@@ -132,8 +132,12 @@ public class DemoInicial
         //para ordenar una colección aplicando un comparador, esta sería 
         //la sintaxis (suponiendo que "orders" es una colección donde
         //la compañía almacena los pedidos):
-        //Collections.sort(orders, new ComparadorOrderDeliveryPersonName());
-
+        Collections.sort(company.getOrders(), new ComparadorNombreDeliveryPersonOrder());
+         for (Order order : company.getOrders()){
+            System.out.println("Order from: "+order.getDeliveryPersonName()+" to: "+order.getSendingName()+
+            "at"+order.getDeliveryTime()+" weight: "+order.getWeight()+" from: "+
+            order.getLocationOrder().toString()+" to: "+order.getDestination().toString());
+        }
 
         System.out.println(" ");        
         System.out.println("-->> Simulation start <<--");
@@ -156,12 +160,20 @@ public class DemoInicial
         System.out.println("-->> ---------------------------------- <<--");
         //TODO ordenar (por número de pedidos entregados y si empate por nombre) 
         // y mostrar los objetos delivery persons
+        Collections.sort(actors, new ComparadorPedidosEntregadosNombre());
+        for(DeliveryPerson actor:actors){
+            System.out.println(actor.showFinalInfo());
+        }
 
         System.out.println(" ");
         System.out.println("-->> Orders final information <<--");
         System.out.println("-->> ------------------------ <<--");
         //TODO ordenar (por hora de entrega y si empate por nombre de la persona 
         //  que recibe el pedido) y mostrar los pedidos
+        Collections.sort(company.getOrders(), new ComparadorOrdersHoraNombre());
+        for(Order order:company.getOrders()){
+            System.out.println(order.showFinalInfo());
+        }
 
     }
 }
