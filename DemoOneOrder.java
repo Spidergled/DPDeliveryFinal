@@ -188,7 +188,7 @@ public class DemoOneOrder
         //  que recibe el pedido) y mostrar los pedidos
         Collections.sort(company.getOrders(), new ComparadorOrdersHoraNombre());
         for (Order order : company.getOrders()) {
-        System.out.println("Order delivered at: "+ order.getDeliveryTime() +" by: "+ order.getDeliveryPersonName() +" to: " + order.getDestinationName()+ " from: " + order.getSendingName());
+        System.out.println(order.showFinalInfo());
         }
 
     }
