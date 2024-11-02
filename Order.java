@@ -130,9 +130,7 @@ public class Order
     {
         
         
-        return "Order from: "+ getSendingName() + " to: " + getDestinationName() + " at: " + getDeliveryTime() +
-                           " weight: " + getWeight() + " from: " + getLocationOrder() +
-                           " to: " + getDestination();
+        return "Order delivered at: "+ getDeliveryTime() +" by: "+ getDeliveryPersonName() +" to: " + getDestinationName()+ " from: " + getSendingName();
     }
     
 

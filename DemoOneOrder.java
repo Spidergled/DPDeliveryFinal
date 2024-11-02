@@ -143,7 +143,9 @@ public class DemoOneOrder
         // Ordenar los pedidos (Orders) por nombre de la persona que envía y luego por hora de entrega
         Collections.sort(company.getOrders(), new ComparadorNombreDeliveryPersonOrder());
         for (Order order : company.getOrders()) {
-        System.out.println(order.showFinalInfo());
+        System.out.println("Order from: "+ order.getSendingName() + " to: " + order.getDestinationName() + " at: " + order.getDeliveryTime() +
+                           " weight: " + order.getWeight() + " from: " + order.getLocationOrder() +
+                           " to: " + order.getDestination());
         }
         
         //TODO ordenar (por el nombre de la persona que envía) y mostrar los pedidos
