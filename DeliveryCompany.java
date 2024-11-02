@@ -11,16 +11,16 @@ public class DeliveryCompany
 {
     // TODO definir todos sus campos
     private String name;  //nombre de la compañía
-    private List<DeliveryPerson> deliveryPersons;
-    private WareHouse warehouse;
+    private List<DeliveryPerson> deliveryPersons; // Lista de repartidores
+    private List<Order> wareHouse; // Almacén donde se almacenan los pedidos
     /**
      * Constructor for objects of class DeliveryCompany
      */
-    public DeliveryCompany(String name, WareHouse warehouse)
+    public DeliveryCompany(String name)
     {
         this.name = name;
         this.deliveryPersons = new ArrayList<>();
-        this.warehouse = warehouse;
+        this.wareHouse = new ArrayList<>();
         //TODO implementar el resto del constructor 
 
     }
@@ -46,7 +46,7 @@ public class DeliveryCompany
      */
     public List<Order> getOrders()
     {
-        return warehouse.getOrders();
+        return wareHouse;
     }
 
     /**
@@ -63,7 +63,7 @@ public class DeliveryCompany
      */
     public void addOrder(Order order)
     {
-       warehouse.addOrder(order);
+       wareHouse.add(order);
     }
 
     /**
@@ -91,16 +91,15 @@ public class DeliveryCompany
         DeliveryPerson dp = getDeliveryPerson();
         if (dp != null) {
             dp.pickup(order);
+            System.out.println("<<<< DeliveryPerson " + dp.getName() + 
+                               " at location " + dp.getLocation() +
+                               " goes to pick up order from " + order.getSendingName() + 
+                               " at location " + order.getLocationOrder());
             return true;
         }
         return false;
     }
-    /**
-     * @return Devuelve el almacen
-     */
-    public WareHouse getWarehouse(){
-        return warehouse;
-    }
+    
 
     /**
      * A delivery person has arrived at a pickup point.
@@ -113,6 +112,13 @@ public class DeliveryCompany
         //System.out.println("<<<< "+dp + " picks up order to " + order.getDestinationName());
         //TODO el order debe guardar el nombre de la persona de reparto que le ha recogido
         //TODO la persona de reparto debe recoger el pedido
+        if (wareHouse.size() > 0) {
+            Order order = wareHouse.remove(0); // Asigna el primer pedido en el almacén
+            dp.pickup(order);
+            System.out.println("<<<< DeliveryPerson" + dp.getName() + " at "+ dp.getLocation()+" picks up order from " + order.getSendingName() + " to: " + order.getDestinationName());
+        }
+        //System.out.println("<<<< DeliveryPerson " + getName() + " at " + getLocation() + " picks up Order from " + currentOrder.getSendingName() + 
+        //                         " to: location " + currentOrder.getDestination().getX() + ", " + currentOrder.getDestination().getY());
     }
 
     /**
@@ -121,6 +127,8 @@ public class DeliveryCompany
      * @param order The order being dropped off.
      */
     public void arrivedAtDestination(DeliveryPerson dp, Order order) {
-        System.out.println(dp + " delivers " + order);
+        System.out.println("<<<< DeliveryPerson "+ dp.getName() + " at " + dp.getLocation() + " delivers Order at: " + order.getDeliveryTime() 
+        + " from: " + order.getSendingName() + " to: " + order.getDestinationName());
+                                     
     }
 }

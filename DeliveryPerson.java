@@ -242,43 +242,26 @@ public class DeliveryPerson
 
     }
     
-    
     /**
      * Carry out a delivery person's actions.
      */
     public void act() {
-    if (hasTargetLocation()) { // Si tiene un destino asignado
-        Location nextMove = location.nextLocation(targetLocation); // Movimiento hacia la siguiente posición
-        setLocation(nextMove); // Actualiza la ubicación
+    if (hasTargetLocation()) {
+        Location nextMove = location.nextLocation(targetLocation);
+        setLocation(nextMove);
+        System.out.println("@@@  DeliveryPerson: " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY()); // Muestra movimient
 
-        System.out.println("@@@  DeliveryPerson: " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY()); // Muestra movimiento
-        
-        if (currentOrder != null) { // Verificar si hay un pedido actual
-            if (location.equals(currentOrder.getLocationOrder())) { // Si ha llegado a la ubicación de recogida
-                notifyPickupArrival(); // Notifica la recogida
-                pickup(currentOrder); // Recoge el pedido
-                System.out.println("<<<< DeliveryPerson " + getName() + " at " + getLocation() + " picks up Order from " + currentOrder.getSendingName() + 
-                                   " to: location " + currentOrder.getDestination().getX() + ", " + currentOrder.getDestination().getY()); 
-            } else if (location.equals(currentOrder.getDestination())) { // Si ha llegado a la ubicación de entrega
-                // Primero guarda el pedido actual antes de entregarlo
-                Order orderToDeliver = currentOrder; 
-                deliverOrder(); // Entrega el pedido
-                // Luego verifica si el pedido fue entregado
-                if (orderToDeliver != null) { // Verifica que orderToDeliver no sea null
-                    System.out.println("<<<< DeliveryPerson " + getName() + " at " + getLocation() + " delivers Order at: " + orderToDeliver.getDeliveryTime() + 
-                                       " from: " + orderToDeliver.getSendingName() + " to: " + orderToDeliver.getDestinationName());
-                } else {
-                    System.out.println("Error: orderToDeliver es nulo despues del intento de entrega.");
-                }
+        if (currentOrder != null) {
+            if (location.equals(currentOrder.getLocationOrder())) {
+                notifyPickupArrival(); 
+            } else if (location.equals(currentOrder.getDestination())) {
+                deliverOrder();
             }
-        } else {
-            System.out.println("Error: currentOrder es nulo antes de cualquier accion.");
         }
     } else {
-        incrementIdleCount(); // Incrementa el contador de inactividad
+        incrementIdleCount();
     }
     }
-
 
 
 

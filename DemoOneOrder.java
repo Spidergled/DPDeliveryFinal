@@ -22,7 +22,7 @@ public class DemoOneOrder
     public DemoOneOrder()
     {
         WareHouse warehouse = new WareHouse(); // Crea un nuevo almacen
-        company = new DeliveryCompany("Compañía DP Delivery Cáceres", warehouse);
+        company = new DeliveryCompany("Compañía DP Delivery Cáceres");
         actors = new ArrayList<>();
         reset();
         run();
@@ -82,7 +82,8 @@ public class DemoOneOrder
      */
     private void createOrders() {
         //new: all the orders are created in the warehouse location
-        Location whLocation = company.getWarehouse().getLocation(); //TODO: inicializar la variable: Location whLocation = obtener la localización del almacén.
+        WareHouse warehouse = new WareHouse();
+        Location whLocation = warehouse.getLocation(); //TODO: inicializar la variable: Location whLocation = obtener la localización del almacén.
         Order order = new Order("Lucy", whLocation,
                 new Location(5,2),10, 1.2, "Decathon Cáceres");
         company.addOrder(order);
@@ -95,25 +96,12 @@ public class DemoOneOrder
     private void runSimulation() {
         List<Order> orders = company.getOrders();
         
-        //TODO: Ordenar los pedidos ascendentemente por su hora de llegada y 
-        //en caso de empate por el nombre de la persona de destino 
-        /*Collections.sort(orders, (o1, o2) -> {
-            int timeCom = Integer.compare(o1.getDeliveryTime(), o2.getDeliveryTime());
-        if (timeCom == 0) {
-            return o1.getDestinationName().compareTo(o2.getDestinationName());
-        }
-        return timeCom;
-        });
-        */
+        //TODO: Ordenar los pedidos ascendentemente por su hora de llegada
        
        
         Collections.sort(orders, new ComparadorOrdersHoraNombre());
        
         for(Order order : orders) {
-            System.out.println("<<<< DeliveryPerson " + company.getDeliveryPersons().get(0).getName() +
-                               " at location " + company.getDeliveryPersons().get(0).getLocation() +
-                               " go to pick up order from " + order.getSendingName() + 
-                               " at location " + company.getWarehouse().getLocation());
             if(!company.requestPickup(order)) {
                 throw new IllegalStateException("Failed to find a pickup.");        
             }
@@ -148,13 +136,7 @@ public class DemoOneOrder
                            " to: " + order.getDestination());
         }
         
-        //TODO ordenar (por el nombre de la persona que envía) y mostrar los pedidos
-        //para ordenar una colección aplicando un comparador, esta sería 
-        //la sintaxis (suponiendo que "orders" es una colección donde
-        //la compañía almacena los pedidos):
-        //Collections.sort(orders, new ComparadorOrderDeliveryPersonName());
-
-
+    
         System.out.println(" ");        
         System.out.println("-->> Simulation start <<--");
         System.out.println("-->> ---------------- <<--");
