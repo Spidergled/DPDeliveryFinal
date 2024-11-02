@@ -12,6 +12,9 @@ import org.junit.Test;
  */
 public class OrderTest
 {
+    private Order order;
+    private Location PickupLocation;
+    private Location destinationLocation;
     /**
      * Default constructor for test class OrderTest
      */
@@ -47,9 +50,14 @@ public class OrderTest
     @Test
     public void testCreation()
     {
-        //TODO implementar este método
-        // Testear la creación correcta de objetos de tipo Order comprobando 
-        // que la inicialización de campos como dirección de recogida y destino es correcta.
+        assertNotNull("Localizacion no deberia ser nula", order.getLocationOrder());
+        assertNotNull("Destino no deberia ser nulo", order.getDeliveryTime());
+        assertEquals("Ubicacion de salida no es correcta", PickupLocation, order.getLocationOrder());
+        assertEquals("Nombre de la persona que lo manda incorrecto", "Pepe", order.getSendingName()); 
+        assertEquals("Nombre de la persona que lo recibe incorrecto", "Ricardo", order.getDestinationName());
+        assertEquals("Peso del pedido incorrecto", 6.4, order.getWeight(), 0.1);
+        assertEquals("Hora de la entrega incorrecta", 11, order.getDeliveryTime()); 
+    
     }
 
     /**
@@ -59,9 +67,8 @@ public class OrderTest
     @Test
     public void testGetDeliveryPersonName()
     {
-        //TODO implementar este método
-        // Testear el método que devuelve el nombre del la persona que ha hecho el 
-        // reparto
+        order.setDeliveryPersonName("Antonio"); 
+        assertEquals("El nombre del repartidor no coincide", "Antonio", order.getDeliveryPersonName()); 
     }
 
     /**
@@ -71,7 +78,6 @@ public class OrderTest
     @Test
     public void testGetDestination ()
     {
-        //TODO implementar este método
-        // Testear el método que devuelve la dirección de envío del objeto.
+        assertEquals("Ubicacion de destino incorrecta", destinationLocation, order.getDestination());
     }
 }
