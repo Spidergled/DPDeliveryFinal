@@ -129,7 +129,6 @@ public class Order
     public String showFinalInfo()
     {
         
-        
         return "Order delivered at: "+ getDeliveryTime() +" by: "+ getDeliveryPersonName() +" to: " + getDestinationName()+ " from: " + getSendingName();
     }
     

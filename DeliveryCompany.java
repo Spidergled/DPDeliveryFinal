@@ -92,9 +92,9 @@ public class DeliveryCompany
         if (dp != null) {
             dp.pickup(order);
             System.out.println("<<<< DeliveryPerson " + dp.getName() + 
-                               " at location " + dp.getLocation() +
-                               " goes to pick up order from " + order.getSendingName() + 
-                               " at location " + order.getLocationOrder());
+                               " at " + dp.getLocation() +
+                               " go to pick up order from " + order.getSendingName() + 
+                               " at " + order.getLocationOrder());
             return true;
         }
         return false;
@@ -115,7 +115,8 @@ public class DeliveryCompany
         if (wareHouse.size() > 0) {
             Order order = wareHouse.remove(0); // Asigna el primer pedido en el almacén
             dp.pickup(order);
-            System.out.println("<<<< DeliveryPerson" + dp.getName() + " at "+ dp.getLocation()+" picks up order from " + order.getSendingName() + " to: " + order.getDestinationName());
+            System.out.println("<<<< DeliveryPerson" + dp.getName() + " at "+ dp.getLocation()+" picks up order from " + order.getSendingName()
+            + " to: " + order.getDestination());
         }
         //System.out.println("<<<< DeliveryPerson " + getName() + " at " + getLocation() + " picks up Order from " + currentOrder.getSendingName() + 
         //                         " to: location " + currentOrder.getDestination().getX() + ", " + currentOrder.getDestination().getY());

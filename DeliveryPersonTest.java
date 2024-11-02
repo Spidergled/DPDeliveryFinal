@@ -31,9 +31,8 @@ public class DeliveryPersonTest
     @Before
     public void setUp()
     {
-        WareHouse warehouse = new WareHouse();
         
-        DeliveryCompany company = new DeliveryCompany("Compañía DP Delivery Cáceres", warehouse);
+        DeliveryCompany company = new DeliveryCompany("Compañía DP Delivery Cáceres");
         // Starting position for the taxi.
         Location dpLocation = new Location(0, 0);
         // Locations for the order.

@@ -21,8 +21,7 @@ public class DemoInicial
      */
     public DemoInicial()
     {
-        WareHouse warehouse = new WareHouse(); // Crea un nuevo almacen
-        company = new DeliveryCompany("Compañía DP Delivery Cáceres", warehouse);
+        company = new DeliveryCompany("Compañía DP Delivery Cáceres");
         actors = new ArrayList<>();
         reset();
     }
