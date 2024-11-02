@@ -97,16 +97,20 @@ public class DemoOneOrder
         
         //TODO: Ordenar los pedidos ascendentemente por su hora de llegada y 
         //en caso de empate por el nombre de la persona de destino 
-        Collections.sort(orders, (o1, o2) -> {
+        /*Collections.sort(orders, (o1, o2) -> {
             int timeCom = Integer.compare(o1.getDeliveryTime(), o2.getDeliveryTime());
         if (timeCom == 0) {
             return o1.getDestinationName().compareTo(o2.getDestinationName());
         }
         return timeCom;
         });
-        
+        */
+       
+       
+        Collections.sort(orders, new ComparadorOrdersHoraNombre());
+       
         for(Order order : orders) {
-            System.out.println(order.showFinalInfo());
+            System.out.println("ReQuesting pickup for order: ");
             if(!company.requestPickup(order)) {
                 throw new IllegalStateException("Failed to find a pickup.");        
             }
@@ -126,7 +130,7 @@ public class DemoOneOrder
         // Ordenar los DeliveryPerson por nombre
         Collections.sort(actors, new ComparadorNombreDeliveryPerson());
         for (DeliveryPerson dp : actors) {
-        System.out.println("DeliveryPerson " + dp.getName() + " at location " + dp.getLocation());
+        System.out.println("DeliveryPerson " + dp.getName() + " at " + dp.getLocation());
         }
         
         System.out.println(" ");
@@ -179,7 +183,7 @@ public class DemoOneOrder
         //  que recibe el pedido) y mostrar los pedidos
         Collections.sort(company.getOrders(), new ComparadorOrdersHoraNombre());
         for (Order order : company.getOrders()) {
-        System.out.println(order.showFinalInfo());
+        System.out.println("Order delivered at: "+ order.getDeliveryTime() +" by: "+ order.getDeliveryPersonName() +" to: " + order.getDestinationName()+ " from: " + order.getSendingName());
         }
 
     }

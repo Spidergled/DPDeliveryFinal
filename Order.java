@@ -105,7 +105,7 @@ public class Order
     } 
     
      /**
-     * @return El nombre de la persona que recibe el pedido
+     * @return El nombre del destino
      */
     public String getDestinationName() {
     return destinationName;
@@ -134,5 +134,6 @@ public class Order
                            " weight: " + getWeight() + " from: " + getLocationOrder() +
                            " to: " + getDestination();
     }
+    
 
 }
