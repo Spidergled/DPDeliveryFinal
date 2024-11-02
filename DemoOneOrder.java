@@ -110,7 +110,10 @@ public class DemoOneOrder
         Collections.sort(orders, new ComparadorOrdersHoraNombre());
        
         for(Order order : orders) {
-            System.out.println("ReQuesting pickup for order: ");
+            System.out.println("<<<< DeliveryPerson " + company.getDeliveryPersons().get(0).getName() +
+                               " at location " + company.getDeliveryPersons().get(0).getLocation() +
+                               " go to pick up order from " + order.getSendingName() + 
+                               " at location " + company.getWarehouse().getLocation());
             if(!company.requestPickup(order)) {
                 throw new IllegalStateException("Failed to find a pickup.");        
             }
@@ -135,7 +138,7 @@ public class DemoOneOrder
         
         System.out.println(" ");
         System.out.println("-->> Orders to be picked up <<--");
-        System.out.println("-->> ------------------------------- <<--");
+        System.out.println("-->> ---------------------- <<--");
         
         // Ordenar los pedidos (Orders) por nombre de la persona que envía y luego por hora de entrega
         Collections.sort(company.getOrders(), new ComparadorNombreDeliveryPersonOrder());

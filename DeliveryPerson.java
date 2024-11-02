@@ -194,6 +194,8 @@ public class DeliveryPerson
         currentOrder = order; //Asigna el pedido actual
         setTargetLocation(order.getDestination());
         order.setDeliveryPersonName(getName()); 
+        
+
 
     }
 
@@ -249,7 +251,7 @@ public class DeliveryPerson
         Location nextMove = location.nextLocation(targetLocation); // Movimiento hacia la siguiente posición
         setLocation(nextMove); // Actualiza la ubicación
 
-        System.out.println("@@@  DeliveryPerson: " + getName() + " moving to: " + getLocation()); // Muestra movimiento
+        System.out.println("@@@  DeliveryPerson: " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY()); // Muestra movimiento
         
         if (currentOrder != null) { // Verificar si hay un pedido actual
             if (location.equals(currentOrder.getLocationOrder())) { // Si ha llegado a la ubicación de recogida
