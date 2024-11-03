@@ -77,15 +77,27 @@ public class DeliveryCompany
      * Find a the most closed free delivery person to the whare house's location, if any.
      * @return A free delivery person, or null if there is none.
      */
-    private DeliveryPerson getDeliveryPerson()
-    {
-        for (DeliveryPerson dp : deliveryPersons) {
-            if (dp.isFree()) {
-                return dp;
+    private DeliveryPerson getDeliveryPerson() {
+    DeliveryPerson closest = null; // Variable para almacenar el repartidor más cercano
+    int closestDistance = Integer.MAX_VALUE; // Inicializamos con un valor grande
+
+    for (DeliveryPerson dp : deliveryPersons) {
+        if (dp.isFree()) {
+            int distance = dp.distanceToTheTargetLocation(); // Calculamos la distancia al almacén
+            // Si encontramos un repartidor más cercano, lo guardamos
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closest = dp;
+            } else if (distance == closestDistance) {
+                // Si la distancia es la misma, elegimos según el nombre
+                if (closest != null && dp.getName().compareTo(closest.getName()) < 0) {
+                    closest = dp;
+                }
             }
         }
+    }
 
-        return null;
+    return closest; // Retornamos el repartidor más cercano, o null si no hay ninguno
     }
 
     /**
@@ -98,6 +110,8 @@ public class DeliveryCompany
         DeliveryPerson dp = getDeliveryPerson();
         if (dp != null) {
             dp.pickup(order);
+            dp.setPickupLocation(wareHouse.getLocation());
+            dp.setTargetLocation(order.getLocationOrder());
             System.out.println("<<<< DeliveryPerson " + dp.getName() + 
                                " at " + dp.getLocation() +
                                " go to pick up order from " + order.getSendingName() + 

@@ -161,7 +161,7 @@ public class DeliveryPerson
     public boolean isFree()
     {
         //TODO  implementar este método
-        return targetLocation == null;
+        return currentOrder == null;
     }
 
     /**
@@ -178,7 +178,11 @@ public class DeliveryPerson
      */
     public void notifyOrderArrival(Order order)
     {
-        company.arrivedAtDestination(this, order);
+            if (order != null) {
+            company.arrivedAtDestination(this, order);
+            deliverOrder(); // Deliver the order
+            setLocation(order.getDestination()); // Actualiza la ubicación del repartidor a la ubicación de entrega
+        }
     }
 
     /**
@@ -205,9 +209,10 @@ public class DeliveryPerson
     public void deliverOrder()
     {
         if(currentOrder != null){  // Solo entrega si hay un pedido actual
-        notifyOrderArrival(currentOrder);
         incrementOrdersDelivered();
         company.addOrder(currentOrder);
+        // Actualiza la ubicación del repartidor al destino del pedido
+        setLocation(currentOrder.getDestination());
         currentOrder = null;  // Limpiar el pedido actual después de entregar
         clearTargetLocation();
       }
@@ -256,7 +261,7 @@ public class DeliveryPerson
             if (location.equals(currentOrder.getLocationOrder())) {
                 notifyPickupArrival(); 
             } else if (location.equals(currentOrder.getDestination())) {
-                deliverOrder();
+                notifyOrderArrival(currentOrder);
             }
         }
     } else {
