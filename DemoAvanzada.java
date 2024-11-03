@@ -24,6 +24,7 @@ public class DemoAvanzada
         company = new DeliveryCompany("Compañía DP Delivery Cáceres");
         actors = new ArrayList<>();
         reset();
+        run();
     }
 
     /**
