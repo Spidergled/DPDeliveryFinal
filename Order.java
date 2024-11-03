@@ -15,6 +15,7 @@ public class Order
     private double weight;//declarar campo weight
     private String destinationName;//declarar campo destinationName
     private String deliveryPersonName;
+
     
     /**
      * Constructor for objects of class Order

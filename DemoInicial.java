@@ -85,8 +85,8 @@ public class DemoInicial
      */
     private void createOrders() {
         //new: all the orders are created in the warehouse location
-        WareHouse warehouse = new WareHouse();
-        Location whLocation= warehouse.getLocation(); //TODO: inicializar la variable: Location whLocation = obtener la localización del almacén.
+        
+        Location whLocation= company.getWareHouseLocation(); //TODO: inicializar la variable: Location whLocation = obtener la localización del almacén.
         Order order1 = new Order("Lucy", whLocation,
                 new Location(2, 6),10, 1.2, "Decathon Cáceres");
         Order order2 = new Order("Gru", whLocation,
@@ -123,8 +123,8 @@ public class DemoInicial
         System.out.println("-->> ------------------------------- <<--");
         //TODO ordenar (por su nombre) y mostrar los objetos delivery persons
         Collections.sort(actors, new ComparadorNombreDeliveryPerson());
-        for(DeliveryPerson actor:actors){
-            System.out.println("DeliveryPerson"+actor.getName()+"at location"+actor.getLocation().toString());
+        for(DeliveryPerson dp:actors){
+            System.out.println("DeliveryPerson " + dp.getName() + " at " + dp.getLocation());
         }
         System.out.println(" ");        
         System.out.println("-->> Orders to be picked up <<--");
@@ -135,9 +135,9 @@ public class DemoInicial
         //la compañía almacena los pedidos):
         Collections.sort(company.getOrders(), new ComparadorNombreDeliveryPersonOrder());
          for (Order order : company.getOrders()){
-            System.out.println("Order from: "+order.getDeliveryPersonName()+" to: "+order.getSendingName()+
-            "at"+order.getDeliveryTime()+" weight: "+order.getWeight()+" from: "+
-            order.getLocationOrder().toString()+" to: "+order.getDestination().toString());
+        System.out.println("Order from: "+ order.getSendingName() + " to: " + order.getDestinationName() + " at: " + order.getDeliveryTime() +
+                           " weight: " + order.getWeight() + " from: " + order.getLocationOrder().getX()+" - " + order.getLocationOrder().getY() +
+                           " to: " + order.getDestination().getX() + " - " + order.getDestination().getY());
         }
 
         System.out.println(" ");        
@@ -162,8 +162,8 @@ public class DemoInicial
         //TODO ordenar (por número de pedidos entregados y si empate por nombre) 
         // y mostrar los objetos delivery persons
         Collections.sort(actors, new ComparadorPedidosEntregadosNombre());
-        for(DeliveryPerson actor:actors){
-            System.out.println(actor.showFinalInfo());
+        for(DeliveryPerson dp:actors){
+            System.out.println(dp.showFinalInfo());
         }
 
         System.out.println(" ");
