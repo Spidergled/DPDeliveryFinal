@@ -126,8 +126,6 @@ public class DemoInicial
         Collections.sort(actors, new ComparadorNombreDeliveryPerson());
         for(DeliveryPerson dp:actors){
 
-            System.out.println("DeliveryPerson "+dp.getName()+ " at location "+dp.getLocation().toString());
-
             System.out.println("DeliveryPerson " + dp.getName() + " at " + dp.getLocation());
 
         }
@@ -141,10 +139,7 @@ public class DemoInicial
         Collections.sort(company.getOrders(), new ComparadorNombreDeliveryPersonOrder());
          for (Order order : company.getOrders()){
 
-            System.out.println("Order from: "+order.getDeliveryPersonName()+" to: "+order.getSendingName()+
-            " at "+order.getDeliveryTime()+" weight: "+order.getWeight()+" from: "+
-            order.getLocationOrder().toString()+" to: "+order.getDestination().toString());
-        System.out.println("Order from: "+ order.getSendingName() + " to: " + order.getDestinationName() + " at: " + order.getDeliveryTime() +
+                System.out.println("Order from: "+ order.getSendingName() + " to: " + order.getDestinationName() + " at: " + order.getDeliveryTime() +
                            " weight: " + order.getWeight() + " from: " + order.getLocationOrder().getX()+" - " + order.getLocationOrder().getY() +
                            " to: " + order.getDestination().getX() + " - " + order.getDestination().getY());
 
