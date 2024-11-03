@@ -13,8 +13,6 @@ import org.junit.Test;
 public class OrderTest
 {
     private Order order;
-    private Location PickupLocation;
-    private Location destinationLocation;
     /**
      * Default constructor for test class OrderTest
      */
@@ -30,6 +28,8 @@ public class OrderTest
     @Before
     public void setUp()
     {
+         // Inicializamos un objeto Order antes de cada prueba ( Mario, te falto esto)
+        order = new Order("Lucy", new Location(5, 5), new Location(5, 2), 10, 1.2, "Decathlon Cáceres");
     }
 
     /**
@@ -40,6 +40,7 @@ public class OrderTest
     @After
     public void tearDown()
     {
+        order = null;
     }
 
     /**
@@ -50,14 +51,12 @@ public class OrderTest
     @Test
     public void testCreation()
     {
-        assertNotNull("Localizacion no deberia ser nula", order.getLocationOrder());
-        assertNotNull("Destino no deberia ser nulo", order.getDeliveryTime());
-        assertEquals("Ubicacion de salida no es correcta", PickupLocation, order.getLocationOrder());
-        assertEquals("Nombre de la persona que lo manda incorrecto", "Pepe", order.getSendingName()); 
-        assertEquals("Nombre de la persona que lo recibe incorrecto", "Ricardo", order.getDestinationName());
-        assertEquals("Peso del pedido incorrecto", 6.4, order.getWeight(), 0.1);
-        assertEquals("Hora de la entrega incorrecta", 11, order.getDeliveryTime()); 
-    
+        assertEquals("Lucy", order.getSendingName());  
+        assertEquals(new Location(5, 5), order.getLocationOrder());  
+        assertEquals(new Location(5, 2), order.getDestination());  
+        assertEquals(10, order.getDeliveryTime());  
+        assertEquals(1.2, order.getWeight(), 0.001);  
+        assertEquals("Decathlon Cáceres", order.getDestinationName());  
     }
 
     /**
@@ -67,8 +66,8 @@ public class OrderTest
     @Test
     public void testGetDeliveryPersonName()
     {
-        order.setDeliveryPersonName("Antonio"); 
-        assertEquals("El nombre del repartidor no coincide", "Antonio", order.getDeliveryPersonName()); 
+        order.setDeliveryPersonName("DP1");  
+        assertEquals("DP1", order.getDeliveryPersonName());
     }
 
     /**
@@ -78,6 +77,6 @@ public class OrderTest
     @Test
     public void testGetDestination ()
     {
-        assertEquals("Ubicacion de destino incorrecta", destinationLocation, order.getDestination());
+        assertEquals(new Location(5, 2), order.getDestination());
     }
 }
