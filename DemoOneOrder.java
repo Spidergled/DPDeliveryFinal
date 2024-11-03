@@ -131,8 +131,8 @@ public class DemoOneOrder
         Collections.sort(company.getOrders(), new ComparadorNombreDeliveryPersonOrder());
         for (Order order : company.getOrders()) {
         System.out.println("Order from: "+ order.getSendingName() + " to: " + order.getDestinationName() + " at: " + order.getDeliveryTime() +
-                           " weight: " + order.getWeight() + " from: " + order.getLocationOrder() +
-                           " to: " + order.getDestination());
+                           " weight: " + order.getWeight() + " from: " + order.getLocationOrder().getX()+" - " + order.getLocationOrder().getY() +
+                           " to: " + order.getDestination().getX() + " - " + order.getDestination().getY());
         }
         
     

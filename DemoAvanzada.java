@@ -95,7 +95,7 @@ public class DemoAvanzada
      */
     private void createOrders() {  
         //new: all the orders are created in the warehouse location
-        Location whLocation=null; //TODO: inicializar la variable: Location whLocation = obtener la localización del almacén.
+        Location whLocation= company.getWareHouseLocation();; //TODO: inicializar la variable: Location whLocation = obtener la localización del almacén.
         Order order1 = new Order("Kevin", whLocation,
                 new Location(10, 10),10, 1.2, "Decathon Cáceres");
         Order order2 = new Order("Margo", whLocation,
@@ -151,10 +151,9 @@ public class DemoAvanzada
         System.out.println("-->> ---------------------- <<--");  
         Collections.sort(company.getOrders(), new ComparadorNombreDeliveryPersonOrder());
         for (Order order : company.getOrders()) {
-        System.out.println("Order from: "+order.getDeliveryPersonName()+" to: "+order.getSendingName()+
-            "at"+order.getDeliveryTime()+" weight: "+order.getWeight()+" from: "+
-            order.getLocationOrder().toString()+" to: "+order.getDestination().toString());
-        
+        System.out.println("Order from: "+ order.getSendingName() + " to: " + order.getDestinationName() + " at: " + order.getDeliveryTime() +
+                           " weight: " + order.getWeight() + " from: " + order.getLocationOrder().getX()+" - " + order.getLocationOrder().getY() +
+                           " to: " + order.getDestination().getX() + " - " + order.getDestination().getY());
         }
 
 
