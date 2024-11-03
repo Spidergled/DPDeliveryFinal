@@ -123,8 +123,7 @@ public class DemoAvanzada
      */
     private void runSimulation() {
         List<Order> orders = company.getOrders();
-        //TODO: Ordenar los pedidos ascendentemente por su hora de llegada y 
-        //en caso de empate por el nombre de la persona de destino
+        Collections.sort(orders, new ComparadorOrdersHoraNombre());
         for(Order order : orders) {
             if(!company.requestPickup(order)) {
                 throw new IllegalStateException("Failed to find a pickup.");        
@@ -142,16 +141,21 @@ public class DemoAvanzada
         System.out.println("-->> Delivery persons of the company <<--");
         System.out.println("-->> ------------------------------- <<--");
         //TODO ordenar (por su nombre) y mostrar los objetos delivery persons
-        //Collections.sort(lista de objetos DeliveryPersons, new ComparadorNombreDeliveryPerson());
+        Collections.sort(actors, new ComparadorPedidosEntregadosNombre());
+        for(DeliveryPerson dp : actors){
+            System.out.println("DeliveryPerson:"+ dp.getName()+ "at:"+ dp.getLocation());
+        }
 
         System.out.println(" ");        
         System.out.println("-->> Orders to be picked up <<--");
-        System.out.println("-->> ---------------------- <<--");
-        //TODO ordenar (por el nombre de la persona que envía) y mostrar los pedidos
-        //para ordenar una colección aplicando un comparador, esta sería 
-        //la sintaxis (suponiendo que "orders" es una colección donde
-        //la compañía almacena los pedidos):
-        //Collections.sort(orders, new ComparadorOrderDeliveryPersonName());
+        System.out.println("-->> ---------------------- <<--");  
+        Collections.sort(company.getOrders(), new ComparadorNombreDeliveryPersonOrder());
+        for (Order order : company.getOrders()) {
+        System.out.println("Order from: "+order.getDeliveryPersonName()+" to: "+order.getSendingName()+
+            "at"+order.getDeliveryTime()+" weight: "+order.getWeight()+" from: "+
+            order.getLocationOrder().toString()+" to: "+order.getDestination().toString());
+        
+        }
 
 
         System.out.println(" ");        
@@ -173,14 +177,18 @@ public class DemoAvanzada
 
         System.out.println("-->> Delivery persons final information <<--");
         System.out.println("-->> ---------------------------------- <<--");
-        //TODO ordenar (por número de pedidos entregados y si empate por nombre) 
-        // y mostrar los objetos delivery persons
+        Collections.sort(actors, new ComparadorPedidosEntregadosNombre());
+        for(DeliveryPerson actor:actors){
+            System.out.println(actor.showFinalInfo());
+        }
 
         System.out.println(" ");
         System.out.println("-->> Orders final information <<--");
         System.out.println("-->> ------------------------ <<--");
-        //TODO ordenar (por hora de entrega y si empate por nombre de la persona 
-        //  que recibe el pedido) y mostrar los pedidos
+        Collections.sort(company.getOrders(), new ComparadorOrdersHoraNombre());
+        for(Order order:company.getOrders()){
+            System.out.println(order.showFinalInfo());
+        }
 
     }
 }
