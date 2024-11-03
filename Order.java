@@ -131,6 +131,5 @@ public class Order
         
         return "Order delivered at: "+ getDeliveryTime() +" by: "+ getDeliveryPersonName() +" to: " + getDestinationName()+ " from: " + getSendingName();
     }
-    
 
 }

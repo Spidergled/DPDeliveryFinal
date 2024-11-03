@@ -12,7 +12,7 @@ public class DeliveryCompany
     // TODO definir todos sus campos
     private String name;  //nombre de la compañía
     private List<DeliveryPerson> deliveryPersons; // Lista de repartidores
-    private List<Order> wareHouse; // Almacén donde se almacenan los pedidos
+    private WareHouse wareHouse; // Almacén donde se almacenan los pedidos
     /**
      * Constructor for objects of class DeliveryCompany
      */
@@ -20,7 +20,7 @@ public class DeliveryCompany
     {
         this.name = name;
         this.deliveryPersons = new ArrayList<>();
-        this.wareHouse = new ArrayList<>();
+        this.wareHouse = new WareHouse();
         //TODO implementar el resto del constructor 
 
     }
@@ -46,7 +46,7 @@ public class DeliveryCompany
      */
     public List<Order> getOrders()
     {
-        return wareHouse;
+        return wareHouse.getOrders();
     }
 
     /**
@@ -63,7 +63,14 @@ public class DeliveryCompany
      */
     public void addOrder(Order order)
     {
-       wareHouse.add(order);
+       wareHouse.addOrder(order);
+    }
+    
+    /**
+     * @return Devuelve la ubicacion de Almacen
+     */
+    public Location getWareHouseLocation(){
+        return wareHouse.getLocation();
     }
 
     /**
@@ -112,14 +119,13 @@ public class DeliveryCompany
         //System.out.println("<<<< "+dp + " picks up order to " + order.getDestinationName());
         //TODO el order debe guardar el nombre de la persona de reparto que le ha recogido
         //TODO la persona de reparto debe recoger el pedido
-        if (wareHouse.size() > 0) {
-            Order order = wareHouse.remove(0); // Asigna el primer pedido en el almacén
+        if (!wareHouse.getOrders().isEmpty()) {
+            Order order = wareHouse.retrieveOrder(); // Asigna el primer pedido en el almacén
             dp.pickup(order);
             System.out.println("<<<< DeliveryPerson" + dp.getName() + " at "+ dp.getLocation()+" picks up order from " + order.getSendingName()
             + " to: " + order.getDestination());
         }
-        //System.out.println("<<<< DeliveryPerson " + getName() + " at " + getLocation() + " picks up Order from " + currentOrder.getSendingName() + 
-        //                         " to: location " + currentOrder.getDestination().getX() + ", " + currentOrder.getDestination().getY());
+                                 
     }
 
     /**

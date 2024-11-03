@@ -85,7 +85,8 @@ public class DemoInicial
      */
     private void createOrders() {
         //new: all the orders are created in the warehouse location
-        Location whLocation=null; //TODO: inicializar la variable: Location whLocation = obtener la localización del almacén.
+        WareHouse warehouse = new WareHouse();
+        Location whLocation= warehouse.getLocation(); //TODO: inicializar la variable: Location whLocation = obtener la localización del almacén.
         Order order1 = new Order("Lucy", whLocation,
                 new Location(2, 6),10, 1.2, "Decathon Cáceres");
         Order order2 = new Order("Gru", whLocation,

@@ -207,6 +207,7 @@ public class DeliveryPerson
         if(currentOrder != null){  // Solo entrega si hay un pedido actual
         notifyOrderArrival(currentOrder);
         incrementOrdersDelivered();
+        company.addOrder(currentOrder);
         currentOrder = null;  // Limpiar el pedido actual después de entregar
         clearTargetLocation();
       }
