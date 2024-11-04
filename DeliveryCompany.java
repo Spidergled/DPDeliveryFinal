@@ -109,9 +109,9 @@ public class DeliveryCompany
     {
         DeliveryPerson dp = getDeliveryPerson();
         if (dp != null) {
+            dp.pickup(order);
             dp.setPickupLocation(wareHouse.getLocation());
             dp.setTargetLocation(order.getLocationOrder());
-            dp.pickup(order);
             System.out.println("<<<< DeliveryPerson " + dp.getName() + 
                                " at " + dp.getLocation() +
                                " go to pick up order from " + order.getSendingName() + 
@@ -128,11 +128,7 @@ public class DeliveryCompany
      */
     public void arrivedAtPickup(DeliveryPerson dp)
     {
-        //TODO implementar el método
-        //TODO Descomentar siguiente línea cuando esté el método completamente implementado
-        //System.out.println("<<<< "+dp + " picks up order to " + order.getDestinationName());
-        //TODO el order debe guardar el nombre de la persona de reparto que le ha recogido
-        //TODO la persona de reparto debe recoger el pedido
+        
         if (!wareHouse.getOrders().isEmpty()) {
             Order order = wareHouse.retrieveOrder(); // Asigna el primer pedido en el almacén
             dp.pickup(order);

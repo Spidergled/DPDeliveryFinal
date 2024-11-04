@@ -28,6 +28,7 @@ public class DeliveryPerson
         if(location == null) {
             throw new NullPointerException("location");
         }
+        
         this.company = company;
         this.location = location;
         this.name = name;
