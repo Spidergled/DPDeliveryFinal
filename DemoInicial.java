@@ -71,8 +71,8 @@ public class DemoInicial
      * DeliveryPersons are created and added to the company
      */
     private void createDeliveryPersons() {
-        DeliveryPerson dp1 = new DeliveryPerson(company, new Location(3, 3),"DP2");
-        DeliveryPerson dp2 = new DeliveryPerson(company, new Location(10, 10),"DP1");
+        DeliveryPerson dp1 = new DeliveryPerson(company, new Location(3, 3),"DP1");
+        DeliveryPerson dp2 = new DeliveryPerson(company, new Location(10, 10),"DP2");
         DeliveryPerson dp3 = new DeliveryPerson(company, new Location(12, 14),"DP3");
 
         company.addDeliveryPerson(dp1);
@@ -114,7 +114,7 @@ public class DemoInicial
 
     }
 
-    /**
+    /** 
      * Initial info is showed with the information about delivery persons and orders
      */
     private void showInicialInfo() {

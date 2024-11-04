@@ -135,7 +135,7 @@ public class DeliveryCompany
         //TODO la persona de reparto debe recoger el pedido
         if (!wareHouse.getOrders().isEmpty()) {
             Order order = wareHouse.retrieveOrder(); // Asigna el primer pedido en el almacén
-            dp.pickup(order);
+            //dp.pickup(order);
             System.out.println("<<<< DeliveryPerson" + dp.getName() + " at "+ dp.getLocation()+" picks up order from " + order.getSendingName()
             + " to: " + order.getDestination());
         }
