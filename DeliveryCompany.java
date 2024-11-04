@@ -109,9 +109,9 @@ public class DeliveryCompany
     {
         DeliveryPerson dp = getDeliveryPerson();
         if (dp != null) {
-            dp.pickup(order);
             dp.setPickupLocation(wareHouse.getLocation());
             dp.setTargetLocation(order.getLocationOrder());
+            dp.pickup(order);
             System.out.println("<<<< DeliveryPerson " + dp.getName() + 
                                " at " + dp.getLocation() +
                                " go to pick up order from " + order.getSendingName() + 

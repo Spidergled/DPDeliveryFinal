@@ -198,11 +198,8 @@ public class DeliveryPerson
         currentOrder = order; //Asigna el pedido actual
         setTargetLocation(order.getDestination());
         order.setDeliveryPersonName(getName()); 
-        
-
-
+    
     }
-
     /**
      * Deliver the order.
      */
@@ -259,7 +256,7 @@ public class DeliveryPerson
 
         if (currentOrder != null) {
             if (location.equals(currentOrder.getLocationOrder())) {
-                notifyPickupArrival(); 
+                notifyPickupArrival();
             } else if (location.equals(currentOrder.getDestination())) {
                 notifyOrderArrival(currentOrder);
             }
