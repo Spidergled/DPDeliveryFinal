@@ -43,7 +43,7 @@ public class DeliveryPerson
      */
     public String getName()
     {
-        return name;
+        return name; //devuelve el nombre de la persona que lo reparte 
     }
 
     /**
@@ -52,7 +52,7 @@ public class DeliveryPerson
      */
     public Location getLocation()
     {
-        return location;
+        return location;   //localizacion donde se encuentra la persona repartidora
     }
 
     /**
@@ -63,7 +63,7 @@ public class DeliveryPerson
     public void setLocation(Location location)
     {
         if(location != null) {
-            this.location = location;
+            this.location = location;//asigna una localizacion en caso de que no sea nula la locaclizacion 
         }
         else {
             throw new NullPointerException();
@@ -88,7 +88,7 @@ public class DeliveryPerson
     public void setTargetLocation(Location location)
     {
         if(location != null) {
-            targetLocation = location;
+            targetLocation = location;//establece la localizacion de detino 
         }
         else {
             throw new NullPointerException();
@@ -102,7 +102,7 @@ public class DeliveryPerson
      */
     public void setPickupLocation(Location location)
     {
-        setTargetLocation(location);
+        setTargetLocation(location);//establece la localizacion de recogida del paquete 
     }
 
     /**
@@ -110,7 +110,7 @@ public class DeliveryPerson
      * @return Whether or not this delivery person has a target Location.
      */
     public boolean hasTargetLocation(){
-        return getTargetLocation() != null;
+        return getTargetLocation() != null; //comprueba si los repartidores tienen una localizacion asigada como objetivo
     }
 
     /**
@@ -118,7 +118,7 @@ public class DeliveryPerson
      */
     public void clearTargetLocation()
     {
-        targetLocation = null;
+        targetLocation = null; //limpia la localizacion objetivo
     }
 
     /**
@@ -126,7 +126,7 @@ public class DeliveryPerson
      */
     public int getIdleCount()
     {
-        return idleCount;
+        return idleCount; //pasos que la persona repartidora ha dado
     }
 
     /**
@@ -142,7 +142,7 @@ public class DeliveryPerson
      */
     public int getOrdersDelivered()
     {
-        return ordersDelivered;
+        return ordersDelivered; //numero de pedidos entregados 
     }
 
     /**
@@ -151,7 +151,7 @@ public class DeliveryPerson
      */
     public String toString()
     {
-        return getClass().getName() + " " +getName()+" at " + getLocation();
+        return getClass().getName() + " " +getName()+" at " + getLocation(); //devuelve detalles sobre la persona repartidora 
     }
 
     /**
@@ -160,8 +160,7 @@ public class DeliveryPerson
      */
     public boolean isFree()
     {
-        //TODO  implementar este método
-        return currentOrder == null;
+        return currentOrder == null; //compruba si un repartidor esta libre
     }
 
     /**
@@ -169,7 +168,7 @@ public class DeliveryPerson
      */
     public void notifyPickupArrival()
     {
-        company.arrivedAtPickup(this);
+        company.arrivedAtPickup(this); //notifica de la llegada del paquete a la zona de recogida 
 
     }
 
@@ -229,7 +228,7 @@ public class DeliveryPerson
      */
     protected void incrementOrdersDelivered()
     {
-        ordersDelivered++;
+        ordersDelivered++; //incrementa el numero de paquetes entregados 
     }
 
     /**
@@ -239,7 +238,7 @@ public class DeliveryPerson
     public int distanceToTheTargetLocation()
     {
         if(targetLocation != null){
-            return location.distance(targetLocation);
+            return location.distance(targetLocation); //calcula la distancia hasta el lugar objetivo del repartidor 
         }
         return -1;
 

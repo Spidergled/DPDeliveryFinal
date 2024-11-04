@@ -26,7 +26,7 @@ public class Location
             throw new IllegalArgumentException(
                 "Negative y-coordinate: " + y);
         }        
-        this.x = x;
+        this.x = x;//inicializacion del constructor
         this.y = y;
     }
 
@@ -35,7 +35,7 @@ public class Location
      */
     public int getX()
     {
-        return x;
+        return x;//devuelve x
     }
 
     /**
@@ -43,7 +43,7 @@ public class Location
      */
     public int getY()
     {    
-        return y;
+        return y;//devuelve y
     }
 
     /**
@@ -64,16 +64,16 @@ public class Location
         Location nuevoDestino;
         
         //Ajustar las cordenadas en X
-        if(this.x < destination.getX()){
+        if(this.x < destination.getX()){//paso adelante en x    
             nextX++;
-        }else if(this.x > destination.getX()){
+        }else if(this.x > destination.getX()){//paso atras en x
             nextX--;
         }
         
         //Ajustar las cordenadas en Y
-        if(this.y < destination.getY()){
+        if(this.y < destination.getY()){//paso adelante en y
             nextY++;
-        }else if(this.y > destination.getY()){
+        }else if(this.y > destination.getY()){//paso atras en y
             nextY--;
         }
         
@@ -122,7 +122,7 @@ public class Location
      */
     public String toString()
     {
-        return "location " + x + "," + y;
+        return "location " + x + "," + y;//devuelve la localizacion en las coordenadas (x,y)
     }
 
     /**
