@@ -30,7 +30,7 @@ public class DeliveryCompany
      */
     public String getName()
     {
-        return name;
+        return name; //devuelve el nombre de la compañia 
     }
 
     /**
@@ -38,7 +38,7 @@ public class DeliveryCompany
      */
     public List<DeliveryPerson> getDeliveryPersons()
     {       
-        return deliveryPersons;
+        return deliveryPersons; //devuelve una lista de repartidores
     }
 
     /**
@@ -46,7 +46,7 @@ public class DeliveryCompany
      */
     public List<Order> getOrders()
     {
-        return wareHouse.getOrders();
+        return wareHouse.getOrders();//devuelve una lista de pedidos
     }
 
     /**
@@ -54,7 +54,7 @@ public class DeliveryCompany
      */
     public void addDeliveryPerson(DeliveryPerson dp)
     {
-        deliveryPersons.add(dp);
+        deliveryPersons.add(dp);//añade a un nuevo repartidor
     }
 
     /**
@@ -63,14 +63,14 @@ public class DeliveryCompany
      */
     public void addOrder(Order order)
     {
-       wareHouse.addOrder(order);
+       wareHouse.addOrder(order);//añade un nuevo pedido al almacen de la compañia 
     }
     
     /**
      * @return Devuelve la ubicacion de Almacen
      */
     public Location getWareHouseLocation(){
-        return wareHouse.getLocation();
+        return wareHouse.getLocation(); //devuelve la ubicacion del almacen 
     }
 
     /**

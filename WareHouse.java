@@ -37,7 +37,7 @@ public class WareHouse
      * @return Lista de pedidos en el almacén.
      */
     public List<Order> getOrders(){
-        return orders;
+        return orders;  //devuelve una lista de pedidos que se encuentran en un almacen
     }
     
     /**
