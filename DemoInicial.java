@@ -123,12 +123,16 @@ public class DemoInicial
         System.out.println("-->> Delivery persons of the company <<--");
         System.out.println("-->> ------------------------------- <<--");
         //TODO ordenar (por su nombre) y mostrar los objetos delivery persons
-        Collections.sort(actors, new ComparadorNombreDeliveryPerson());
-        for(DeliveryPerson dp:actors){
-
-            System.out.println("DeliveryPerson " + dp.getName() + " at " + dp.getLocation());
-
+        
+        // Obtener la lista de DeliveryPersons desde la compañía
+        List<DeliveryPerson> persons = company.getDeliveryPersons();
+    
+        // Ordenar usando ComparadorPedidosEntregadosNombre
+        Collections.sort(persons, new ComparadorPedidosEntregadosNombre());
+        for (DeliveryPerson dp : persons) {
+        System.out.println("DeliveryPerson: " + dp.getName() + " at: " + dp.getLocation());
         }
+        
         System.out.println(" ");        
         System.out.println("-->> Orders to be picked up <<--");
         System.out.println("-->> ---------------------- <<--");
@@ -166,8 +170,9 @@ public class DemoInicial
         System.out.println("-->> ---------------------------------- <<--");
         //TODO ordenar (por número de pedidos entregados y si empate por nombre) 
         // y mostrar los objetos delivery persons
-        Collections.sort(actors, new ComparadorPedidosEntregadosNombre());
-        for(DeliveryPerson dp:actors){
+        List<DeliveryPerson> persons = company.getDeliveryPersons();
+        Collections.sort(persons, new ComparadorPedidosEntregadosNombre());
+        for(DeliveryPerson dp:persons){
             System.out.println(dp.showFinalInfo());
         }
 
