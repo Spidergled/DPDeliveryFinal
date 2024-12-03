@@ -80,7 +80,8 @@ public class DeliveryCompany
     private DeliveryPerson getDeliveryPerson() {
     DeliveryPerson closest = null; // Variable para almacenar el repartidor más cercano
     int closestDistance = Integer.MAX_VALUE; // Inicializamos con un valor grande
-
+    //ordenar los deliveyPersons con un comparador!!!!!!!!!!!!!!!!!!!!!
+    //hacer un while en vez de for-each!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
     for (DeliveryPerson dp : deliveryPersons) {
         if (dp.isFree()) {
             int distance = dp.distanceToTheTargetLocation(); // Calculamos la distancia al almacén

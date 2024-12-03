@@ -142,7 +142,7 @@ public class DemoAvanzada
         System.out.println("-->> Delivery persons of the company <<--");
         System.out.println("-->> ------------------------------- <<--");
         //TODO ordenar (por su nombre) y mostrar los objetos delivery persons
-        Collections.sort(actors, new ComparadorPedidosEntregadosNombre());
+        // no se ordenan , hay que ordenar los delivery persons !!!Collections.sort(actors, new ComparadorPedidosEntregadosNombre());
         for(DeliveryPerson dp : actors){
             System.out.println("DeliveryPerson:"+ dp.getName()+ "at:"+ dp.getLocation());
         }
@@ -177,9 +177,10 @@ public class DemoAvanzada
 
         System.out.println("-->> Delivery persons final information <<--");
         System.out.println("-->> ---------------------------------- <<--");
-        Collections.sort(actors, new ComparadorPedidosEntregadosNombre());
-        for(DeliveryPerson actor:actors){
-            System.out.println(actor.showFinalInfo());
+        List<DeliveryPerson> persons = company.getDeliveryPersons();
+        Collections.sort(persons, new ComparadorPedidosEntregadosNombre());
+        for(DeliveryPerson dp:persons){
+            System.out.println(dp.showFinalInfo());
         }
 
         System.out.println(" ");
