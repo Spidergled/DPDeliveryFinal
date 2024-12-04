@@ -169,8 +169,10 @@ public class DeliveryPerson
      */
     public void notifyPickupArrival()
     {
-        company.arrivedAtPickup(this); //notifica de la llegada del paquete a la zona de recogida 
+        if(currentOrder != null){
+            company.arrivedAtPickup(this); //notifica de la llegada del paquete a la zona de recogida 
 
+        }
     }
 
     /**
@@ -178,10 +180,10 @@ public class DeliveryPerson
      */
     public void notifyOrderArrival(Order order)
     {
-            if (order != null) {
-            company.arrivedAtDestination(this, order);
+            if (currentOrder != null) {
+            company.arrivedAtDestination(this, currentOrder);
             deliverOrder(); // Deliver the order
-            setLocation(order.getDestination()); // Actualiza la ubicación del repartidor a la ubicación de entrega
+            //setLocation(order.getDestination()); // Actualiza la ubicación del repartidor a la ubicación de entrega
         }
     }
 
@@ -207,7 +209,7 @@ public class DeliveryPerson
     {
         if(currentOrder != null){  // Solo entrega si hay un pedido actual
         incrementOrdersDelivered();
-        company.addOrder(currentOrder);
+        //company.addOrder(currentOrder);
         // Actualiza la ubicación del repartidor al destino del pedido
         setLocation(currentOrder.getDestination());
         currentOrder = null;  // Limpiar el pedido actual después de entregar
@@ -265,7 +267,14 @@ public class DeliveryPerson
         incrementIdleCount();
     }
     }
-
+    
+    /**
+     * Get the current order.
+     * @return The current order, or null if there is none.
+     */
+     public Order getCurrentOrder() {
+       return currentOrder;
+    }
 
 
  

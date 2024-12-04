@@ -74,32 +74,39 @@ public class DeliveryCompany
     }
 
     /**
-     * Find a the most closed free delivery person to the whare house's location, if any.
-     * @return A free delivery person, or null if there is none.
-     */
-    private DeliveryPerson getDeliveryPerson() {
-    DeliveryPerson closest = null; // Variable para almacenar el repartidor más cercano
-    int closestDistance = Integer.MAX_VALUE; // Inicializamos con un valor grande
-    //ordenar los deliveyPersons con un comparador!!!!!!!!!!!!!!!!!!!!!
-    //hacer un while en vez de for-each!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-    for (DeliveryPerson dp : deliveryPersons) {
-        if (dp.isFree()) {
-            int distance = dp.distanceToTheTargetLocation(); // Calculamos la distancia al almacén
-            // Si encontramos un repartidor más cercano, lo guardamos
-            if (distance < closestDistance) {
-                closestDistance = distance;
-                closest = dp;
-            } else if (distance == closestDistance) {
-                // Si la distancia es la misma, elegimos según el nombre
-                if (closest != null && dp.getName().compareTo(closest.getName()) < 0) {
-                    closest = dp;
-                }
+ * Find the closest free delivery person to the warehouse's location, if any.
+ * @return A free delivery person, or null if there is none.
+ */
+private DeliveryPerson getDeliveryPerson() {
+    // Ordenar los deliveryPersons por distancia al almacén y, en caso de empate, por nombre
+    Collections.sort(deliveryPersons, new Comparator<DeliveryPerson>() {
+        @Override
+        public int compare(DeliveryPerson dp1, DeliveryPerson dp2) {
+            int distance1 = dp1.distanceToTheTargetLocation();
+            int distance2 = dp2.distanceToTheTargetLocation();
+            if (distance1 != distance2) {
+                return Integer.compare(distance1, distance2);
+            } else {
+                return dp1.getName().compareTo(dp2.getName());
             }
         }
+    });
+
+    // Buscar el primer deliveryPerson libre
+    int i = 0;
+    while (i < deliveryPersons.size()) {
+        DeliveryPerson dp = deliveryPersons.get(i);
+        if (dp.isFree()) {
+            return dp;
+        }
+        i++;
     }
 
-    return closest; // Retornamos el repartidor más cercano, o null si no hay ninguno
-    }
+    // Si no se encuentra ninguno libre, retornar null
+    return null;
+}
+
+   
 
     /**
      * Request a pickup for the given order.
@@ -112,7 +119,7 @@ public class DeliveryCompany
         if (dp != null) {
             dp.pickup(order);
             dp.setPickupLocation(wareHouse.getLocation());
-            dp.setTargetLocation(order.getLocationOrder());
+            //dp.setTargetLocation(order.getLocationOrder());
             System.out.println("<<<< DeliveryPerson " + dp.getName() + 
                                " at " + dp.getLocation() +
                                " go to pick up order from " + order.getSendingName() + 
@@ -129,10 +136,9 @@ public class DeliveryCompany
      */
     public void arrivedAtPickup(DeliveryPerson dp)
     {
-        
-        if (!wareHouse.getOrders().isEmpty()) {
-            Order order = wareHouse.retrieveOrder(); // Asigna el primer pedido en el almacén
-            dp.pickup(order);
+        Order order = dp.getCurrentOrder();
+        if (order != null) {
+            dp.setTargetLocation(order.getDestination());
             System.out.println("<<<< DeliveryPerson" + dp.getName() + " at "+ dp.getLocation()+" picks up order from " + order.getSendingName()
             + " to: " + order.getDestination());
         }
