@@ -71,14 +71,16 @@ public class DemoInicial
      * DeliveryPersons are created and added to the company
      */
     private void createDeliveryPersons() {
-        DeliveryPerson dp1 = new DeliveryPerson(company, new Location(3, 3),"DP1");
-        DeliveryPerson dp2 = new DeliveryPerson(company, new Location(10, 10),"DP2");
+        DeliveryPerson dp1 = new DeliveryPerson(company, new Location(10, 10),"DP1");
+        DeliveryPerson dp2 = new DeliveryPerson(company, new Location(3, 3),"DP2");
         DeliveryPerson dp3 = new DeliveryPerson(company, new Location(12, 14),"DP3");
 
         company.addDeliveryPerson(dp1);
         company.addDeliveryPerson(dp2);
         company.addDeliveryPerson(dp3);
         actors.addAll(company.getDeliveryPersons());
+        
+      
     }
 
     /**
@@ -103,16 +105,26 @@ public class DemoInicial
      * A pickup is requested for a single order.
      * @throws IllegalStateException If a pickup cannot be found
      */
-    private void runSimulation() {
-        List<Order> orders = company.getOrders();
-        Collections.sort (orders, new ComparadorOrdersHoraNombre());
-        for(Order order : orders) {
-            if(!company.requestPickup(order)) {
-                throw new IllegalStateException("Failed to find a pickup.");        
+   private void runSimulation() {
+    List<Order> orders = company.getOrders();
+    
+    // Ordenar las órdenes si es necesario (por proximidad a los repartidores, etc.)
+    Collections.sort(orders, new ComparadorOrdersHoraNombre());
+
+    // Asignar las órdenes a los repartidores ordenados
+    for (DeliveryPerson dp : actors) { // Ya están ordenados por nombre
+        for (Order order : orders) {
+            if (dp.isFree() && !dp.hasTargetLocation()) {
+               
+                dp.pickup(order); // El repartidor recoge el pedido
+                company.getOrders().remove(order); // Eliminar la orden de la lista
+                System.out.println("<<<< DeliveryPerson " + dp.getName() + " at location " + dp.getLocation() +
+                        " go to pick up order from " + order.getSendingName() + " at location " + order.getLocationOrder());
+                break; // Pasamos al siguiente repartidor
             }
         }
-
     }
+}
 
     /** 
      * Initial info is showed with the information about delivery persons and orders
