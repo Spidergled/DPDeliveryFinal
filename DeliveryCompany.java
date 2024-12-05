@@ -74,39 +74,40 @@ public class DeliveryCompany
     }
 
     /**
- * Find the closest free delivery person to the warehouse's location, if any.
- * @return A free delivery person, or null if there is none.
- */
-private DeliveryPerson getDeliveryPerson() {
-    // Ordenar los deliveryPersons por distancia al almacén y, en caso de empate, por nombre
-    Collections.sort(deliveryPersons, new Comparator<DeliveryPerson>() {
-        @Override
-        public int compare(DeliveryPerson dp1, DeliveryPerson dp2) {
-            int distance1 = dp1.distanceToTheTargetLocation();
-            int distance2 = dp2.distanceToTheTargetLocation();
-            if (distance1 != distance2) {
-                return Integer.compare(distance1, distance2);
-            } else {
-                return dp1.getName().compareTo(dp2.getName());
-            }
-        }
-    });
+      * Find the closest free delivery person to the warehouse's location, if any.
+      * @return A free delivery person, or null if there is none.
+      */
+    private DeliveryPerson getDeliveryPerson() {
+      // Establecer la ubicación del almacén como el objetivo temporal
+      /*
+      Location warehouseLocation = wareHouse.getLocation();
+      for (DeliveryPerson dp : deliveryPersons) {
+          if(dp.isFree()){
+              dp.setTargetLocation(warehouseLocation); //solo para repartidores libres
+          }
+        
+      }
+      */
 
-    // Buscar el primer deliveryPerson libre
-    int i = 0;
-    while (i < deliveryPersons.size()) {
-        DeliveryPerson dp = deliveryPersons.get(i);
+      // Ordenar los deliveryPersons usando el comparador
+      Collections.sort(deliveryPersons, new ComparadorDeliveryPerson());
+
+      // Crear un iterador para recorrer la lista de deliveryPersons
+      Iterator<DeliveryPerson> iterator = deliveryPersons.iterator();
+
+      // Buscar el primer deliveryPerson libre usando el iterador
+      DeliveryPerson closestFreeDeliveryPerson = null;
+      while (iterator.hasNext() && closestFreeDeliveryPerson == null) {
+        DeliveryPerson dp = iterator.next();
         if (dp.isFree()) {
-            return dp;
+            closestFreeDeliveryPerson = dp;
         }
-        i++;
+      }
+
+      // Retornar el deliveryPerson más cercano libre, o null si no hay ninguno
+      return closestFreeDeliveryPerson;
     }
 
-    // Si no se encuentra ninguno libre, retornar null
-    return null;
-}
-
-   
 
     /**
      * Request a pickup for the given order.
@@ -139,7 +140,7 @@ private DeliveryPerson getDeliveryPerson() {
         Order order = dp.getCurrentOrder();
         if (order != null) {
             dp.setTargetLocation(order.getDestination());
-            System.out.println("<<<< DeliveryPerson" + dp.getName() + " at "+ dp.getLocation()+" picks up order from " + order.getSendingName()
+            System.out.println("<<<< DeliveryPerson " + dp.getName() + " at "+ dp.getLocation()+" picks up order from " + order.getSendingName()
             + " to: " + order.getDestination());
         }
                                  
