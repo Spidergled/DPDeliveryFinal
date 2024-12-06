@@ -7,12 +7,13 @@ import java.util.Comparator;
 public class ComparadorDeliveryPerson implements Comparator<DeliveryPerson> {
     @Override
     public int compare(DeliveryPerson dp1, DeliveryPerson dp2) {
-        int distanceComparison = Integer.compare(dp1.distanceToTheTargetLocation(), dp2.distanceToTheTargetLocation());
+        Location warehouseLocation = new Location(5, 5); // Fija la posición del almacén.
+        int distancia1 = dp1.getLocation().distance(warehouseLocation);
+        int distancia2 = dp2.getLocation().distance(warehouseLocation);
 
-        if (distanceComparison == 0) {
-            return dp1.getName().compareTo(dp2.getName());
+        if (distancia1 != distancia2) {
+            return Integer.compare(distancia1, distancia2); // Ordena por distancia.
         }
-
-        return distanceComparison;
+        return dp1.getName().compareTo(dp2.getName()); // Desempata por nombre.
     }
 }
