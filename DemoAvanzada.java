@@ -192,7 +192,7 @@ public class DemoAvanzada
         System.out.println(" ");
         System.out.println("-->> Orders final information <<--");
         System.out.println("-->> ------------------------ <<--");
-        Collections.sort(company.getOrders(), new ComparadorOrdersHoraNombre());
+        Collections.sort(company.getOrders(), new ComparadorOrdersHoraDestino());
         for(Order order:company.getOrders()){
             System.out.println(order.showFinalInfo());
         }
