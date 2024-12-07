@@ -182,7 +182,7 @@ public class DemoInicial
         System.out.println("-->> ------------------------ <<--");
         //TODO ordenar (por hora de entrega y si empate por nombre de la persona 
         //  que recibe el pedido) y mostrar los pedidos
-        Collections.sort(company.getOrders(), new ComparadorOrdersHoraNombre());
+        Collections.sort(company.getOrders(), new ComparadorOrdersHoraDestino());
         for(Order order:company.getOrders()){
             System.out.println(order.showFinalInfo());
         }

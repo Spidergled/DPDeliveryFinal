@@ -142,7 +142,7 @@ public class DemoAvanzada
         System.out.println("-->> Delivery persons of the company <<--");
         System.out.println("-->> ------------------------------- <<--");
         //TODO ordenar (por su nombre) y mostrar los objetos delivery persons
-        // no se ordenan , hay que ordenar los delivery persons !!!Collections.sort(actors, new ComparadorPedidosEntregadosNombre());
+        // no se ordenan LOS ACTORS (ESOS NO SE TOCAN ) , hay que ordenar los delivery persons !!!
         
         // Obtener la lista de DeliveryPersons desde la compañía
         List<DeliveryPerson> persons = company.getDeliveryPersons();
