@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * Model an order to be delivered from one
  * location to another.
@@ -6,7 +8,7 @@
  * @version 2016.02.29
  * @version 2024.10.07 DP classes 
  */
-public class Order
+public abstract class Order
 {
     private String sendingName;//declarar campo sendingName
     private Location location;
@@ -15,6 +17,10 @@ public class Order
     private double weight;//declarar campo weight
     private String destinationName;//declarar campo destinationName
     private String deliveryPersonName;
+    private Surcharge surcharge;
+    private Urgency urgency;
+   
+    
 
     
     /**
@@ -43,10 +49,15 @@ public class Order
         this.deliveryTime = deliveryTime;
         this.weight = weight;
         this.destinationName = destinationName;
-        this.deliveryPersonName = ""; //Inicializacion como vacio si no hay repartidor asignado aun
+        this.deliveryPersonName = ""; 
+        this.surcharge = surcharge;
+        this.urgency = urgency;
         
-        //incluir inicialización del resto de campos
+      
+        
+       
     }
+    
 
     /**
      * @return The name of the delivery person.
@@ -116,6 +127,9 @@ public class Order
      * Return details of the passenger, such as where it is.
      * @return A string representation of the passenger.
      */
+    public Urgency getUrgency() {
+        return urgency;
+    }
     public String toString()
     {
         return "Order "+"info a decidir"+" travelling from " +
@@ -132,5 +146,53 @@ public class Order
         
         return "Order delivered at: "+ getDeliveryTime() +" by: "+ getDeliveryPersonName() +" to: " + getDestinationName()+ " from: " + getSendingName();
     }
+     public static enum Surcharge {
+        MEDIUM("Medium", 10),
+        LOW("Low", 4);
+
+        private final String name;
+        private final int value;
+
+        Surcharge(String name, int value) {
+            this.name = name;
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
+
+    /**
+     * Enumeración que representa los niveles de urgencia.
+     */
+    public static enum Urgency {
+        EMERGENCY("Emergency", 5),
+        IMPORTANT("Important", 3),
+        NONESSENTIAL("Non essential", 1);
+
+        private final String name;
+        private final int value;
+
+        Urgency(String name, int value) {
+            this.name = name;
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+    }
+
 
 }
