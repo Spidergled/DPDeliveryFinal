@@ -78,17 +78,7 @@ public class DeliveryCompany
       * @return A free delivery person, or null if there is none.
       */
     private DeliveryPerson getDeliveryPerson() {
-      // Establecer la ubicación del almacén como el objetivo temporal
-      /*
-      Location warehouseLocation = wareHouse.getLocation();
-      for (DeliveryPerson dp : deliveryPersons) {
-          if(dp.isFree()){
-              dp.setTargetLocation(warehouseLocation); //solo para repartidores libres
-          }
-        
-      }
-      */
-
+      
       // Ordenar los deliveryPersons usando el comparador
       Collections.sort(deliveryPersons, new ComparadorDeliveryPerson());
 
@@ -103,6 +93,7 @@ public class DeliveryCompany
             closestFreeDeliveryPerson = dp;
         }
       }
+      
 
       // Retornar el deliveryPerson más cercano libre, o null si no hay ninguno
       return closestFreeDeliveryPerson;
