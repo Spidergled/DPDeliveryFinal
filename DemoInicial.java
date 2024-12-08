@@ -124,12 +124,7 @@ public class DemoInicial
         //TODO ordenar (por su nombre) y mostrar los objetos delivery persons
         // Ordenar y mostrar los objetos delivery persons por nombre 
         List<DeliveryPerson> persons = company.getDeliveryPersons();
-        Collections.sort(persons, new Comparator<DeliveryPerson>() { 
-            @Override 
-            public int compare(DeliveryPerson dp1, DeliveryPerson dp2) {
-                return dp1.getName().compareTo(dp2.getName()); 
-            } 
-        });
+        Collections.sort(persons, new ComparadorNombreDeliveryPerson());
         for (DeliveryPerson dp : persons) {
         System.out.println("DeliveryPerson: " + dp.getName() + " at: " + dp.getLocation());
         }
