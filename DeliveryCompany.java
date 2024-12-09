@@ -108,9 +108,11 @@ public class DeliveryCompany
     {
         DeliveryPerson dp = getDeliveryPerson();
         if (dp != null) {
+            
             dp.pickup(order);
-            dp.setPickupLocation(wareHouse.getLocation());
-            //dp.setTargetLocation(order.getLocationOrder());
+            dp.setPickupLocation(order.getLocationOrder());
+            order.setDeliveryPersonName(dp.getName());
+            
             System.out.println("<<<< DeliveryPerson " + dp.getName() + 
                                " at " + dp.getLocation() +
                                " go to pick up order from " + order.getSendingName() + 
@@ -127,11 +129,12 @@ public class DeliveryCompany
      */
     public void arrivedAtPickup(DeliveryPerson dp)
     {
-        Order order = dp.getCurrentOrder();
-        if (order != null) {
-            dp.setTargetLocation(order.getDestination());
-            System.out.println("<<<< DeliveryPerson " + dp.getName() + " at "+ dp.getLocation()+" picks up order from " + order.getSendingName()
-            + " to: " + order.getDestination());
+        Order currentOrder = dp.getCurrentOrder();
+        if (currentOrder != null && dp.getLocation().equals(currentOrder.getLocationOrder())) {
+            //dp.pickup(currentOrder); // si sigo las instrrucciones de la entrega deberia poner el pickup aqui, pero me imprime mal
+            dp.setTargetLocation(currentOrder.getDestination());
+            System.out.println("<<<< DeliveryPerson " + dp.getName() + " at "+ dp.getLocation()+" picks up order from " + currentOrder.getSendingName()
+            + " to: " + currentOrder.getDestination());
         }
                                  
     }
