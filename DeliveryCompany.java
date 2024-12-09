@@ -78,26 +78,25 @@ public class DeliveryCompany
       * @return A free delivery person, or null if there is none.
       */
     private DeliveryPerson getDeliveryPerson() {
-      
-      // Ordenar los deliveryPersons usando el comparador
-      Collections.sort(deliveryPersons, new ComparadorDeliveryPerson());
+    // Obtén la ubicación del almacén
+    Location warehouseLocation = wareHouse.getLocation();
 
-      // Crear un iterador para recorrer la lista de deliveryPersons
-      Iterator<DeliveryPerson> iterator = deliveryPersons.iterator();
+    // Ordena la lista de repartidores usando el comparador
+    deliveryPersons.sort(new ComparadorDeliveryPerson(warehouseLocation));
 
-      // Buscar el primer deliveryPerson libre usando el iterador
-      DeliveryPerson closestFreeDeliveryPerson = null;
-      while (iterator.hasNext() && closestFreeDeliveryPerson == null) {
+    // Utilizar iterador para buscar el primer repartidor libre
+    Iterator<DeliveryPerson> iterator = deliveryPersons.iterator();
+    while (iterator.hasNext()) {
         DeliveryPerson dp = iterator.next();
         if (dp.isFree()) {
-            closestFreeDeliveryPerson = dp;
+            return dp; // Devuelve el primer repartidor libre
         }
-      }
-      
-
-      // Retornar el deliveryPerson más cercano libre, o null si no hay ninguno
-      return closestFreeDeliveryPerson;
     }
+
+    // Si no se encuentra un repartidor libre
+    return null;
+    }
+
 
 
     /**

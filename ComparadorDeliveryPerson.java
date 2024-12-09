@@ -1,10 +1,21 @@
 import java.util.Comparator;
 
 public class ComparadorDeliveryPerson implements Comparator<DeliveryPerson> {
+
+    private Location warehouseLocation; // Ubicación del almacén
+
+    // Constructor que recibe la ubicación del almacén
+    public ComparadorDeliveryPerson(Location warehouseLocation) {
+        this.warehouseLocation = warehouseLocation;
+    }
+
     @Override
     public int compare(DeliveryPerson dp1, DeliveryPerson dp2) {
-        int distance1 = dp1.distanceToTheTargetLocation(); //CAMBIAR esto por la ubicacion del almacen, 
-        int distance2 = dp2.distanceToTheTargetLocation(); // lo que se esta devolviendo ahi es la ubicacion de la entrega.
+        // Calcula las distancias al almacén
+        int distance1 = dp1.getLocation().distance(warehouseLocation);
+        int distance2 = dp2.getLocation().distance(warehouseLocation);
+
+        // Compara por distancia, y si es igual, por nombre
         if (distance1 != distance2) {
             return Integer.compare(distance1, distance2);
         } else {
@@ -12,5 +23,6 @@ public class ComparadorDeliveryPerson implements Comparator<DeliveryPerson> {
         }
     }
 }
+
 
 
