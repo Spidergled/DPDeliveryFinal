@@ -8,15 +8,23 @@ import java.util.*;
  */
 public class ComparadorOrdersHoraDestino implements Comparator<Order>
 {
-    public int compare (Order o1, Order o2){
-        int res;
-        int nameComp = Integer.compare(o1.getDeliveryTime(), o2.getDeliveryTime());
-        if(nameComp == 0) {
-            nameComp= o1.getDestinationName().compareTo(o2.getDestinationName());
-            
+  public int compare(Order o1, Order o2) {
+        // Validaciones para evitar errores de nulos
+        if (o1 == null || o2 == null) {
+            throw new IllegalArgumentException("Orders cannot be null.");
         }
-        return nameComp;
-        
+        if (o1.getSendingName() == null || o2.getSendingName() == null) {
+            throw new IllegalArgumentException("Sender's name cannot be null.");
+        }
+
+        // Comparación principal: por hora de entrega
+        int res = Integer.compare(o1.getDeliveryTime(), o2.getDeliveryTime());
+
+        // Criterio de desempate: por nombre de quien envía el pedido
+        if (res == 0) {
+            res = o1.getSendingName().compareTo(o2.getSendingName());
+        }
+        return res;
     }
 }
     
