@@ -8,14 +8,74 @@
  */
 public class Order
 {
-    private String sendingName;//declarar campo sendingName
+    private String sendingName;
     private Location location;
     private Location destination;
-    private int deliveryTime;//declarar campo deliveryTime
-    private double weight;//declarar campo weight
-    private String destinationName;//declarar campo destinationName
+    private int deliveryTime;
+    private double weight;
+    private String destinationName;
     private String deliveryPersonName;
 
+    //ENTREGA FINAL 
+    private Surcharge surcharge;
+    private Urgency urgency;
+    
+    public enum Surcharge{
+        MEDIUM("Medium", 10), LOW("Low", 4);
+        private final String name;
+        private final int value;
+
+        Surcharge(String name, int value) {
+            this.name = name;
+            this.value = value;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+
+    public enum Urgency {
+        EMERGENCY("Emergency", 5),
+        IMPORTANT("Important", 3),
+        NONESSENTIAL("Non essential", 1);
+
+        private final String name;
+        private final int value;
+
+        Urgency(String name, int value) {
+            this.name = name;
+            this.value = value;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
+    public Surcharge getSurcharge() {
+        return surcharge;
+    }
+
+    public void setSurcharge(Surcharge surcharge) {
+        this.surcharge = surcharge;
+    }
+
+    public Urgency getUrgency() {
+        return urgency;
+    }
+
+    public void setUrgency(Urgency urgency) {
+        this.urgency = urgency;
+    }
+    
     
     /**
      * Constructor for objects of class Order
@@ -28,7 +88,7 @@ public class Order
      * @throws NullPointerException If either location is null.
      */
     public Order(String sendingName, Location location, Location destination, int deliveryTime, 
-    double weight, String destinationName)
+    double weight, String destinationName,Surcharge surcharge, Urgency urgency)
     {
         //TODO modificar el constructor o crear otro constructor si necesario
         if(location == null) {
@@ -44,7 +104,8 @@ public class Order
         this.weight = weight;
         this.destinationName = destinationName;
         this.deliveryPersonName = ""; //Inicializacion como vacio si no hay repartidor asignado aun
-        
+        this.surcharge = surcharge;
+        this.urgency = urgency;
         //incluir inicialización del resto de campos
     }
 
@@ -119,8 +180,11 @@ public class Order
     public String toString()
     {
         return "Order "+"info a decidir"+" travelling from " + 
-        location + " to " + destination + " " + getDeliveryTime()+ " " + getDestinationName()+ "\n"; //hemos hecho esto para ir comprobando que todo iba bien con la profe
+        location + " to " + destination +                ", surcharge: " + surcharge.getName() + " (+" + surcharge.getValue() + ")" +
+               ", urgency: " + urgency.getName() + " (+" + urgency.getValue() + ")";
     }
+    //yahya: he añadido la info de urgencia y recargo al toString, pero no sé si hay que  hacerlo!!
+    //" " + getDeliveryTime()+ " " + getDestinationName()+ "\n"; //hemos hecho esto para ir comprobando que todo iba bien con la profe
 
     /**
      * Show the final information about the order, including the sender's name, the 
