@@ -14,13 +14,13 @@ public class NonUrgentOrder extends Order
 
     @Override
     public double charge() {
-        return getSurcharge().getValue(); // El recargo es el valor original para pedidos no urgentes
+       double charge =getSurcharge().getValue(); 
+       addCharge(charge);
+       return charge;
     }
 
     @Override
     public int calculateEvaluationDP() {
-        int evaluation = 5;
-        addDeliveryPersonEvaluation(evaluation); // Acumula la evaluación
-        return evaluation;
+    return 5;
     }
 }

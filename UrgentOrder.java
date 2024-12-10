@@ -14,13 +14,14 @@ public class UrgentOrder extends Order
 
     @Override
     public double charge() {
-        return getSurcharge().getValue() * 2; 
+       double charge= getSurcharge().getValue() * 2; 
+       addCharge(charge);
+       return charge;
+        
     }
 
     @Override
     public int calculateEvaluationDP() {
-        int evaluation = 10;
-        addDeliveryPersonEvaluation(evaluation); 
-        return evaluation;
+    return 10;
     }
 }
