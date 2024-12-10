@@ -15,7 +15,7 @@ public class ComparadorOrdersHoraNombre implements Comparator<Order>
             nameComp= o1.getDestinationName().compareTo(o2.getDestinationName());
             
         }
-        System.out.println(o1.getDestinationName() + "-- "+ o2.getDestinationName() + ">>" + nameComp);
+        //System.out.println(o1.getDestinationName() + "-- "+ o2.getDestinationName() + ">>" + nameComp);
         return nameComp;
     
     }
