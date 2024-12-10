@@ -118,8 +118,8 @@ public class Order
      */
     public String toString()
     {
-        return "Order "+"info a decidir"+" travelling from " +
-        location + " to " + destination;
+        return "Order "+"info a decidir"+" travelling from " + 
+        location + " to " + destination + " " + getDeliveryTime()+ " " + getDestinationName()+ "\n"; //hemos hecho esto para ir comprobando que todo iba bien con la profe
     }
 
     /**
