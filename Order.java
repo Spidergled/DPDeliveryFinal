@@ -6,7 +6,7 @@
  * @version 2016.02.29
  * @version 2024.10.07 DP classes 
  */
-public class Order
+public abstract class Order
 {
     private String sendingName;
     private Location location;
@@ -19,6 +19,7 @@ public class Order
     //ENTREGA FINAL 
     private Surcharge surcharge;
     private Urgency urgency;
+    private int dpEvaluation; 
     
     public enum Surcharge{
         MEDIUM("Medium", 10), LOW("Low", 4);
@@ -106,6 +107,7 @@ public class Order
         this.deliveryPersonName = ""; //Inicializacion como vacio si no hay repartidor asignado aun
         this.surcharge = surcharge;
         this.urgency = urgency;
+        this.dpEvaluation=0;
         //incluir inicialización del resto de campos
     }
 
@@ -177,6 +179,7 @@ public class Order
      * Return details of the passenger, such as where it is.
      * @return A string representation of the passenger.
      */
+    @Override
     public String toString()
     {
         return "Order "+//"info a decidir"+" travelling 
@@ -194,5 +197,16 @@ public class Order
         
         return "Order delivered at: "+ getDeliveryTime() +" by: "+ getDeliveryPersonName() +" to: " + getDestinationName()+ " from: " + getSendingName();
     }
+        public int getDeliveryPersonEvaluation() {
+        return dpEvaluation;
+    }
+
+    
+    protected void addDeliveryPersonEvaluation(int evaluation) {
+        this.dpEvaluation += evaluation;
+    }
+
+    public abstract double charge();
+    public abstract int calculateEvaluationDP();
 }
  

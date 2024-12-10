@@ -12,13 +12,15 @@ public class UrgentOrder extends Order
         super(sendingName, location, destination, deliveryTime, weight, destinationName, surcharge, urgency);
     }
 
-   
+    @Override
     public double charge() {
-        return getSurcharge().getValue() * 2;
+        return getSurcharge().getValue() * 2; 
     }
 
-    
+    @Override
     public int calculateEvaluationDP() {
-        return 10;
+        int evaluation = 10;
+        addDeliveryPersonEvaluation(evaluation); 
+        return evaluation;
     }
 }
