@@ -60,7 +60,7 @@ public class Order
             return value;
         }
     }
-    public Surcharge getSurcharge() {
+   public Surcharge getSurcharge() {
         return surcharge;
     }
 
@@ -179,12 +179,10 @@ public class Order
      */
     public String toString()
     {
-        return "Order "+"info a decidir"+" travelling from " + 
-        location + " to " + destination +                ", surcharge: " + surcharge.getName() + " (+" + surcharge.getValue() + ")" +
-               ", urgency: " + urgency.getName() + " (+" + urgency.getValue() + ")";
+        return "Order "+//"info a decidir"+" travelling 
+        "from " + location + " to " + destination;
     }
-    //yahya: he añadido la info de urgencia y recargo al toString, pero no sé si hay que  hacerlo!!
-    //" " + getDeliveryTime()+ " " + getDestinationName()+ "\n"; //hemos hecho esto para ir comprobando que todo iba bien con la profe
+    //GLED: " " + getDeliveryTime()+ " " + getDestinationName()+ "\n"; //hemos hecho esto para ir comprobando que todo iba bien con la profe
 
     /**
      * Show the final information about the order, including the sender's name, the 
@@ -196,5 +194,5 @@ public class Order
         
         return "Order delivered at: "+ getDeliveryTime() +" by: "+ getDeliveryPersonName() +" to: " + getDestinationName()+ " from: " + getSendingName();
     }
-
 }
+ 
