@@ -12,15 +12,15 @@ public class NonUrgentOrder extends Order
         super(sendingName, location, destination, deliveryTime, weight, destinationName, surcharge, urgency);
     }
 
-    @Override
+   @Override
     public double charge() {
-        return getSurcharge().getValor(); // El recargo es el valor original para pedidos no urgentes
+    double charge=0;
+      addCharge(charge); 
+      return charge; 
     }
 
     @Override
     public int calculateEvaluationDP() {
-        int evaluation = 5;
-        addDeliveryPersonEvaluation(evaluation); // Acumula la evaluación
-        return evaluation;
+    return 15; 
     }
 }
