@@ -37,9 +37,9 @@ public class OrderTest
             new Location(5, 2), 
             10, 
             1.2, 
-            "Decathlon Cáceres", 
-            Surcharge.LOW, 
-            Urgency.EMERGENCY
+            "Decathlon Cáceres",  
+            Urgency.EMERGENCY,
+            Surcharge.LOW
         );
 
         nonUrgentOrder = new NonUrgentOrder(
@@ -48,9 +48,9 @@ public class OrderTest
             new Location(8, 4), 
             12, 
             2.5, 
-            "Carrefour Badajoz", 
-            Surcharge.MEDIUM, 
-            Urgency.IMPORTANT
+            "Carrefour Badajoz",  
+            Urgency.IMPORTANT,
+            Surcharge.MEDIUM
         );
 
         medicalOrder = new MedicalOrder(
@@ -60,7 +60,6 @@ public class OrderTest
             8, 
             0.8, 
             "Hospital Cáceres", 
-            Surcharge.LOW, 
             Urgency.NONESSENTIAL
         );
     }
@@ -155,6 +154,7 @@ public class OrderTest
         // UrgentOrder debe devolver una evaluación de 10
         assertEquals(10, urgentOrder.calculateEvaluationDP());
         
+
         // NonUrgentOrder debe devolver una evaluación de 5
         assertEquals(5, nonUrgentOrder.calculateEvaluationDP());
         

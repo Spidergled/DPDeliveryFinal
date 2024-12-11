@@ -32,7 +32,7 @@ public abstract class Order
      * @throws NullPointerException If either location is null.
      */
     public Order(String sendingName, Location location, Location destination, int deliveryTime, 
-    double weight, String destinationName,Surcharge surcharge, Urgency urgency)
+    double weight, String destinationName, Urgency urgency, Surcharge surcharge)
     {
         //TODO modificar el constructor o crear otro constructor si necesario
         if(location == null) {

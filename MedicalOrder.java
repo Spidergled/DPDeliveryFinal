@@ -10,7 +10,7 @@ public class MedicalOrder extends Order
     
     public MedicalOrder(String sendingName, Location location, Location destination, int deliveryTime,
                         double weight, String destinationName, Urgency urgency) {
-        super(sendingName, location, destination, deliveryTime, weight, destinationName, null, urgency);
+        super(sendingName, location, destination, deliveryTime, weight, destinationName, urgency, null);
     }
 
     /**

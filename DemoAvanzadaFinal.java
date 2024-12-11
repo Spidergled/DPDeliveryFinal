@@ -90,19 +90,19 @@ public class DemoAvanzadaFinal
         //weight, destinationName, urgency, surchage (only for Urgent and NonUrgent orders)
         Location whLocation = company.getWareHouse().getLocation();
         Order order1 = new UrgentOrder("Agnes", whLocation,
-                new Location(19,19),12, 1.2, "Pintores 19", Urgency.IMPORTANT, Charge.MEDIUM);
+                new Location(19,19),12, 1.2, "Pintores 19", Urgency.IMPORTANT, Surcharge.MEDIUM);
         Order order2 = new NonUrgentOrder("Lucy", whLocation,
-                new Location(2, 6),10, 1.2, "Cruz de los caídos", Urgency.NONESSENTIAL, Charge.MEDIUM);
+                new Location(2, 6),10, 1.2, "Cruz de los caídos", Urgency.NONESSENTIAL, Surcharge.MEDIUM);
         Order order3 = new UrgentOrder("Gru", whLocation,
-                new Location(5,2),10, 1.5, "Pintores", Urgency.IMPORTANT, Charge.LOW);
+                new Location(5,2),10, 1.5, "Pintores", Urgency.IMPORTANT, Surcharge.LOW);
         Order order4 = new MedicalOrder("Kevin", whLocation,
                 new Location(14,2),11, 2.2, "Ruta de la Plata",Urgency.EMERGENCY);
         Order order5 = new UrgentOrder("Edith", whLocation,
-                new Location(19,19),11, 1.2, "Pintores 19 B",Urgency.IMPORTANT, Charge.LOW);
+                new Location(19,19),11, 1.2, "Pintores 19 B",Urgency.IMPORTANT, Surcharge.LOW);
         Order order6 = new NonUrgentOrder("Stuart", whLocation,
-                new Location(14,3),10, 1.2, "Ruta de la Plata",Urgency.NONESSENTIAL,Charge.LOW);
+                new Location(14,3),10, 1.2, "Ruta de la Plata",Urgency.NONESSENTIAL,Surcharge.LOW);
         Order order7 = new NonUrgentOrder("Margo", whLocation,
-                new Location(7,1),11, 1.5, "Cruz de los caídos, 3",Urgency.IMPORTANT,Charge.MEDIUM);
+                new Location(7,1),11, 1.5, "Cruz de los caídos, 3",Urgency.IMPORTANT,Surcharge.MEDIUM);
         company.addOrder(order1);
         company.addOrder(order2);
         company.addOrder(order3);

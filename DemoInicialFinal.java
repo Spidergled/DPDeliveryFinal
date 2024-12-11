@@ -90,13 +90,13 @@ public class DemoInicialFinal
         //weight, destinationName, urgency, surchage (only for Urgent and NonUrgent orders)
         Location whLocation = company.getWareHouse().getLocation();
         Order order1 = new NonUrgentOrder("Lucy", whLocation,
-                new Location(2, 6),10, 1.2, "Decathon Cáceres", Urgency.NONESSENTIAL, Charge.MEDIUM);
+                new Location(2, 6),10, 1.2, "Decathon Cáceres", Urgency.NONESSENTIAL, Surcharge.MEDIUM);
         Order order2 = new UrgentOrder("Gru", whLocation,
-                new Location(5,2),10, 1.5, "Pintores", Urgency.IMPORTANT, Charge.LOW);
+                new Location(5,2),10, 1.5, "Pintores", Urgency.IMPORTANT, Surcharge.LOW);
         Order order3 = new MedicalOrder("Kevin", whLocation,
                 new Location(14,2),11, 2.2, "Ruta de la Plata",Urgency.EMERGENCY);
         Order order4 = new NonUrgentOrder("Stuart", whLocation,
-                new Location(7,1),10, 1.2, "Cruz de los caídos",Urgency.NONESSENTIAL,Charge.LOW);
+                new Location(7,1),10, 1.2, "Cruz de los caídos",Urgency.NONESSENTIAL,Surcharge.LOW);
         company.addOrder(order1);
         company.addOrder(order2);
         company.addOrder(order3);

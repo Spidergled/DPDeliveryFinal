@@ -8,8 +8,8 @@
 public class NonUrgentOrder extends Order
 {
     public NonUrgentOrder(String sendingName, Location location, Location destination, int deliveryTime,
-                          double weight, String destinationName, Surcharge surcharge, Urgency urgency) {
-        super(sendingName, location, destination, deliveryTime, weight, destinationName, surcharge, urgency);
+                          double weight, String destinationName, Urgency urgency, Surcharge surcharge) {
+        super(sendingName, location, destination, deliveryTime, weight, destinationName, urgency,surcharge);
     }
 
    @Override
