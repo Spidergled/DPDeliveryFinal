@@ -19,7 +19,6 @@ public abstract class Order
     //ENTREGA FINAL 
     private Surcharge surcharge;
     private Urgency urgency;
-    private double recargo; 
  
     
     /**
@@ -51,7 +50,6 @@ public abstract class Order
         this.deliveryPersonName = ""; //Inicializacion como vacio si no hay repartidor asignado aun
         this.surcharge = surcharge;
         this.urgency = urgency;
-        this.recargo=0.0;
 
         //incluir inicialización del resto de campos
     }
@@ -172,15 +170,6 @@ public abstract class Order
         return "Order delivered at: "+ getDeliveryTime() +" by: "+ getDeliveryPersonName() +" to: " + getDestinationName()+ " from: " + getSendingName();
     }
     
-        public double getCharge() {
-        return recargo;
-    }
-
-    
-    protected void addCharge(double charge) {
-        this.recargo += charge;
-    }
-
     public abstract double charge();
     
     public abstract int calculateEvaluationDP();

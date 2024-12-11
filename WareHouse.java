@@ -11,7 +11,7 @@ public class WareHouse
     
     private Location location;
     private Set<Order> orders;
-    private Set<Map.Entry<Order, DeliveryPerson>> deliveredOrders;  // Conjunto de pedidos entregados y su persona de reparto
+    private Map <Order, DeliveryPerson> deliveredOrders;
 
     /**
      * Constructor for objects of class WareHouse
@@ -20,8 +20,8 @@ public class WareHouse
     public WareHouse()
     {
        this.location = new Location(5,5);  // Ubicación fija para la entrega inicial.
-       this.orders = new TreeSet<>(new ComparadorOrderTipo());  // Ordena los pedidos por urgencia, hora y destino
-       this.deliveredOrders = new TreeSet<>(new ComparadorOrdesNombreYHora()); // Ordena las entregas por remitente, hora y destino
+       this.orders = new TreeSet<>(new ComparadorCollectionOrderTipo());  // Ordena los pedidos por urgencia, hora y destino
+       this.deliveredOrders =new TreeMap<>(new ComparadorMapSendingNameDeliveryTime()); // Ordena las entregas por remitente, hora 
     }
     
     
@@ -56,17 +56,22 @@ public class WareHouse
      * @param order El pedido entregado.
      * @param deliveryPerson La persona de reparto que entregó el pedido.
      */
-    public void addDeliveredOrder(Order order, DeliveryPerson deliveryPerson){
-        deliveredOrders.add(new AbstractMap.SimpleEntry<>(order, deliveryPerson));  // Asocia el pedido con la persona de reparto
+    public void addDeliveredOrder(Order order, DeliveryPerson deliveryPerson) {
+    if (order == null || deliveryPerson == null) {
+        throw new IllegalArgumentException("Order y DeliveryPerson no pueden ser nulos.");
     }
+    deliveredOrders.put(order, deliveryPerson);
+}
+
     
     /**
      * Devuelve el conjunto de los pedidos entregados y sus personas de reparto.
      * @return Conjunto de entradas de pedidos entregados y su persona de reparto.
      */
-    public Set<Map.Entry<Order, DeliveryPerson>> getDeliveredOrders(){
+    Map <Order, DeliveryPerson> getDeliveredOrders(){
         return deliveredOrders;
     }
+
 
      /**
      * Devuelve y elimina el primer pedido de la lista de pedidos.

@@ -21,7 +21,8 @@ public class MedicalOrder extends Order
      */
     @Override
     public double charge() {
-        return 0;
+    double charge=0.0;
+       return charge;
     }
 
     /**
@@ -31,8 +32,6 @@ public class MedicalOrder extends Order
      */
     @Override
     public int calculateEvaluationDP() {
-        int evaluation = 15;
-        addDeliveryPersonEvaluation(evaluation); // Lo que esta haciendo aqui es incrementar la valoracion del repartidor
-        return evaluation;
+        return 15;
     }
 }

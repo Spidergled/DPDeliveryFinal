@@ -7,7 +7,7 @@
  */
 public class UrgentOrder extends Order
 {
-        public UrgentOrder(String sendingName, Location location, Location destination, int deliveryTime,
+    public UrgentOrder(String sendingName, Location location, Location destination, int deliveryTime,
                        double weight, String destinationName, Surcharge surcharge, Urgency urgency) {
         super(sendingName, location, destination, deliveryTime, weight, destinationName, surcharge, urgency);
     }
@@ -15,8 +15,7 @@ public class UrgentOrder extends Order
     @Override
     public double charge() {
       double charge= getSurcharge().getValor() * 2; 
-       addCharge(charge);
-       return charge;
+      return charge; 
         
     }
 

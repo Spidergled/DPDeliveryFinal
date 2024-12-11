@@ -44,10 +44,10 @@ public class DeliveryCompany
     /**
      * @return The list of orders.
      */
-    public List<Order> getOrders()
+   /* public List<Order> getOrders()
     {
         return wareHouse.getOrders();//devuelve una lista de pedidos
-    }
+    }*/
 
     /**
      * @param Add a new delivery person.
