@@ -72,6 +72,10 @@ public class DeliveryCompany
     public Location getWareHouseLocation(){
         return wareHouse.getLocation(); //devuelve la ubicacion del almacen 
     }
+    
+    public WareHouse getWareHouse(){
+        return wareHouse;
+    }
 
     /**
       * Find the closest free delivery person to the warehouse's location, if any.

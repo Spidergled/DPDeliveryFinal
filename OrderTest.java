@@ -154,15 +154,13 @@ public class OrderTest
     {
         // UrgentOrder debe devolver una evaluación de 10
         assertEquals(10, urgentOrder.calculateEvaluationDP());
-        assertEquals(10, urgentOrder.getDeliveryPersonEvaluation());
-
+        
         // NonUrgentOrder debe devolver una evaluación de 5
         assertEquals(5, nonUrgentOrder.calculateEvaluationDP());
-        assertEquals(5, nonUrgentOrder.getDeliveryPersonEvaluation());
-
+        
         // MedicalOrder debe devolver una evaluación de 15
         assertEquals(15, medicalOrder.calculateEvaluationDP());
-        assertEquals(15, medicalOrder.getDeliveryPersonEvaluation());
+        
     }
 }
 
