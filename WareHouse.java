@@ -10,7 +10,8 @@ public class WareHouse
 {
     
     private Location location;
-    private List<Order> orders;
+    private Set<Order> orders;
+    private Set<Map.Entry<Order, DeliveryPerson>> deliveredOrders;  // Conjunto de pedidos entregados y su persona de reparto
 
     /**
      * Constructor for objects of class WareHouse
@@ -19,7 +20,8 @@ public class WareHouse
     public WareHouse()
     {
        this.location = new Location(5,5);  // Ubicación fija para la entrega inicial.
-       this.orders = new ArrayList<>();
+       this.orders = new TreeSet<>(new ComparadorOrderTipo());  // Ordena los pedidos por urgencia, hora y destino
+       this.deliveredOrders = new TreeSet<>(new ComparadorOrdesNombreYHora()); // Ordena las entregas por remitente, hora y destino
     }
     
     
@@ -36,7 +38,7 @@ public class WareHouse
      * Devuelve la lista de pedidos (orders) que están en el almacén
      * @return Lista de pedidos en el almacén.
      */
-    public List<Order> getOrders(){
+    public Set<Order> getOrders(){
         return orders;  //devuelve una lista de pedidos que se encuentran en un almacen
     }
     
@@ -47,16 +49,24 @@ public class WareHouse
     public void addOrder(Order order){
         orders.add(order);  // Añadir el pedido a la lista
 
-        // Usar un comparador con una expresión lambda. "Sale en el tema 4, echarle un ojo"
-        orders.sort((o1, o2) -> {
-            int timeComparacion = Integer.compare(o1.getDeliveryTime(), o2.getDeliveryTime());
-            if (timeComparacion == 0) {
-                return o1.getSendingName().compareTo(o2.getSendingName());
-            }
-            return timeComparacion;
-        });
     }
     
+     /**
+     * Añade un pedido entregado al conjunto de entregas, asociando la persona de reparto.
+     * @param order El pedido entregado.
+     * @param deliveryPerson La persona de reparto que entregó el pedido.
+     */
+    public void addDeliveredOrder(Order order, DeliveryPerson deliveryPerson){
+        deliveredOrders.add(new AbstractMap.SimpleEntry<>(order, deliveryPerson));  // Asocia el pedido con la persona de reparto
+    }
+    
+    /**
+     * Devuelve el conjunto de los pedidos entregados y sus personas de reparto.
+     * @return Conjunto de entradas de pedidos entregados y su persona de reparto.
+     */
+    public Set<Map.Entry<Order, DeliveryPerson>> getDeliveredOrders(){
+        return deliveredOrders;
+    }
 
      /**
      * Devuelve y elimina el primer pedido de la lista de pedidos.
@@ -64,8 +74,11 @@ public class WareHouse
      */
     public Order retrieveOrder()
     {
-        if (!orders.isEmpty()) {
-            return orders.remove(0);  // Elimina y devuelve el primer pedido
+        Iterator<Order> iterator = orders.iterator();
+        if (iterator.hasNext()) {
+            Order firstOrder = iterator.next();
+            orders.remove(firstOrder);  // Elimina el primer pedido
+            return firstOrder;
         }
         return null;  // Si no hay pedidos, devuelve null
     }
