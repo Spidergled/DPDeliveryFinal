@@ -14,7 +14,7 @@ public class UrgentOrder extends Order
 
     @Override
     public double charge() {
-        return getSurcharge().getValue() * 2; 
+        return getSurcharge().getValor() * 2; 
     }
 
     @Override

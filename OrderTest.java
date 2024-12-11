@@ -4,79 +4,165 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * The test class OrderTest.
+ * La clase de prueba OrderTest.
  *
- * @author  David J. Barnes and Michael Kölling
- * @version 2016.02.29
- * @version 2024.10.07 DP classes 
+ * @author  
+ * @version 2024.10.07 Clases DP
  */
 public class OrderTest
 {
-    private Order order;
+    Order urgentOrder;
+    Order nonUrgentOrder;
+    Order medicalOrder;
+
     /**
-     * Default constructor for test class OrderTest
+     * Constructor por defecto para la clase de prueba OrderTest
      */
     public OrderTest()
     {
     }
 
     /**
-     * Sets up the test fixture.
+     * Configura el entorno de prueba.
      *
-     * Called before every test case method.
+     * Se llama antes de cada método de prueba.
      */
     @Before
     public void setUp()
     {
-         // Inicializamos un objeto Order antes de cada prueba ( Mario, te falto esto)
-        order = new Order("Lucy", new Location(5, 5), new Location(5, 2), 10, 1.2, "Decathlon Cáceres");
+        // Inicializamos un objeto de cada tipo de Order antes de cada prueba
+        urgentOrder = new UrgentOrder(
+            "Lucy", 
+            new Location(5, 5), 
+            new Location(5, 2), 
+            10, 
+            1.2, 
+            "Decathlon Cáceres", 
+            Surcharge.LOW, 
+            Urgency.EMERGENCY
+        );
+
+        nonUrgentOrder = new NonUrgentOrder(
+            "John", 
+            new Location(2, 3), 
+            new Location(8, 4), 
+            12, 
+            2.5, 
+            "Carrefour Badajoz", 
+            Surcharge.MEDIUM, 
+            Urgency.IMPORTANT
+        );
+
+        medicalOrder = new MedicalOrder(
+            "Maria", 
+            new Location(1, 1), 
+            new Location(6, 6), 
+            8, 
+            0.8, 
+            "Hospital Cáceres", 
+            Surcharge.LOW, 
+            Urgency.NONESSENTIAL
+        );
     }
 
     /**
-     * Tears down the test fixture.
+     * Limpia el entorno de prueba.
      *
-     * Called after every test case method.
+     * Se llama después de cada método de prueba.
      */
     @After
     public void tearDown()
     {
-        order = null;
+        urgentOrder = null;
+        nonUrgentOrder = null;
+        medicalOrder = null;
     }
 
     /**
-     * Test basic creation of an order.
-     * Ensure that the location and destination locations
-     * have been set.
+     * Prueba de la creación básica de un pedido.
+     * Asegura que las ubicaciones de origen y destino se hayan configurado correctamente.
      */
     @Test
     public void testCreation()
     {
-        assertEquals("Lucy", order.getSendingName());  
-        assertEquals(new Location(5, 5), order.getLocationOrder());  
-        assertEquals(new Location(5, 2), order.getDestination());  
-        assertEquals(10, order.getDeliveryTime());  
-        assertEquals(1.2, order.getWeight(), 0.001);  
-        assertEquals("Decathlon Cáceres", order.getDestinationName());  
+        // UrgentOrder
+        assertEquals("Lucy", urgentOrder.getSendingName());  
+        assertEquals(new Location(5, 5), urgentOrder.getLocationOrder());  
+        assertEquals(new Location(5, 2), urgentOrder.getDestination());  
+        assertEquals(10, urgentOrder.getDeliveryTime());  
+        assertEquals(1.2, urgentOrder.getWeight(), 0.001);  
+        assertEquals("Decathlon Cáceres", urgentOrder.getDestinationName());  
+
+        // NonUrgentOrder
+        assertEquals("John", nonUrgentOrder.getSendingName());  
+        assertEquals(new Location(2, 3), nonUrgentOrder.getLocationOrder());  
+        assertEquals(new Location(8, 4), nonUrgentOrder.getDestination());  
+        assertEquals(12, nonUrgentOrder.getDeliveryTime());  
+        assertEquals(2.5, nonUrgentOrder.getWeight(), 0.001);  
+        assertEquals("Carrefour Badajoz", nonUrgentOrder.getDestinationName());  
+
+        // MedicalOrder
+        assertEquals("Maria", medicalOrder.getSendingName());  
+        assertEquals(new Location(1, 1), medicalOrder.getLocationOrder());  
+        assertEquals(new Location(6, 6), medicalOrder.getDestination());  
+        assertEquals(8, medicalOrder.getDeliveryTime());  
+        assertEquals(0.8, medicalOrder.getWeight(), 0.001);  
+        assertEquals("Hospital Cáceres", medicalOrder.getDestinationName());  
     }
 
     /**
-     * Test of the getDeliveryPersonName method.
-     * Ensure that this method gets and returns the name of the delivery person correctly.
+     * Prueba del método getDeliveryPersonName.
+     * Asegura que este método obtiene y devuelve correctamente el nombre del repartidor.
      */
     @Test
     public void testGetDeliveryPersonName()
     {
-        order.setDeliveryPersonName("DP1");  
-        assertEquals("DP1", order.getDeliveryPersonName());
+        urgentOrder.setDeliveryPersonName("DP1");  
+        nonUrgentOrder.setDeliveryPersonName("DP2");
+        medicalOrder.setDeliveryPersonName("DP3");
+
+        assertEquals("DP1", urgentOrder.getDeliveryPersonName());
+        assertEquals("DP2", nonUrgentOrder.getDeliveryPersonName());
+        assertEquals("DP3", medicalOrder.getDeliveryPersonName());
     }
 
     /**
-     * Test of the getDestination method.
-     * Ensure that this method gets and returns the destination location correctly.
+     * Prueba del método charge para cada tipo de pedido.
+     * Asegura que el cargo se calcule correctamente para cada tipo de pedido.
      */
     @Test
-    public void testGetDestination ()
+    public void testCharge()
     {
-        assertEquals(new Location(5, 2), order.getDestination());
+        // UrgentOrder: el cargo debe ser el doble del valor del recargo
+        double expectedUrgentCharge = urgentOrder.getSurcharge().getValor() * 2;
+        assertEquals(expectedUrgentCharge, urgentOrder.charge(), 0.001);
+
+        // NonUrgentOrder: el cargo debe ser igual al valor del recargo
+        double expectedNonUrgentCharge = nonUrgentOrder.getSurcharge().getValor();
+        assertEquals(expectedNonUrgentCharge, nonUrgentOrder.charge(), 0.001);
+
+        // MedicalOrder: el cargo debe ser 0 ya que es gratuito
+        assertEquals(0, medicalOrder.charge(), 0.001);
+    }
+
+    /**
+     * Prueba del método calculateEvaluationDP para cada tipo de pedido.
+     * Asegura que la evaluación para el repartidor se calcule correctamente.
+     */
+    @Test
+    public void testCalculateEvaluationDP()
+    {
+        // UrgentOrder debe devolver una evaluación de 10
+        assertEquals(10, urgentOrder.calculateEvaluationDP());
+        assertEquals(10, urgentOrder.getDeliveryPersonEvaluation());
+
+        // NonUrgentOrder debe devolver una evaluación de 5
+        assertEquals(5, nonUrgentOrder.calculateEvaluationDP());
+        assertEquals(5, nonUrgentOrder.getDeliveryPersonEvaluation());
+
+        // MedicalOrder debe devolver una evaluación de 15
+        assertEquals(15, medicalOrder.calculateEvaluationDP());
+        assertEquals(15, medicalOrder.getDeliveryPersonEvaluation());
     }
 }
+

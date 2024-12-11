@@ -10,7 +10,7 @@ import java.util.*;
  * @version 2016.02.29
  * @version 2024.11.13 DP classes
  */
-public class CopyOfDemoInicialFinal
+public class DemoInicialFinal
 {
     DeliveryCompany company;
     private List<DeliveryPerson> actors; //simulation's actors, they are the delivery persons
@@ -19,7 +19,7 @@ public class CopyOfDemoInicialFinal
     /**
      * Constructor for objects of class DemoOneOrder
      */
-    public CopyOfDemoInicialFinal()
+    public DemoInicialFinal()
     {
         company = new DeliveryCompany("Compañía DP Delivery Cáceres");
         actors = new ArrayList<>();

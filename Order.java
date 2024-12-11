@@ -21,63 +21,6 @@ public abstract class Order
     private Urgency urgency;
     private int dpEvaluation; 
     
-    public enum Surcharge{
-        MEDIUM("Medium", 10), LOW("Low", 4);
-        private final String name;
-        private final int value;
-
-        Surcharge(String name, int value) {
-            this.name = name;
-            this.value = value;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public int getValue() {
-            return value;
-        }
-    }
-
-    public enum Urgency {
-        EMERGENCY("Emergency", 5),
-        IMPORTANT("Important", 3),
-        NONESSENTIAL("Non essential", 1);
-
-        private final String name;
-        private final int value;
-
-        Urgency(String name, int value) {
-            this.name = name;
-            this.value = value;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public int getValue() {
-            return value;
-        }
-    }
-   public Surcharge getSurcharge() {
-        return surcharge;
-    }
-
-    public void setSurcharge(Surcharge surcharge) {
-        this.surcharge = surcharge;
-    }
-
-    public Urgency getUrgency() {
-        return urgency;
-    }
-
-    public void setUrgency(Urgency urgency) {
-        this.urgency = urgency;
-    }
-    
-    
     /**
      * Constructor for objects of class Order
      * @param sendingName The sender's name.
@@ -173,7 +116,36 @@ public abstract class Order
      */
     public String getDestinationName() {
     return destinationName;
-    } 
+    }
+    
+    //ENUM SURCHARGE
+    
+    public Surcharge getSurcharge() {
+        return surcharge;
+    }
+
+    public void setSurcharge(Surcharge surcharge) {
+        this.surcharge = surcharge;
+    }
+    
+    public double getValorSurcharge(){
+        return surcharge.getValor();
+    }
+    
+    //ENUM URGENCY
+    
+    public Urgency getUrgency() {
+        return urgency;
+    }
+
+    public void setUrgency(Urgency urgency) {
+        this.urgency = urgency;
+    }
+    
+    public double getValorUrgency(){
+        return urgency.getValor();
+    }
+    
 
     /**
      * Return details of the passenger, such as where it is.
@@ -197,6 +169,7 @@ public abstract class Order
         
         return "Order delivered at: "+ getDeliveryTime() +" by: "+ getDeliveryPersonName() +" to: " + getDestinationName()+ " from: " + getSendingName();
     }
+    
         public int getDeliveryPersonEvaluation() {
         return dpEvaluation;
     }
@@ -207,6 +180,7 @@ public abstract class Order
     }
 
     public abstract double charge();
+    
     public abstract int calculateEvaluationDP();
 }
  

@@ -14,7 +14,7 @@ public class NonUrgentOrder extends Order
 
     @Override
     public double charge() {
-        return getSurcharge().getValue(); // El recargo es el valor original para pedidos no urgentes
+        return getSurcharge().getValor(); // El recargo es el valor original para pedidos no urgentes
     }
 
     @Override
