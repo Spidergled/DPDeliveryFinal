@@ -1,7 +1,11 @@
+import java.util.*; 
+import java.util.Set;
+
 /**
  * Model the common elements of delivery persons.
  * 
- * @author David J. Barnes and Michael Kölling
+
+* @author David J. Barnes and Michael Kölling
  * @version 2016.02.29
  * @version 2024.10.07 DP classes 
  */
@@ -13,7 +17,11 @@ public class DeliveryPerson
     private int idleCount;    
     private String name; 
     private int ordersDelivered;
-    private Order currentOrder;
+    public TreeSet<Order> ordersToDeliver;
+    private int valuation;
+    private int maxLoad;
+    private double totalCharged;
+    
     /**
      * Constructor of class DeliveryPerson
      * @param company The delivery person's company. Must not be null.
@@ -35,7 +43,10 @@ public class DeliveryPerson
         targetLocation = null;
         idleCount = 0;
         ordersDelivered = 0;
-        currentOrder = null;
+        this.valuation = 0;
+        this.maxLoad= Math.max(1, Math.min(5,maxLoad));
+        this.totalCharged = 0.0;
+        this.ordersToDeliver = new TreeSet<>(new ComparadorOrdersHoraDestino());
         //TODO resto de inicializaciones pendientes
     }
 
@@ -161,7 +172,7 @@ public class DeliveryPerson
      */
     public boolean isFree()
     {
-        return currentOrder == null; //compruba si un repartidor esta libre
+        return ordersToDeliver.isEmpty(); //compruba si un repartidor esta libre
     }
 
     /**
@@ -169,8 +180,10 @@ public class DeliveryPerson
      */
     public void notifyPickupArrival()
     {
-        if(currentOrder != null){
-            company.arrivedAtPickup(this); //notifica de la llegada del paquete a la zona de recogida 
+        if(ordersToDeliver.isEmpty()){
+            Order firstOrder = ordersToDeliver.iterator().next();
+            company.arrivedAtPickup(this);
+            
 
         }
     }
@@ -180,9 +193,9 @@ public class DeliveryPerson
      */
     public void notifyOrderArrival(Order order)
     {
-            if (currentOrder != null) {
-            company.arrivedAtDestination(this, currentOrder);
-            deliverOrder(); // Deliver the order
+            if (order!=null && ordersToDeliver.contains(order)) {
+            company.arrivedAtDestination(this, order);
+            deliverOrder();
             //setLocation(order.getDestination()); // Actualiza la ubicación del repartidor a la ubicación de entrega
         }
     }
@@ -197,7 +210,7 @@ public class DeliveryPerson
         if (order == null) {
         throw new NullPointerException("Cannot pickup a null order");
         }
-        currentOrder = order; //Asigna el pedido actual
+        ordersToDeliver.add(order);
         setTargetLocation(order.getDestination());
         order.setDeliveryPersonName(getName()); 
     
@@ -207,14 +220,28 @@ public class DeliveryPerson
      */
     public void deliverOrder()
     {
-        if(currentOrder != null){  // Solo entrega si hay un pedido actual
+        if(ordersToDeliver.isEmpty()){  
+            throw new IllegalStateException("no hay pedidos");
+        }
+        Order order = ordersToDeliver.iterator().next();
+        ordersToDeliver.remove(order);
         incrementOrdersDelivered();
-        //company.addOrder(currentOrder);
-        // Actualiza la ubicación del repartidor al destino del pedido
-        setLocation(currentOrder.getDestination());
-        currentOrder = null;  // Limpiar el pedido actual después de entregar
-        clearTargetLocation();
-      }
+        //company.addOrder(currentOrder);            
+        setLocation(order.getDestination()); // Actualiza la ubicación del repartidor al destino del pedido
+        clearTargetLocation();  // Limpiar el pedido actual después de entregar
+        incrementTotalCharged(order.charge());
+        incrementValuation(order.calculateEvaluationDP());
+        if(!ordersToDeliver.isEmpty()){
+            setTargetLocation(ordersToDeliver.iterator().next().getDestination());
+        }
+        
+        }
+ 
+    public void incrementTotalCharged(double amount){
+        totalCharged += amount;
+    }
+    public void incrementValuation(int points){
+        valuation += points;
     }
 
     /**
@@ -251,20 +278,23 @@ public class DeliveryPerson
      * Carry out a delivery person's actions.
      */
     public void act() {
-    if (hasTargetLocation()) {
-        Location nextMove = location.nextLocation(targetLocation);
-        setLocation(nextMove);
-        System.out.println("@@@  DeliveryPerson: " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY()); // Muestra movimient
-
-        if (currentOrder != null) {
-            if (location.equals(currentOrder.getLocationOrder())) {
-                notifyPickupArrival();
-            } else if (location.equals(currentOrder.getDestination())) {
-                notifyOrderArrival(currentOrder);
-            }
-        }
-    } else {
-        incrementIdleCount();
+    if (!hasTargetLocation() || ordersToDeliver.isEmpty()) {
+        incrementIdleCount();   
+        
+    }
+    
+    Location nextMove = location.nextLocation(targetLocation);
+    setLocation(nextMove);
+    Order firstOrder = ordersToDeliver.first();
+    System.out.println("@@@  DeliveryPerson: " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY());
+    if(location.equals(firstOrder.getLocationOrder())){
+        notifyPickupArrival();
+    }
+    if(location.equals(firstOrder.getDestination())){
+        notifyOrderArrival(firstOrder);
+        incrementOrdersDelivered();
+        incrementTotalCharged(firstOrder.charge());
+        incrementValuation(firstOrder.calculateEvaluationDP());
     }
     }
     
@@ -273,7 +303,7 @@ public class DeliveryPerson
      * @return The current order, or null if there is none.
      */
      public Order getCurrentOrder() {
-       return currentOrder;
+        return ordersToDeliver.isEmpty() ? null : ordersToDeliver.first();
     }
 
 
