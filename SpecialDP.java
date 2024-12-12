@@ -17,4 +17,8 @@ public class SpecialDP extends DeliveryPerson {
             throw new IllegalArgumentException("SpecialDP solo puede llevar pedidos de tipo Emergency y uno a la vez."); 
         } 
     }
+    
+    public boolean puedeManejarPedido(Urgency urgency) {
+        return urgency == Urgency.EMERGENCY; 
+    }
 }

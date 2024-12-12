@@ -359,8 +359,17 @@ public class DeliveryPerson
     public void setMaxLoad(int maxload){
         this.maxLoad = maxload;
     }
-
     
+    
+    /**
+     * Verifica si la persona de reparto puede manejar el pedido según su urgencia.
+     * @param urgency La urgencia del pedido.
+     * @return True si la persona de reparto puede manejar el pedido, false en caso contrario.
+     */
+    public boolean puedeManejarPedido(Urgency urgency) {
+        return false; // Por defecto, una persona de reparto no puede manejar ningún pedido
+    }
+
     
     /**  
      * Return details of the delivery person, such as the name, the location,

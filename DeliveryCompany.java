@@ -44,10 +44,10 @@ public class DeliveryCompany
     /**
      * @return The list of orders.
      */
-   /* public List<Order> getOrders()
+    public Set<Order> getOrders()
     {
         return wareHouse.getOrders();//devuelve una lista de pedidos
-    }*/
+    }
 
     /**
      * @param Add a new delivery person.
@@ -81,7 +81,8 @@ public class DeliveryCompany
       * Find the closest free delivery person to the warehouse's location, if any.
       * @return A free delivery person, or null if there is none.
       */
-    private DeliveryPerson getDeliveryPerson() {
+    private DeliveryPerson getDeliveryPerson(Order order) {
+    
     // Obtén la ubicación del almacén
     Location warehouseLocation = wareHouse.getLocation();
 
@@ -92,7 +93,7 @@ public class DeliveryCompany
     Iterator<DeliveryPerson> iterator = deliveryPersons.iterator();
     while (iterator.hasNext()) {
         DeliveryPerson dp = iterator.next();
-        if (dp.isFree()) {
+        if (dp.isFree() && dp.puedeManejarPedido(order.getUrgency())) {
             return dp; // Devuelve el primer repartidor libre
         }
     }
@@ -110,7 +111,7 @@ public class DeliveryCompany
      */
     public boolean requestPickup(Order order)
     {
-        DeliveryPerson dp = getDeliveryPerson();
+        DeliveryPerson dp = getDeliveryPerson(order);
         if (dp != null) {
             
             dp.pickup(order);

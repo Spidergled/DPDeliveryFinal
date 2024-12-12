@@ -77,4 +77,8 @@ public class CommonDP extends DeliveryPerson {
     public int getPopularity() {
         return popularity;
     }
+    
+    public boolean puedeManejarPedido(Urgency urgency) {
+        return urgency == Urgency.IMPORTANT || urgency == Urgency.NONESSENTIAL;
+    }
 }
