@@ -170,6 +170,13 @@ public abstract class Order
         return "Order delivered at: "+ getDeliveryTime() +" by: "+ getDeliveryPersonName() +" to: " + getDestinationName()+ " from: " + getSendingName();
     }
     
+    public String showInitialInfo(){
+        
+        return getClass().getName()+" from: "+ getSendingName() + " to: " + getDestinationName() + " at: " + getDeliveryTime() +
+                           " weight: " + getWeight() + " from: " + getLocationOrder().getX()+" - " + getLocationOrder().getY() +
+                           " to: " + getDestination().getX() + " - " + getDestination().getY()+" "+ urgency.toString();
+    }
+    
     public abstract double charge();
     
     public abstract int calculateEvaluationDP();
