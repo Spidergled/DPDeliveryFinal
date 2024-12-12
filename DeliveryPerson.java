@@ -46,7 +46,7 @@ public class DeliveryPerson
         this.valuation = 0;
         this.maxLoad= Math.max(1, Math.min(5,maxLoad));
         this.totalCharged = 0.0;
-        this.ordersToDeliver = new TreeSet<>(new ComparadorOrdersHoraDestino());
+        this.ordersToDeliver = new TreeSet<>(new ComparadorCollectionOrderTipo());
         //TODO resto de inicializaciones pendientes
     }
 
