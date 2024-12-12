@@ -38,9 +38,10 @@ public class DeliveryPersonTest
         // Locations for the order.
         Location pickup = new Location(1, 2);
         Location destination = new Location(5, 6);
-
-         
-        order = new Order("Kevin", pickup, destination,10, 1.2, "Decathlon Cáceres");
+        
+        Surcharge surcharge = Surcharge.MEDIUM; 
+        Urgency urgency = Urgency.EMERGENCY; 
+        order = new StandardOrder("Kevin", pickup, destination, 10, 1.2, "Decathlon Cáceres", urgency, surcharge);
         dp = new DeliveryPerson(company, dpLocation,"DP1");
         //TODO
         //Completar (si es necesario) este método
@@ -66,6 +67,8 @@ public class DeliveryPersonTest
         assertEquals(new Location(0,0), dp.getLocation()); // Verifica que la ubicación inicial del repartidor es (0,0).
         assertEquals("DP1", dp.getName()); // Verifica que el nombre del repartidor es el esperado.
         assertEquals(0,dp.ordersDelivered()); // Verifica que el numero de entregas realizadas es cero.
+        assertEquals("EMERGENCY",order.getUrgency());
+        assertEquals("MEDIUM",order.getSurcharge());
         
         //TODO puede ser implementado comparando otros campos
     }
@@ -124,6 +127,47 @@ public class DeliveryPersonTest
         
         assertEquals(true, pasos < 100);
         
+    }
+    public void testObtenTotalCharge()
+    {
+        // creamos varios pedidos con diferentes cargos
+        Order order1 = new StandardOrder("Alice", new Location(1, 1), new Location(3, 3), 10, 2.0, "Store1", Urgency.EMERGENCY, Surcharge.MEDIUM);
+        Order order2 = new StandardOrder("Bob", new Location(2, 2), new Location(4, 4), 11, 1.5, "Store2", Urgency.IMPORTANT, Surcharge.LOW);
+        dp.pickup(order1);
+        dp.setLocation(order1.getDestination());
+        dp.deliverOrder();
+        dp.pickup(order2);
+        dp.setLocation(order2.getDestination());
+        dp.deliverOrder();
+        
+        double totalCharge = order1.charge() + order2.charge();
+        assertEquals(totalCharge, dp.obtainTotalCharge());
+    }
+    public void testGetOrder()
+    {
+    Order order1 = new StandardOrder("Alice", new Location(1, 1), new Location(3, 3), 10, 2.0, "Store1", Urgency.EMERGENCY, Surcharge.MEDIUM);
+    Order order2 = new StandardOrder("Bob", new Location(2, 2), new Location(4, 4), 11, 1.5, "Store2", Urgency.IMPORTANT, Surcharge.LOW);
+
+    dp.pickup(order1);
+    dp.pickup(order2);
+
+    assertEquals(order1, dp.getCurrentOrder());
+    }
+    public void testact()
+    {
+    Order urgentOrder = new UrgentOrder("Alice", new Location(0, 0), new Location(5, 5), 10, 1.0, "Urgent Store", Urgency.EMERGENCY, Surcharge.MEDIUM);
+    
+    dp.pickup(urgentOrder);
+    
+    int n = 0;
+    while(!dp.getLocation().equals(urgentOrder.getDestination()) && n < 100)
+    {
+        dp.act();
+        n++;
+    }
+    assertEquals (urgentOrder.getDestination(), dp.getLocation());
+    dp.deliverOrder();
+    assertTrue(dp.isFree());
     }
 }
 
