@@ -8,29 +8,35 @@ public class CommonDP extends DeliveryPerson {
 
     public CommonDP(DeliveryCompany company, Location location, String name) {
         super(company, location, name);
-        this.popularity = 6;
+        this.setMaxLoad(4); //Puede llevar hasta 4 pedidos a la vez
+        this.popularity = 6; //Popularidad inicial
     }
 
     @Override
     public void pickup(Order order) {
-        if (order.getUrgency() != Urgency.IMPORTANT && order.getUrgency() != Urgency.NONESSENTIAL) {
-            throw new IllegalArgumentException("CommonDP can only handle orders with IMPORTANT or NONESSENTIAL urgency.");
+        if ((order.getUrgency() == Urgency.IMPORTANT || order.getUrgency() == Urgency.NONESSENTIAL) && getOrdersToDeliver().size() < getMaxLoad()) {
+            super.pickup(order);
+        } else {
+            throw new IllegalArgumentException("CommonDP solo puede llevar pedidos de tipo Important o Non essential y hasta cuatro a la vez.");
         }
-        super.pickup(order);
     }
+    
+    //IMPORTANT
+    //NONESSENTIAL
 
     @Override
     public void act() {
-        if (!hasTargetLocation() || ordersToDeliver.isEmpty()) {
+        if (!hasTargetLocation() || getOrdersToDeliver().isEmpty()) {
             incrementIdleCount();
-            System.out.println("Idle: No orders to deliver.");
-            return;
         }
 
         Location nextMove = getLocation().nextLocation(getTargetLocation());
         setLocation(nextMove);
 
-        Order firstOrder = ordersToDeliver.first();
+        System.out.println("@@@  " + getClass().getName() + " " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY());
+
+        Order firstOrder = getOrdersToDeliver().first();
+
         if (getLocation().equals(firstOrder.getLocationOrder())) {
             notifyPickupArrival();
         }
@@ -40,25 +46,30 @@ public class CommonDP extends DeliveryPerson {
             incrementOrdersDelivered();
             incrementTotalCharged(firstOrder.charge());
             incrementValuation(firstOrder.calculateEvaluationDP());
-
-            // Update popularity
+            
+            //Actualiza popularidad
             if (firstOrder.getUrgency() == Urgency.IMPORTANT) {
                 popularity += 4;
             } else {
                 popularity += 1;
             }
-
-            // Deliver other orders with the same destination
-            Iterator<Order> iterator = ordersToDeliver.iterator();
-            while (iterator.hasNext()) {
-                Order nextOrder = iterator.next();
-                if (nextOrder.getDestination().equals(getTargetLocation())) {
-                    notifyOrderArrival(nextOrder);
-                    incrementOrdersDelivered();
-                    incrementTotalCharged(nextOrder.charge());
-                    incrementValuation(nextOrder.calculateEvaluationDP());
-                    iterator.remove();
-                }
+            
+            getOrdersToDeliver().remove(firstOrder); // Elimina el pedido entregado de la colección
+            
+            // Entrega otros pedidos con la misma targetLocation
+            while (!getOrdersToDeliver().isEmpty() && getOrdersToDeliver().first().getDestination().equals(getTargetLocation())) {
+                Order nextOrder = getOrdersToDeliver().first();
+                notifyOrderArrival(nextOrder);
+                incrementOrdersDelivered();
+                incrementTotalCharged(nextOrder.charge());
+                incrementValuation(nextOrder.calculateEvaluationDP());
+                getOrdersToDeliver().remove(nextOrder);
+            }
+        
+            if (!getOrdersToDeliver().isEmpty()) {
+                setTargetLocation(getOrdersToDeliver().first().getDestination());
+            } else {
+                clearTargetLocation();
             }
         }
     }

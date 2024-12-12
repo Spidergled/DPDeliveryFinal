@@ -181,7 +181,6 @@ public class DeliveryPerson
     public void notifyPickupArrival()
     {
         if(ordersToDeliver.isEmpty()){
-            Order firstOrder = ordersToDeliver.iterator().next();
             company.arrivedAtPickup(this);
             
 
@@ -220,26 +219,47 @@ public class DeliveryPerson
      */
     public void deliverOrder()
     {
-        if(ordersToDeliver.isEmpty()){  
-            throw new IllegalStateException("no hay pedidos");
+        if (ordersToDeliver.isEmpty()) {
+            throw new IllegalStateException("No hay pedidos para entregar.");
         }
-        Order order = ordersToDeliver.iterator().next();
-        ordersToDeliver.remove(order);
-        incrementOrdersDelivered();
-        //company.addOrder(currentOrder);            
-        setLocation(order.getDestination()); // Actualiza la ubicación del repartidor al destino del pedido
-        clearTargetLocation();  // Limpiar el pedido actual después de entregar
-        incrementTotalCharged(order.charge());
-        incrementValuation(order.calculateEvaluationDP());
-        if(!ordersToDeliver.isEmpty()){
-            setTargetLocation(ordersToDeliver.iterator().next().getDestination());
+
+        Order currentOrder = ordersToDeliver.pollFirst(); // Obtiene y elimina el primer pedido
+
+        // Verifica si está en el destino del pedido
+        if (location.equals(currentOrder.getDestination())) {
+            incrementTotalCharged(currentOrder.charge()); // Incrementa el dinero cobrado
+            incrementOrdersDelivered(); // Incrementa el número de pedidos entregados
+            incrementValuation(currentOrder.calculateEvaluationDP()); // Actualiza la valoración automática
+            company.addOrder(currentOrder); // Envía el pedido a la compañía para almacenarlo en el almacen
+
+            if (!ordersToDeliver.isEmpty()) {
+                // Actualiza la ubicación objetivo al siguiente pedido
+                setTargetLocation(ordersToDeliver.first().getDestination());
+            } else {
+                clearTargetLocation();
+            }
+        } else {
+            throw new IllegalStateException("No está en el destino del pedido actual.");
         }
-        
-        }
- 
+    }
+    
+    /**
+     * @return incrementa el total cobrado
+     */
     public void incrementTotalCharged(double amount){
         totalCharged += amount;
     }
+    
+    /**
+     * @return obtener el total cobrado
+     */
+    public double obtainTotalCharge() {
+        return totalCharged;
+    }
+    
+    /**
+     * @return incrementa la valoración
+     */
     public void incrementValuation(int points){
         valuation += points;
     }
@@ -278,20 +298,30 @@ public class DeliveryPerson
      * Carry out a delivery person's actions.
      */
     public void act() {
+    // Verifica si hay destino asignado o pedidos en la lista
     if (!hasTargetLocation() || ordersToDeliver.isEmpty()) {
         incrementIdleCount();   
         
     }
     
+    // Calcula la siguiente posición hacia el destino
     Location nextMove = location.nextLocation(targetLocation);
     setLocation(nextMove);
+    
+    
+    System.out.println("@@@  "+getClass().getName()+" "+ getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY());
+    
+    // Obtén el primer pedido de la lista
     Order firstOrder = ordersToDeliver.first();
-    System.out.println("@@@  DeliveryPerson: " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY());
+    
+     // Verifica si ha llegado a recoger el pedido
     if(location.equals(firstOrder.getLocationOrder())){
-        notifyPickupArrival();
+        notifyPickupArrival(); // Notifica a la compañía que llegó al lugar de recogida
     }
+    
+    // Verifica si ha llegado al destino del pedido
     if(location.equals(firstOrder.getDestination())){
-        notifyOrderArrival(firstOrder);
+        notifyOrderArrival(firstOrder); // Notifica a la compañía que llegó al destino del pedido
         incrementOrdersDelivered();
         incrementTotalCharged(firstOrder.charge());
         incrementValuation(firstOrder.calculateEvaluationDP());
@@ -305,9 +335,33 @@ public class DeliveryPerson
      public Order getCurrentOrder() {
         return ordersToDeliver.isEmpty() ? null : ordersToDeliver.first();
     }
+    
+    public double getTotalCharged() {
+        return totalCharged;
+    }
+    
+    public TreeSet<Order> getOrdersToDeliver() {
+        return ordersToDeliver;
+    }
+    
+    public int getValuation() {
+        return valuation;
+    }
+    
+    public void setValuation(int valuation){
+        this.valuation = valuation;
+    }
+    
+    public int getMaxLoad(){
+        return maxLoad;
+    }
+    
+    public void setMaxLoad(int maxload){
+        this.maxLoad = maxload;
+    }
 
-
- 
+    
+    
     /**  
      * Return details of the delivery person, such as the name, the location,
      * number of delivered orders and time (steps) without moving.
@@ -316,7 +370,7 @@ public class DeliveryPerson
     public String showFinalInfo()
     {
         //TODO  implementar este método
-        return "DeliveryPerson " + getName() + " at " + getLocation() + " - orders delivered: " + ordersDelivered() + " - non active for: " + getIdleCount() + " times";
+        return getClass().getName() + " " + getName() + " at " + getLocation() + " - orders delivered: " + ordersDelivered() + " - non active for: " + getIdleCount() + " times" + " - total to be collected: "+ getTotalCharged() +" - valuation: "+getValuation();
 
     }
 
