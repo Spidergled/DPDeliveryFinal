@@ -23,9 +23,9 @@ public class DemoOneOrderFinal
     {
         company = new DeliveryCompany("Compañía DP Delivery Cáceres");
         actors = new ArrayList<>();
-
+        
         reset();
-
+        run();
 
 
     }
@@ -177,7 +177,6 @@ public class DemoOneOrderFinal
         //Mostrar los orders obtenidos
         
         Iterator<Map.Entry<Order, DeliveryPerson>> it = deliveredOrders.entrySet().iterator();
-
         while (it.hasNext()) {
             Map.Entry<Order, DeliveryPerson> entry = it.next();
             Order order = entry.getKey();
