@@ -180,8 +180,10 @@ public class DeliveryPerson
      */
     public void notifyPickupArrival()
     {
-        if(ordersToDeliver.isEmpty()){
+        if(!ordersToDeliver.isEmpty()){
+            Order currentOrder = ordersToDeliver.first();
             company.arrivedAtPickup(this);
+            setTargetLocation(currentOrder.getDestination());
             
 
         }
@@ -300,33 +302,30 @@ public class DeliveryPerson
     public void act() {
     // Verifica si hay destino asignado o pedidos en la lista
     if (!hasTargetLocation() || ordersToDeliver.isEmpty()) {
-        incrementIdleCount();   
-        
+        incrementIdleCount();
+        return; // Salir del método si no hay destino asignado o pedidos
     }
-    
+
     // Calcula la siguiente posición hacia el destino
     Location nextMove = location.nextLocation(targetLocation);
     setLocation(nextMove);
-    
-    
-    System.out.println("@@@  "+getClass().getName()+" "+ getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY());
-    
-    // Obtén el primer pedido de la lista
-    Order firstOrder = ordersToDeliver.first();
-    
-     // Verifica si ha llegado a recoger el pedido
-    if(location.equals(firstOrder.getLocationOrder())){
-        notifyPickupArrival(); // Notifica a la compañía que llegó al lugar de recogida
-    }
-    
-    // Verifica si ha llegado al destino del pedido
-    if(location.equals(firstOrder.getDestination())){
-        notifyOrderArrival(firstOrder); // Notifica a la compañía que llegó al destino del pedido
-        incrementOrdersDelivered();
-        incrementTotalCharged(firstOrder.charge());
-        incrementValuation(firstOrder.calculateEvaluationDP());
+
+    System.out.println("@@@  " + getClass().getName() + " " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY());
+
+    // Obtener el primer pedido de la lista
+    Order currentOrder = getCurrentOrder();
+    if (currentOrder != null) {
+        // Verifica si ha llegado a recoger el pedido
+        if (location.equals(currentOrder.getLocationOrder())) {
+            notifyPickupArrival(); // Notifica a la compañía que llegó al lugar de recogida
+        }
+        // Verifica si ha llegado al destino del pedido
+        else if (location.equals(currentOrder.getDestination())) {
+            notifyOrderArrival(currentOrder); // Notifica a la compañía que llegó al destino del pedido
+        }
     }
     }
+
     
     /**
      * Get the current order.

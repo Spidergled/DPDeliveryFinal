@@ -167,7 +167,7 @@ public abstract class Order
     public String showFinalInfo()
     {
         
-        return "Order delivered at: "+ getDeliveryTime() +" by: "+ getDeliveryPersonName() +" to: " + getDestinationName()+ " from: " + getSendingName();
+        return getClass().getSimpleName()+"delivered at: "+ getDeliveryTime() +" by: "+ getDeliveryPersonName() +" to: " + getDestinationName()+ " from: " + getSendingName();
     }
     
     public String showInitialInfo(){

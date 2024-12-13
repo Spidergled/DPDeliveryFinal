@@ -111,20 +111,31 @@ public class DeliveryCompany
      */
     public boolean requestPickup(Order order)
     {
-        DeliveryPerson dp = getDeliveryPerson(order);
-        if (dp != null) {
-            
+          // Encuentra un DeliveryPerson libre compatible con el tipo de pedido
+    DeliveryPerson dp = getDeliveryPerson(order);
+    
+    if (dp != null) {
+        // Valida si puede manejar este pedido
+        if (dp.puedeManejarPedido(order.getUrgency())) {
+            // Configura el lugar de recogida y asigna el pedido
             dp.pickup(order);
             dp.setPickupLocation(order.getLocationOrder());
+            dp.setTargetLocation(order.getLocationOrder()); // Asigna targetLocation al lugar de recogida
             order.setDeliveryPersonName(dp.getName());
             
-            System.out.println("<<<< DeliveryPerson " + dp.getName() + 
+            // Mensaje de depuración
+            System.out.println("<<<< "+getClass().getName()+ " " + dp.getName() +
                                " at " + dp.getLocation() +
                                " go to pick up order from " + order.getSendingName() + 
                                " at " + order.getLocationOrder());
+            
             return true;
+        } else {
+            System.out.println("DeliveryPerson " + dp.getName() + " cannot handle this type of order.");
         }
-        return false;
+    }
+    // No se encontró un repartidor libre compatible
+    return false;
     }
     
 
@@ -138,7 +149,7 @@ public class DeliveryCompany
         if (currentOrder != null && dp.getLocation().equals(currentOrder.getLocationOrder())) {
             //dp.pickup(currentOrder); // si sigo las instrrucciones de la entrega deberia poner el pickup aqui, pero me imprime mal
             dp.setTargetLocation(currentOrder.getDestination());
-            System.out.println("<<<< DeliveryPerson " + dp.getName() + " at "+ dp.getLocation()+" picks up order from " + currentOrder.getSendingName()
+            System.out.println("<<<< "+getClass().getName()+ " " + dp.getName() + " at "+ dp.getLocation()+" picks up order from " + currentOrder.getSendingName()
             + " to: " + currentOrder.getDestination());
         }
                                  
@@ -150,7 +161,7 @@ public class DeliveryCompany
      * @param order The order being dropped off.
      */
     public void arrivedAtDestination(DeliveryPerson dp, Order order) {
-        System.out.println("<<<< DeliveryPerson "+ dp.getName() + " at " + dp.getLocation() + " delivers Order at: " + order.getDeliveryTime() 
+        System.out.println("<<<< "+getClass().getName()+ " "+ dp.getName()  + " at " + dp.getLocation() + " delivers Order at: " + order.getDeliveryTime() 
         + " from: " + order.getSendingName() + " to: " + order.getDestinationName());
                                      
     }

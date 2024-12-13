@@ -25,8 +25,7 @@ public class DemoOneOrderFinal
         actors = new ArrayList<>();
 
         reset();
-
-
+        run();
 
     }
 
@@ -152,7 +151,7 @@ public class DemoOneOrderFinal
         //Obtenemos los orders entregados con sus objetos DeliveryPerson asociados
         //desde el almacén (vienen ya ordenados)
         //TODO declarar colección ordersDelivered = company.getWareHouse().getDeliveredOrders();
-        Map <Order, DeliveryPerson> deliveredOrders=company.getWareHouse().getDeliveredOrders();
+        Map <Order, DeliveryPerson> ordersDelivered=company.getWareHouse().getDeliveredOrders();
         System.out.println("");
         System.out.println("-->> ----------------- <<--");
         System.out.println("-->> End of simulation <<--");        
@@ -176,7 +175,7 @@ public class DemoOneOrderFinal
         // lo entregó
         //Mostrar los orders obtenidos
         
-        Iterator<Map.Entry<Order, DeliveryPerson>> it = deliveredOrders.entrySet().iterator();
+        Iterator<Map.Entry<Order, DeliveryPerson>> it = ordersDelivered.entrySet().iterator();
 
         while (it.hasNext()) {
             Map.Entry<Order, DeliveryPerson> entry = it.next();
@@ -184,5 +183,5 @@ public class DemoOneOrderFinal
             DeliveryPerson deliveryPerson = entry.getValue();
            System.out.println(order.showFinalInfo());
         }
-}
+    }
 }
