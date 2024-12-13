@@ -60,9 +60,6 @@ public class CommonDP extends DeliveryPerson {
             while (!getOrdersToDeliver().isEmpty() && getOrdersToDeliver().first().getDestination().equals(getTargetLocation())) {
                 Order nextOrder = getOrdersToDeliver().first();
                 notifyOrderArrival(nextOrder);
-                incrementOrdersDelivered();
-                incrementTotalCharged(nextOrder.charge());
-                incrementValuation(nextOrder.calculateEvaluationDP());
                 getOrdersToDeliver().remove(nextOrder);
             }
         

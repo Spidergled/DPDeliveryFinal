@@ -21,7 +21,7 @@ public class MedicalOrder extends Order
      */
     @Override
     public double charge() {
-    double charge=0.0;
+    double charge=0;
        return charge;
     }
 

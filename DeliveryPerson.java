@@ -211,6 +211,10 @@ public class DeliveryPerson
         if (order == null) {
         throw new NullPointerException("Cannot pickup a null order");
         }
+        
+        if (ordersToDeliver.size() >= maxLoad) {
+        throw new IllegalStateException("Cannot pickup more orders. Maximum load reached.");
+        }
         ordersToDeliver.add(order);
         setTargetLocation(order.getDestination());
         order.setDeliveryPersonName(getName()); 

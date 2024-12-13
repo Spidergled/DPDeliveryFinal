@@ -174,7 +174,7 @@ public abstract class Order
         
         return getClass().getName()+" from: "+ getSendingName() + " to: " + getDestinationName() + " at: " + getDeliveryTime() +
                            " weight: " + getWeight() + " from: " + getLocationOrder().getX()+" - " + getLocationOrder().getY() +
-                           " to: " + getDestination().getX() + " - " + getDestination().getY()+" "+ urgency.toString();
+                           " to: " + getDestination().getX() + " - " + getDestination().getY()+" "+ urgency.toString()+" "+(surcharge != null ? " " + surcharge.toString() : "");
     }
     
     public abstract double charge();
