@@ -234,6 +234,7 @@ public class DeliveryPerson
             incrementValuation(currentOrder.calculateEvaluationDP()); // Actualiza la valoración automática
             company.addOrder(currentOrder); // Envía el pedido a la compañía para almacenarlo en el almacen
 
+
             if (!ordersToDeliver.isEmpty()) {
                 // Actualiza la ubicación objetivo al siguiente pedido
                 setTargetLocation(ordersToDeliver.first().getDestination());

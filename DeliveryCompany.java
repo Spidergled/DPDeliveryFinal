@@ -123,6 +123,8 @@ public class DeliveryCompany
             dp.setTargetLocation(order.getLocationOrder()); // Asigna targetLocation al lugar de recogida
             order.setDeliveryPersonName(dp.getName());
             
+            
+            
             // Mensaje de depuración
             System.out.println("<<<< "+getClass().getName()+ " " + dp.getName() +
                                " at " + dp.getLocation() +
@@ -161,6 +163,7 @@ public class DeliveryCompany
      * @param order The order being dropped off.
      */
     public void arrivedAtDestination(DeliveryPerson dp, Order order) {
+        wareHouse.addDeliveredOrder(order, dp);
         System.out.println("<<<< "+getClass().getName()+ " "+ dp.getName()  + " at " + dp.getLocation() + " delivers Order at: " + order.getDeliveryTime() 
         + " from: " + order.getSendingName() + " to: " + order.getDestinationName());
                                      

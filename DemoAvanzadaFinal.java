@@ -25,6 +25,7 @@ public class DemoAvanzadaFinal
         actors = new ArrayList<>();
 
         reset();
+        run();
     }
 
     /**
@@ -120,6 +121,7 @@ public class DemoAvanzadaFinal
         //Obtener los orders desde wareHouse
         //ya vienen ordenados por su tipo de urgency, hora de llegada y destinationName
         //TODO colección   orders = company.getOrders();
+        Set<Order> orders=company.getOrders();
         Iterator<Order> it = orders.iterator();
         while(it.hasNext()) {
             Order order = it.next();
@@ -137,11 +139,13 @@ public class DemoAvanzadaFinal
         List<DeliveryPerson> deliveryPersons = company.getDeliveryPersons();
         //Obtenemos los objetos Orders del almacén (vienen ya ordenados)
         //TODO colección  orders = company.getOrders();
+        Set<Order> orders=company.getOrders();
 
         System.out.println("--->> Simulation of the company: "+company.getName()+" <<---");
         System.out.println("-->> Delivery persons of the company <<--");
         System.out.println("-->> ------------------------------- <<--");
         //TODO ordenar (por su nombre) y mostrar los objetos delivery persons
+        Collections.sort(deliveryPersons, new ComparadorPedidosEntregadosNombre());
         for(DeliveryPerson  dp : deliveryPersons) {
             System.out.println(dp);
         }
@@ -168,6 +172,7 @@ public class DemoAvanzadaFinal
         //Obtenemos los orders entregados con sus objetos DeliveryPerson asociados
         //desde el almacén (vienen ya ordenados)
         //TODO declarar colección ordersDelivered = company.getWareHouse().getDeliveredOrders();
+        Map <Order, DeliveryPerson> ordersDelivered=company.getWareHouse().getDeliveredOrders();
 
         System.out.println("");
         System.out.println("-->> ----------------- <<--");
@@ -178,7 +183,8 @@ public class DemoAvanzadaFinal
         System.out.println("-->> Delivery persons final information <<--");
         System.out.println("-->> ---------------------------------- <<--");
         //TODO ordenar (por número de pedidos entregados y si empate por nombre) 
-        // y mostrar los objetos delivery persons        
+        // y mostrar los objetos delivery persons 
+        Collections.sort(deliveryPersons, new ComparadorPedidosEntregadosNombre());
         for(DeliveryPerson  dp : deliveryPersons) {
             System.out.println(dp.showFinalInfo());
         }
@@ -190,6 +196,14 @@ public class DemoAvanzadaFinal
         // en caso de empate por la hora de entrega y mostrar los pedidos y quién 
         // lo entregó
         //Mostrar los orders obtenidos
+        Iterator<Map.Entry<Order, DeliveryPerson>> it = ordersDelivered.entrySet().iterator();
+
+        while (it.hasNext()) {
+            Map.Entry<Order, DeliveryPerson> entry = it.next();
+            Order order = entry.getKey();
+            DeliveryPerson deliveryPerson = entry.getValue();
+           System.out.println(order.showFinalInfo());
+        }
         
 
     }

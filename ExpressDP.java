@@ -34,9 +34,6 @@ public class ExpressDP extends DeliveryPerson {
 
         if (getLocation().equals(firstOrder.getDestination())) {
             notifyOrderArrival(firstOrder);
-            incrementOrdersDelivered();
-            incrementTotalCharged(firstOrder.charge());
-            incrementValuation(firstOrder.calculateEvaluationDP());
 
             getOrdersToDeliver().remove(firstOrder); // Elimina el pedido entregado de la colección
 
