@@ -116,8 +116,10 @@ public class DeliveryCompany
     
     if (dp != null) {
         // Valida si puede manejar este pedido
+        System.out.println("Repartidor encontrado: " + dp.getClass().getSimpleName() + " " + dp.getName());
         if (dp.puedeManejarPedido(order.getUrgency())) {
             // Configura el lugar de recogida y asigna el pedido
+            System.out.println("Repartidor " + dp.getName() + " puede manejar el pedido.");
             dp.pickup(order);
             dp.setPickupLocation(order.getLocationOrder());
             dp.setTargetLocation(order.getLocationOrder()); // Asigna targetLocation al lugar de recogida
@@ -126,7 +128,7 @@ public class DeliveryCompany
             
             
             // Mensaje de depuración
-            System.out.println("<<<< "+getClass().getName()+ " " + dp.getName() +
+            System.out.println("<<<< "+dp.getClass().getSimpleName()+ " " + dp.getName() +
                                " at " + dp.getLocation() +
                                " go to pick up order from " + order.getSendingName() + 
                                " at " + order.getLocationOrder());

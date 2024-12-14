@@ -116,6 +116,15 @@ public class DemoInicialFinal
         Iterator<Order> it = orders.iterator();
         while(it.hasNext()) {
             Order order = it.next();
+            
+            // Depuración: Imprimir información del pedido actual
+            System.out.println("Procesando pedido: " + order);
+            
+            if(!company.requestPickup(order)) {
+                System.out.println("No se pudo asignar un repartidor para el pedido: " + order);
+                System.out.println("Repartidores disponibles: " + company.getDeliveryPersons()); // Depuracion 
+                throw new IllegalStateException("Failed to find a pickup.");        
+            }
         }
     }
 
