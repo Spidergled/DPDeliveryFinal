@@ -26,7 +26,7 @@ public class CommonDP extends DeliveryPerson {
 
     @Override
     public void act() {
-        if (!hasTargetLocation() || getOrdersToDeliver().isEmpty()) {
+        if (!hasTargetLocation() || getOrdersToDeliver().isEmpty() && getOrdersToDeliver().size() < getMaxLoad()) {
             incrementIdleCount();
         }
 
@@ -76,6 +76,9 @@ public class CommonDP extends DeliveryPerson {
     }
     
     public boolean puedeManejarPedido(Urgency urgency) {
+        if(getOrdersToDeliver().size()<getMaxLoad()){
         return urgency == Urgency.IMPORTANT || urgency == Urgency.NONESSENTIAL;
+    }
+    return false;
     }
 }

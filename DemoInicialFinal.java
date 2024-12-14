@@ -116,9 +116,6 @@ public class DemoInicialFinal
         Iterator<Order> it = orders.iterator();
         while(it.hasNext()) {
             Order order = it.next();
-            if(!company.requestPickup(order)) {
-                throw new IllegalStateException("Failed to find a pickup.");        
-            }
         }
     }
 
