@@ -76,6 +76,7 @@ public class Location
         }else if(this.y > destination.getY()){//paso atras en y
             nextY--;
         }
+        
 
         
         //Crear la nueva posición
@@ -83,6 +84,7 @@ public class Location
     
         //Devolver la nueva posicion, no el destino
         return nuevoDestino;
+        
     }
 
     /**

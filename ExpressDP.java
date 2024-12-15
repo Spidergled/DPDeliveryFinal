@@ -19,6 +19,7 @@ public class ExpressDP extends DeliveryPerson {
     public void act() {
         if (!hasTargetLocation() || getOrdersToDeliver().isEmpty()) {
             incrementIdleCount();
+            return;
         }
 
         Location nextMove = getLocation().nextLocation(getTargetLocation());

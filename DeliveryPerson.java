@@ -200,7 +200,13 @@ public class DeliveryPerson
             if (order!=null && ordersToDeliver.contains(order)) {
             company.arrivedAtDestination(this, order);
             deliverOrder();
-            //setLocation(order.getDestination()); // Actualiza la ubicación del repartidor a la ubicación de entrega
+            if(!ordersToDeliver.isEmpty()){
+                setTargetLocation(ordersToDeliver.first().getDestination());
+            }
+            else{
+                clearTargetLocation();
+            }
+            setLocation(order.getDestination()); // Actualiza la ubicación del repartidor a la ubicación de entrega
         }
     }
 
@@ -248,8 +254,6 @@ public class DeliveryPerson
             } else {
                 clearTargetLocation();
             }
-        } else {
-            throw new IllegalStateException("No está en el destino del pedido actual.");
         }
     }
     
@@ -311,7 +315,8 @@ public class DeliveryPerson
     // Verifica si hay destino asignado o pedidos en la lista
     if (!hasTargetLocation() || ordersToDeliver.isEmpty()) {
         incrementIdleCount();
-        return; // Salir del método si no hay destino asignado o pedidos
+        return;
+         // Salir del método si no hay destino asignado o pedidos
     }
 
     // Calcula la siguiente posición hacia el destino
