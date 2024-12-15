@@ -20,6 +20,6 @@ public class NonUrgentOrder extends Order
 
     @Override
     public int calculateEvaluationDP() {
-    return 15; 
+    return 5; 
     }
 }
