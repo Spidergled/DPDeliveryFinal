@@ -234,7 +234,8 @@ public class DeliveryPerson
  */
 public void deliverOrder() {
     if (ordersToDeliver.isEmpty()) {
-        throw new IllegalStateException("No hay pedidos para entregar.");
+        incrementIdleCount();
+        return; 
     }
     
     Order currentOrder = ordersToDeliver.pollFirst(); // Obtiene y elimina el primer pedido
