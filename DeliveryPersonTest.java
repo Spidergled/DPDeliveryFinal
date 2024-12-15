@@ -66,10 +66,10 @@ public class DeliveryPersonTest
         assertEquals(true, dp.isFree());
         assertEquals(new Location(0,0), dp.getLocation()); // Verifica que la ubicación inicial del repartidor es (0,0).
         assertEquals("DP1", dp.getName()); // Verifica que el nombre del repartidor es el esperado.
-        assertEquals(0,dp.ordersDelivered()); // Verifica que el numero de entregas realizadas es cero.
-        assertEquals("EMERGENCY",order.getUrgency());
-        assertEquals("MEDIUM",order.getSurcharge());
-        
+        assertEquals(0,dp.getOrdersDelivered()); // Verifica que el numero de entregas realizadas es cero.
+        assertEquals(Urgency.EMERGENCY, order.getUrgency());
+        assertEquals(Surcharge.MEDIUM, order.getSurcharge());
+            
         //TODO puede ser implementado comparando otros campos
     }
 
@@ -98,7 +98,7 @@ public class DeliveryPersonTest
         dp.pickup(order); // El repartidor recoge el pedido.
         dp.deliverOrder(); // El repartidor entrega el pedido.
         assertEquals(true,dp.isFree()); // Verifica que el repartidor esta libre despues de la entrega.
-        assertEquals(1, dp.ordersDelivered()); // Verifica que el contador de entregas ha incrementado.
+        assertEquals(1, dp.getOrdersDelivered()); // Verifica que el contador de entregas ha incrementado.
     }
 
     /**
@@ -110,7 +110,8 @@ public class DeliveryPersonTest
     {
         //TODO implementar este método
         dp.pickup(order);
-        
+        assertEquals(1, dp.getOrdersToDeliver().size()); // Verifica que el pedido está en la lista.
+
         int pasos = 0;
         
         while(!dp.getLocation().equals(order.getDestination()) && pasos < 100){
@@ -123,7 +124,7 @@ public class DeliveryPersonTest
         dp.deliverOrder();
         
         assertEquals(true, dp.isFree());
-        assertEquals(1, dp.ordersDelivered());
+        assertEquals(1, dp.getOrdersDelivered());
         
         assertEquals(true, pasos < 100);
         
