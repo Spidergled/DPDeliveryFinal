@@ -44,6 +44,7 @@ public class DeliveryPerson
         idleCount = 0;
         ordersDelivered = 0;
         this.valuation = 0;
+        this.maxLoad = 1;
         this.maxLoad= Math.max(1, Math.min(5,maxLoad));
         this.totalCharged = 0.0;
         this.ordersToDeliver = new TreeSet<>(new ComparadorCollectionOrderTipo());
@@ -172,7 +173,9 @@ public class DeliveryPerson
      */
     public boolean isFree()
     {
-        return ordersToDeliver.isEmpty(); //compruba si un repartidor esta libre
+        //System.out.println("Repartidor: " + getName() + " - maxPedidos: " + getMaxLoad() + " - ordersToDeliver size: " + getOrdersToDeliver().size());
+
+        return ordersToDeliver.size() < getMaxLoad(); //comprueba si un repartidor esta libre
     }
 
     /**
@@ -228,7 +231,7 @@ public class DeliveryPerson
         if (ordersToDeliver.isEmpty()) {
             throw new IllegalStateException("No hay pedidos para entregar.");
         }
-
+        
         Order currentOrder = ordersToDeliver.pollFirst(); // Obtiene y elimina el primer pedido
 
         // Verifica si está en el destino del pedido

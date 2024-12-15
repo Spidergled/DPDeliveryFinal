@@ -88,17 +88,21 @@ public class DeliveryCompany
 
     // Ordena la lista de repartidores usando el comparador
     deliveryPersons.sort(new ComparadorDeliveryPerson(warehouseLocation));
-
+    
+    
     // Utilizar iterador para buscar el primer repartidor libre
     Iterator<DeliveryPerson> iterator = deliveryPersons.iterator();
     while (iterator.hasNext()) {
         DeliveryPerson dp = iterator.next();
+        //System.out.println("Verificando repartidor: " + dp.getClass().getSimpleName() + " " + dp.getName() + " - Libre: " + dp.isFree() + " - Puede manejar: "+ dp.puedeManejarPedido(order.getUrgency()));
         if (dp.isFree() && dp.puedeManejarPedido(order.getUrgency())) {
+            //System.out.println("Repartidor asignado: " + dp.getClass().getSimpleName() + " " + dp.getName());
             return dp; // Devuelve el primer repartidor libre
         }
     }
 
     // Si no se encuentra un repartidor libre
+    System.out.println("No se encontró un repartidor libre compatible para el pedido: " + order);
     return null;
     }
 
@@ -116,27 +120,30 @@ public class DeliveryCompany
     
     if (dp != null) {
         // Valida si puede manejar este pedido
-        System.out.println("Repartidor encontrado: " + dp.getClass().getSimpleName() + " " + dp.getName());
         if (dp.puedeManejarPedido(order.getUrgency())) {
             // Configura el lugar de recogida y asigna el pedido
-            System.out.println("Repartidor " + dp.getName() + " puede manejar el pedido.");
+            //System.out.println("Repartidor " + dp.getName() + " puede manejar el pedido.");
             dp.pickup(order);
             dp.setPickupLocation(order.getLocationOrder());
             dp.setTargetLocation(order.getLocationOrder()); // Asigna targetLocation al lugar de recogida
             order.setDeliveryPersonName(dp.getName());
             
-            
+            // Mensaje de depuración: Pedido asignado al repartidor 
+            //System.out.println("Pedido asignado: " + order + " a " + dp.getClass().getSimpleName() + " "+ dp.getName());
             
             // Mensaje de depuración
             System.out.println("<<<< "+dp.getClass().getSimpleName()+ " " + dp.getName() +
                                " at " + dp.getLocation() +
                                " go to pick up order from " + order.getSendingName() + 
                                " at " + order.getLocationOrder());
-            
+                               
+
             return true;
         } else {
             System.out.println("DeliveryPerson " + dp.getName() + " cannot handle this type of order.");
         }
+    }else{
+        System.out.println("No se encontró un repartidor libre compatible para el pedido: " + order);
     }
     // No se encontró un repartidor libre compatible
     return false;
@@ -153,7 +160,7 @@ public class DeliveryCompany
         if (currentOrder != null && dp.getLocation().equals(currentOrder.getLocationOrder())) {
             //dp.pickup(currentOrder); // si sigo las instrrucciones de la entrega deberia poner el pickup aqui, pero me imprime mal
             dp.setTargetLocation(currentOrder.getDestination());
-            System.out.println("<<<< "+getClass().getName()+ " " + dp.getName() + " at "+ dp.getLocation()+" picks up order from " + currentOrder.getSendingName()
+            System.out.println("<<<< "+dp.getClass().getName()+ " " + dp.getName() + " at "+ dp.getLocation()+" picks up order from " + currentOrder.getSendingName()
             + " to: " + currentOrder.getDestination());
         }
                                  
@@ -166,7 +173,7 @@ public class DeliveryCompany
      */
     public void arrivedAtDestination(DeliveryPerson dp, Order order) {
         wareHouse.addDeliveredOrder(order, dp);
-        System.out.println("<<<< "+getClass().getName()+ " "+ dp.getName()  + " at " + dp.getLocation() + " delivers Order at: " + order.getDeliveryTime() 
+        System.out.println("<<<< "+dp.getClass().getName()+ " "+ dp.getName()  + " at " + dp.getLocation() + " delivers Order at: " + order.getDeliveryTime() 
         + " from: " + order.getSendingName() + " to: " + order.getDestinationName());
                                      
     }

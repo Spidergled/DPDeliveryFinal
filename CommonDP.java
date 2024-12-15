@@ -8,30 +8,35 @@ public class CommonDP extends DeliveryPerson {
 
     public CommonDP(DeliveryCompany company, Location location, String name) {
         super(company, location, name);
-        this.setMaxLoad(4); //Puede llevar hasta 4 pedidos a la vez
-        this.popularity = 6; //Popularidad inicial
+        this.setMaxLoad(4); // Puede llevar hasta 4 pedidos a la vez
+        this.popularity = 6; // Popularidad inicial
     }
 
     @Override
     public void pickup(Order order) {
-        if ((order.getUrgency() == Urgency.IMPORTANT || order.getUrgency() == Urgency.NONESSENTIAL) && getOrdersToDeliver().size() < getMaxLoad()) {
-            super.pickup(order);
+        if (getOrdersToDeliver().size() < getMaxLoad()) {
+            if (order.getUrgency() == Urgency.IMPORTANT || order.getUrgency() == Urgency.NONESSENTIAL) {
+                super.pickup(order);
+            } else {
+                throw new IllegalArgumentException(getClass().getSimpleName() + " no puede manejar este tipo de pedido.");
+            }
         } else {
-            throw new IllegalArgumentException("CommonDP solo puede llevar pedidos de tipo Important o Non essential y hasta cuatro a la vez.");
+            throw new IllegalStateException(getClass().getSimpleName() + " ha alcanzado su capacidad máxima.");
         }
     }
     
-    //IMPORTANT
-    //NONESSENTIAL
+    
 
     @Override
     public void act() {
-        if (!hasTargetLocation() || getOrdersToDeliver().isEmpty() && getOrdersToDeliver().size() < getMaxLoad()) {
+        if (!hasTargetLocation() || getOrdersToDeliver().isEmpty()) {
             incrementIdleCount();
+            return;
         }
 
         Location nextMove = getLocation().nextLocation(getTargetLocation());
         setLocation(nextMove);
+
 
         System.out.println("@@@  " + getClass().getName() + " " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY());
 
@@ -43,11 +48,9 @@ public class CommonDP extends DeliveryPerson {
 
         if (getLocation().equals(firstOrder.getDestination())) {
             notifyOrderArrival(firstOrder);
-            incrementOrdersDelivered();
-            incrementTotalCharged(firstOrder.charge());
-            incrementValuation(firstOrder.calculateEvaluationDP());
+        
             
-            //Actualiza popularidad
+            // Actualiza popularidad
             if (firstOrder.getUrgency() == Urgency.IMPORTANT) {
                 popularity += 4;
             } else {
@@ -62,6 +65,7 @@ public class CommonDP extends DeliveryPerson {
                 notifyOrderArrival(nextOrder);
                 getOrdersToDeliver().remove(nextOrder);
             }
+            
         
             if (!getOrdersToDeliver().isEmpty()) {
                 setTargetLocation(getOrdersToDeliver().first().getDestination());
@@ -69,16 +73,18 @@ public class CommonDP extends DeliveryPerson {
                 clearTargetLocation();
             }
         }
+         
     }
 
     public int getPopularity() {
         return popularity;
     }
-    
+
     public boolean puedeManejarPedido(Urgency urgency) {
-        if(getOrdersToDeliver().size()<getMaxLoad()){
-        return urgency == Urgency.IMPORTANT || urgency == Urgency.NONESSENTIAL;
-    }
-    return false;
+        return (urgency == Urgency.IMPORTANT || urgency == Urgency.NONESSENTIAL) &&
+               getOrdersToDeliver().size() < getMaxLoad();
     }
 }
+
+
+

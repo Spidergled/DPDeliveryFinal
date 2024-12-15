@@ -121,8 +121,8 @@ public class DemoInicialFinal
             System.out.println("Procesando pedido: " + order);
             
             if(!company.requestPickup(order)) {
-                System.out.println("No se pudo asignar un repartidor para el pedido: " + order);
-                System.out.println("Repartidores disponibles: " + company.getDeliveryPersons()); // Depuracion 
+                //System.out.println("No se pudo asignar un repartidor para el pedido: " + order);
+                //System.out.println("Repartidores disponibles: " + company.getDeliveryPersons()); // Depuracion 
                 throw new IllegalStateException("Failed to find a pickup.");        
             }
         }
