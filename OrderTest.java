@@ -162,5 +162,21 @@ public class OrderTest
         assertEquals(15, medicalOrder.calculateEvaluationDP());
         
     }
+    @Test
+    public void testGetCharge() {
+    // UrgentOrder: cargo = doble del recargo
+    double expectedUrgentCharge = urgentOrder.getSurcharge().getValor() * 2;
+    assertEquals("Cargo incorrecto para UrgentOrder", expectedUrgentCharge, urgentOrder.charge(), 0.001);
+
+    // NonUrgentOrder: cargo = valor del recargo
+    double expectedNonUrgentCharge = nonUrgentOrder.getSurcharge().getValor();
+    assertEquals("Cargo incorrecto para NonUrgentOrder", expectedNonUrgentCharge, nonUrgentOrder.charge(), 0.001);
+
+    // MedicalOrder: cargo = 0 (es gratuito)
+    assertEquals("Cargo incorrecto para MedicalOrder", 0, medicalOrder.charge(), 0.001);
+    }
+
+    
+   
 }
 
