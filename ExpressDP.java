@@ -49,5 +49,10 @@ public class ExpressDP extends DeliveryPerson {
     public boolean puedeManejarPedido(Urgency urgency) {
         return urgency == Urgency.IMPORTANT; 
     }
+    
+        @Override
+    public String toString() {
+    return  " ";
+    }
 }
 

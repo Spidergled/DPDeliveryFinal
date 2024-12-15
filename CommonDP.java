@@ -28,53 +28,70 @@ public class CommonDP extends DeliveryPerson {
     
 
     @Override
-    public void act() {
-        if (!hasTargetLocation() || getOrdersToDeliver().isEmpty()) {
-            incrementIdleCount();
-            return;
-        }
-
-        Location nextMove = getLocation().nextLocation(getTargetLocation());
-        setLocation(nextMove);
-
-
-        System.out.println("@@@  " + getClass().getName() + " " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY());
-
-        Order firstOrder = getOrdersToDeliver().first();
-
-        if (getLocation().equals(firstOrder.getLocationOrder())) {
-            notifyPickupArrival();
-        }
-
-        if (getLocation().equals(firstOrder.getDestination())) {
-            notifyOrderArrival(firstOrder);
-        
-            
-            // Actualiza popularidad
-            if (firstOrder.getUrgency() == Urgency.IMPORTANT) {
-                popularity += 4;
-            } else {
-                popularity += 1;
-            }
-            
-            getOrdersToDeliver().remove(firstOrder); // Elimina el pedido entregado de la colección
-            
-            // Entrega otros pedidos con la misma targetLocation
-            while (!getOrdersToDeliver().isEmpty() && getOrdersToDeliver().first().getDestination().equals(getTargetLocation())) {
-                Order nextOrder = getOrdersToDeliver().first();
-                notifyOrderArrival(nextOrder);
-                getOrdersToDeliver().remove(nextOrder);
-            }
-            
-        
-            if (!getOrdersToDeliver().isEmpty()) {
-                setTargetLocation(getOrdersToDeliver().first().getDestination());
-            } else {
-                clearTargetLocation();
-            }
-        }
-         
+public void act() {
+    if (!hasTargetLocation() || getOrdersToDeliver().isEmpty()) {
+        incrementIdleCount();
+        return;
     }
+
+    // Calcula el siguiente movimiento hacia el destino
+    Location nextMove = getLocation().nextLocation(getTargetLocation());
+    setLocation(nextMove);
+
+    System.out.println("@@@  " + getClass().getName() + " " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY());
+
+    // Obtiene el primer pedido de la lista
+    Order firstOrder = getOrdersToDeliver().first();
+
+    // Si ha llegado al lugar de recogida del primer pedido
+    if (getLocation().equals(firstOrder.getLocationOrder())) {
+        notifyPickupArrival(); // Notifica que ha llegado al lugar de recogida
+    }
+
+    // Si ha llegado al destino del primer pedido
+    if (getLocation().equals(firstOrder.getDestination())) {
+        notifyOrderArrival(firstOrder); // Notifica que ha entregado el pedido
+
+        // Actualiza la popularidad según la urgencia del pedido
+        if (firstOrder.getUrgency() == Urgency.IMPORTANT) {
+            popularity += 4;
+        } else {
+            popularity += 1;
+        }
+
+        // Elimina el primer pedido de la lista
+        getOrdersToDeliver().remove(firstOrder);
+
+        // Entrega otros pedidos con la misma ubicación de destino
+        while (!getOrdersToDeliver().isEmpty() && getOrdersToDeliver().first().getDestination().equals(getTargetLocation())) {
+            Order nextOrder = getOrdersToDeliver().first();
+
+            // Mostrar los movimientos del siguiente pedido
+            //System.out.println("@@@@  " + getClass().getName() + " " + getName() + " is moving to deliver order: " + nextOrder.getOrderId());
+            while (!getLocation().equals(nextOrder.getDestination())) {
+                // Realiza los movimientos hasta el destino
+                nextMove = getLocation().nextLocation(nextOrder.getDestination());
+                setLocation(nextMove);
+                System.out.println("@@@  " + getClass().getName() + " " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY());
+
+            }
+
+            // Una vez llegue al destino, notificar la entrega
+            notifyOrderArrival(nextOrder);
+            getOrdersToDeliver().remove(nextOrder); // Elimina el pedido entregado
+
+            
+        }
+
+        // Si aún quedan pedidos por entregar, actualiza el destino
+        if (!getOrdersToDeliver().isEmpty()) {
+            setTargetLocation(getOrdersToDeliver().first().getDestination());
+        } else {
+            clearTargetLocation(); // Si no hay más pedidos, limpia el destino
+        }
+    }
+}
+
 
     public int getPopularity() {
         return popularity;
@@ -84,6 +101,12 @@ public class CommonDP extends DeliveryPerson {
         return (urgency == Urgency.IMPORTANT || urgency == Urgency.NONESSENTIAL) &&
                getOrdersToDeliver().size() < getMaxLoad();
     }
+    
+    @Override
+public String toString() {
+    return  " - popularity: " + popularity;
+}
+
 }
 
 

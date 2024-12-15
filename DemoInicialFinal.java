@@ -118,7 +118,7 @@ public class DemoInicialFinal
             Order order = it.next();
             
             // Depuración: Imprimir información del pedido actual
-            System.out.println("Procesando pedido: " + order);
+            //System.out.println("Procesando pedido: " + order);
             
             if(!company.requestPickup(order)) {
                 //System.out.println("No se pudo asignar un repartidor para el pedido: " + order);

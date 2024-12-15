@@ -118,7 +118,7 @@ public class DeliveryCompany
           // Encuentra un DeliveryPerson libre compatible con el tipo de pedido
     DeliveryPerson dp = getDeliveryPerson(order);
     
-    if (dp != null) {
+    if (dp != null && dp.isFree()) {
         // Valida si puede manejar este pedido
         if (dp.puedeManejarPedido(order.getUrgency())) {
             // Configura el lugar de recogida y asigna el pedido
@@ -154,17 +154,19 @@ public class DeliveryCompany
      * A delivery person has arrived at a pickup point.
      * @param dp The delivery person at the pickup point.
      */
-    public void arrivedAtPickup(DeliveryPerson dp)
-    {
-        Order currentOrder = dp.getCurrentOrder();
-        if (currentOrder != null && dp.getLocation().equals(currentOrder.getLocationOrder())) {
-            //dp.pickup(currentOrder); // si sigo las instrrucciones de la entrega deberia poner el pickup aqui, pero me imprime mal
-            dp.setTargetLocation(currentOrder.getDestination());
-            System.out.println("<<<< "+dp.getClass().getName()+ " " + dp.getName() + " at "+ dp.getLocation()+" picks up order from " + currentOrder.getSendingName()
-            + " to: " + currentOrder.getDestination());
+    public void arrivedAtPickup(DeliveryPerson dp) {
+    if (!dp.getOrdersToDeliver().isEmpty()) {
+        for (Order currentOrder : dp.getOrdersToDeliver()) {
+            if (dp.getLocation().equals(currentOrder.getLocationOrder())) {
+                dp.setTargetLocation(currentOrder.getDestination());
+                System.out.println("<<<< " + dp.getClass().getName() + " " + dp.getName() + " at " 
+                    + dp.getLocation() + " picks up Order from " + currentOrder.getSendingName() 
+                    + " to: " + currentOrder.getDestination());
+            }
         }
-                                 
     }
+}
+
 
     /**
      * A delivery person has arrived at a orders's destination.
@@ -174,7 +176,7 @@ public class DeliveryCompany
     public void arrivedAtDestination(DeliveryPerson dp, Order order) {
         wareHouse.addDeliveredOrder(order, dp);
         System.out.println("<<<< "+dp.getClass().getName()+ " "+ dp.getName()  + " at " + dp.getLocation() + " delivers Order at: " + order.getDeliveryTime() 
-        + " from: " + order.getSendingName() + " to: " + order.getDestinationName());
+        + " from: " + order.getSendingName() + " to: " + order.getDestinationName()+ " (charge: " + order.charge() + ")");
                                      
     }
 }

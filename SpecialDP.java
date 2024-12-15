@@ -21,4 +21,9 @@ public class SpecialDP extends DeliveryPerson {
     public boolean puedeManejarPedido(Urgency urgency) {
         return urgency == Urgency.EMERGENCY; 
     }
+    
+        @Override
+    public String toString() {
+    return  " ";
+    }
 }

@@ -230,32 +230,46 @@ public class DeliveryPerson
     
     }
     /**
-     * Deliver the order.
-     */
-    public void deliverOrder()
-    {
-        if (ordersToDeliver.isEmpty()) {
-            throw new IllegalStateException("No hay pedidos para entregar.");
-        }
-        
-        Order currentOrder = ordersToDeliver.pollFirst(); // Obtiene y elimina el primer pedido
-
-        // Verifica si está en el destino del pedido
-        if (location.equals(currentOrder.getDestination())) {
-            incrementTotalCharged(currentOrder.charge()); // Incrementa el dinero cobrado
-            incrementOrdersDelivered(); // Incrementa el número de pedidos entregados
-            incrementValuation(currentOrder.calculateEvaluationDP()); // Actualiza la valoración automática
-            company.addOrder(currentOrder); // Envía el pedido a la compañía para almacenarlo en el almacen
-
-
-            if (!ordersToDeliver.isEmpty()) {
-                // Actualiza la ubicación objetivo al siguiente pedido
-                setTargetLocation(ordersToDeliver.first().getDestination());
-            } else {
-                clearTargetLocation();
-            }
-        }
+ * Deliver the order.
+ */
+public void deliverOrder() {
+    if (ordersToDeliver.isEmpty()) {
+        throw new IllegalStateException("No hay pedidos para entregar.");
     }
+    
+    Order currentOrder = ordersToDeliver.pollFirst(); // Obtiene y elimina el primer pedido
+    //System.out.println(getName() + " entregando el pedido: " + currentOrder);
+
+    // Verifica si está en el destino del pedido
+    /*
+    while (!location.equals(currentOrder.getDestination())) {
+        // Si no estamos en el destino, movernos hacia él
+        Location nextStep = location.nextLocation(currentOrder.getDestination());
+        setLocation(nextStep); // Actualiza la ubicación al siguiente paso
+        System.out.println(getName() + " moviéndose a: " + location);
+    }
+    */
+   
+    // Ahora que el repartidor está en el destino, realizar la entrega
+    incrementTotalCharged(currentOrder.charge()); // Incrementa el dinero cobrado
+    incrementOrdersDelivered(); // Incrementa el número de pedidos entregados
+    incrementValuation(currentOrder.calculateEvaluationDP()); // Actualiza la valoración automática
+    company.addOrder(currentOrder); // Envía el pedido a la compañía para almacenarlo en el almacén
+
+    //System.out.println(getName() + " ha entregado el pedido " + currentOrder + " en " + location);
+
+    // Después de entregar, verifica si aún hay pedidos para entregar
+    if (!ordersToDeliver.isEmpty()) {
+        // Actualiza la ubicación objetivo al siguiente pedido
+        Order nextOrder = ordersToDeliver.first();
+        setTargetLocation(nextOrder.getDestination());
+        //System.out.println(getName() + " moviéndose a la siguiente entrega en: " + nextOrder.getDestination());
+    } else {
+        clearTargetLocation(); // Si no hay más pedidos, borra la ubicación objetivo
+        //System.out.println(getName() + " ha entregado todos los pedidos.");
+    }
+}
+
     
     /**
      * @return incrementa el total cobrado
@@ -277,15 +291,19 @@ public class DeliveryPerson
     public void incrementValuation(int points){
         valuation += points;
     }
-
+    
+    /*
     /**
      * @return how many orders this delivery person has delivered.
      */
+    /*
     public int ordersDelivered()
     {
         
         return ordersDelivered;
     }
+    */
+    
 
     /**
      * Increment the number of orders this delivery person has delivered.
@@ -315,6 +333,7 @@ public class DeliveryPerson
     // Verifica si hay destino asignado o pedidos en la lista
     if (!hasTargetLocation() || ordersToDeliver.isEmpty()) {
         incrementIdleCount();
+        //System.out.println(getName() + " está inactivo.");
         return;
          // Salir del método si no hay destino asignado o pedidos
     }
@@ -391,7 +410,9 @@ public class DeliveryPerson
     public String showFinalInfo()
     {
         //TODO  implementar este método
-        return getClass().getName() + " " + getName() + " at " + getLocation() + " - orders delivered: " + ordersDelivered() + " - non active for: " + getIdleCount() + " times" + " - total to be collected: "+ getTotalCharged() +" - valuation: "+getValuation();
+        String popularityInfo = this.toString();
+        return getClass().getName() + " " + getName() + " at " + getLocation() + " - orders delivered: " + getOrdersDelivered() + " - non active for: " + getIdleCount() + " times" + " - total to be collected: "+ getTotalCharged() +" - valuation: "
+        +getValuation() + popularityInfo;
 
     }
 
