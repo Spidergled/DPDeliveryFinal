@@ -13,9 +13,11 @@ import org.junit.Test;
 public class DeliveryPersonTest
 {
     private DeliveryPerson dp;
-    private Order order;
-    //TODO
-    //crear más campos (si es necesario) 
+    private Order order1;
+    private Order order2;
+    private Order order3;
+    private Order order4;
+    
     /**
      * Default constructor for test class DeliveryPersonTest
      */
@@ -31,20 +33,30 @@ public class DeliveryPersonTest
     @Before
     public void setUp()
     {
-        
         DeliveryCompany company = new DeliveryCompany("Compañía DP Delivery Cáceres");
         // Starting position for the taxi.
         Location dpLocation = new Location(0, 0);
-        // Locations for the order.
-        Location pickup = new Location(1, 2);
-        Location destination = new Location(5, 6);
+        // Locations for the orders.
+        Location pickup1 = new Location(1, 2);
+        Location destination1 = new Location(5, 6);
         
-        Surcharge surcharge = Surcharge.MEDIUM; 
-        Urgency urgency = Urgency.EMERGENCY; 
-        order = new StandardOrder("Kevin", pickup, destination, 10, 1.2, "Decathlon Cáceres", urgency, surcharge);
-        dp = new DeliveryPerson(company, dpLocation,"DP1");
-        //TODO
-        //Completar (si es necesario) este método
+        Location pickup2 = new Location(2, 3);
+        Location destination2 = new Location(6, 7);
+        
+        Location pickup3 = new Location(3, 4);
+        Location destination3 = new Location(7, 8);
+        
+        Location pickup4 = new Location(4, 5);
+        Location destination4 = new Location(8, 9);
+
+        // Orders of different types
+        order1 = new UrgentOrder("Kevin", pickup1, destination1, 10, 1.2, "Decathlon Cáceres", Urgency.EMERGENCY, Surcharge.MEDIUM);
+        order2 = new UrgentOrder("Laura", pickup2, destination2, 11, 1.5, "El Corte Inglés", Urgency.IMPORTANT, Surcharge.LOW);
+        
+        order3 = new NonUrgentOrder("Carlos", pickup3, destination3, 12, 2.5, "Carrefour Cáceres", Urgency.NONESSENTIAL, Surcharge.LOW);
+        order4 = new MedicalOrder("David", pickup4, destination4, 14, 3.0, "Farmacia Central", Urgency.EMERGENCY);
+
+        dp = new DeliveryPerson(company, dpLocation, "DP1");
     }
 
     /**
@@ -66,11 +78,11 @@ public class DeliveryPersonTest
         assertEquals(true, dp.isFree());
         assertEquals(new Location(0,0), dp.getLocation()); // Verifica que la ubicación inicial del repartidor es (0,0).
         assertEquals("DP1", dp.getName()); // Verifica que el nombre del repartidor es el esperado.
-        assertEquals(0,dp.getOrdersDelivered()); // Verifica que el numero de entregas realizadas es cero.
-        assertEquals(Urgency.EMERGENCY, order.getUrgency());
-        assertEquals(Surcharge.MEDIUM, order.getSurcharge());
-            
-        //TODO puede ser implementado comparando otros campos
+        assertEquals(0, dp.getOrdersDelivered()); // Verifica que el número de entregas realizadas es cero.
+        
+        // Verificar atributos del primer pedido
+        assertEquals(Urgency.EMERGENCY, order1.getUrgency());
+        assertEquals(Surcharge.MEDIUM, order1.getSurcharge());
     }
 
     /**
@@ -80,11 +92,10 @@ public class DeliveryPersonTest
     @Test
     public void testPickup()
     {
-        //TODO implementar este método
-        dp.pickup(order);  // EL repartidor recoge el pedido.
-        assertEquals(false,dp.isFree()); // Verifica que el repartidor ya no esta libre.
-        assertEquals(order.getDestination(), dp.getTargetLocation()); // Verifica que el destino coincida con el del pedido.
-        assertEquals(dp.getName(), order.getDeliveryPersonName()); // Verifica que el nombre del repartidor se asigno al pedido.
+        dp.pickup(order1);  // El repartidor recoge el pedido.
+        assertEquals(false, dp.isFree()); // Verifica que el repartidor ya no está libre.
+        assertEquals(order1.getDestination(), dp.getTargetLocation()); // Verifica que el destino coincida con el del pedido.
+        assertEquals(dp.getName(), order1.getDeliveryPersonName()); // Verifica que el nombre del repartidor se asignó al pedido.
     }
 
     /**
@@ -94,10 +105,9 @@ public class DeliveryPersonTest
     @Test
     public void testDeliverOrder()
     {
-        //TODO implementar este método
-        dp.pickup(order); // El repartidor recoge el pedido.
+        dp.pickup(order1); // El repartidor recoge el pedido.
         dp.deliverOrder(); // El repartidor entrega el pedido.
-        assertEquals(true,dp.isFree()); // Verifica que el repartidor esta libre despues de la entrega.
+        assertEquals(true, dp.isFree()); // Verifica que el repartidor está libre después de la entrega.
         assertEquals(1, dp.getOrdersDelivered()); // Verifica que el contador de entregas ha incrementado.
     }
 
@@ -108,18 +118,17 @@ public class DeliveryPersonTest
     @Test
     public void testDelivery()
     {
-        //TODO implementar este método
-        dp.pickup(order);
+        dp.pickup(order1);
         assertEquals(1, dp.getOrdersToDeliver().size()); // Verifica que el pedido está en la lista.
 
         int pasos = 0;
         
-        while(!dp.getLocation().equals(order.getDestination()) && pasos < 100){
+        while(!dp.getLocation().equals(order1.getDestination()) && pasos < 100){
             dp.act();
             pasos++;
         }
         
-        assertEquals(order.getDestination(), dp.getLocation());
+        assertEquals(order1.getDestination(), dp.getLocation());
         
         dp.deliverOrder();
         
@@ -127,13 +136,11 @@ public class DeliveryPersonTest
         assertEquals(1, dp.getOrdersDelivered());
         
         assertEquals(true, pasos < 100);
-        
     }
-      @Test
+
+    @Test
     public void testObtainTotalCharge()
     {
-        Order order1 = new StandardOrder("Alice", new Location(1, 1), new Location(3, 3), 10, 2.0, "Store1", Urgency.EMERGENCY, Surcharge.MEDIUM);
-        Order order2 = new StandardOrder("Bob", new Location(2, 2), new Location(4, 4), 11, 1.5, "Store2", Urgency.IMPORTANT, Surcharge.LOW);
         dp.pickup(order1);
         dp.setLocation(order1.getDestination());
         dp.deliverOrder();
@@ -144,33 +151,30 @@ public class DeliveryPersonTest
         double totalCharge = order1.charge() + order2.charge();
         assertEquals(totalCharge, dp.obtainTotalCharge(), 0.01);
     }
+
     @Test
     public void testGetOrder()
     {
-    Order order1 = new StandardOrder("Alice", new Location(1, 1), new Location(3, 3), 10, 2.0, "Store1", Urgency.EMERGENCY, Surcharge.MEDIUM);
-    Order order2 = new StandardOrder("Bob", new Location(2, 2), new Location(4, 4), 11, 1.5, "Store2", Urgency.IMPORTANT, Surcharge.LOW);
+        dp.pickup(order1);
+        dp.pickup(order2);
 
-    dp.pickup(order1);
-    dp.pickup(order2);
-
-    assertEquals(order1, dp.getCurrentOrder());
+        assertEquals(order1, dp.getCurrentOrder());
     }
+
     @Test
-    public void testact()
+    public void testAct()
     {
-    Order urgentOrder = new UrgentOrder("Alice", new Location(0, 0), new Location(5, 5), 10, 1.0, "Urgent Store", Urgency.EMERGENCY, Surcharge.MEDIUM);
-    
-    dp.pickup(urgentOrder);
-    
-    int n = 0;
-    while(!dp.getLocation().equals(urgentOrder.getDestination()) && n < 100)
-    {
-        dp.act();
-        n++;
-    }
-    assertEquals (urgentOrder.getDestination(), dp.getLocation());
-    dp.deliverOrder();
-    assertTrue(dp.isFree());
+        dp.pickup(order1);
+        
+        int n = 0;
+        while(!dp.getLocation().equals(order1.getDestination()) && n < 100)
+        {
+            dp.act();
+            n++;
+        }
+        assertEquals(order1.getDestination(), dp.getLocation());
+        dp.deliverOrder();
+        assertTrue(dp.isFree());
     }
 }
 
