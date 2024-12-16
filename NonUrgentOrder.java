@@ -1,10 +1,13 @@
 
 /**
- * Write a description of class NonUrgentOrder here.
+ * Represents a non-urgent order to be delivered from one location to another.
+ * Non-urgent orders apply a standard surcharge for delivery and provide a fixed
+ * evaluation score for the delivery person.
  * 
- * @author (your name) 
+ * @author (yahya, mario, gled)
  * @version (a version number or a date)
  */
+ 
 public class NonUrgentOrder extends Order
 {
     public NonUrgentOrder(String sendingName, Location location, Location destination, int deliveryTime,

@@ -411,9 +411,8 @@ public void deliverOrder() {
     public String showFinalInfo()
     {
         //TODO  implementar este método
-        String popularityInfo = this.toString();
         return getClass().getName() + " " + getName() + " at " + getLocation() + " - orders delivered: " + getOrdersDelivered() + " - non active for: " + getIdleCount() + " times" + " - total to be collected: "+ getTotalCharged() +" - valuation: "
-        +getValuation() + popularityInfo;
+        +getValuation() ;
 
     }
 

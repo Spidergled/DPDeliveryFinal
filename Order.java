@@ -29,6 +29,8 @@ public abstract class Order
      * @param deliveryTime The hour of delivery.
      * @param weight  The order's weight
      * @param destinationName The name of the person receiving the order.
+     * @param urgency The urgency level of the order.
+     * @param surcharge The surcharge associated with the order.
      * @throws NullPointerException If either location is null.
      */
     public Order(String sendingName, Location location, Location destination, int deliveryTime, 
@@ -119,37 +121,63 @@ public abstract class Order
     }
     
     //ENUM SURCHARGE
-    
+    /**
+     * Get the surcharge associated with the order.
+     * 
+     * @return The surcharge of the order.
+     */
     public Surcharge getSurcharge() {
         return surcharge;
     }
-
+    /**
+     * Set the surcharge for the order.
+     * 
+     * @param surcharge The new surcharge to be set.
+     */
     public void setSurcharge(Surcharge surcharge) {
         this.surcharge = surcharge;
     }
-    
+    /**
+     * Get the value of the surcharge.
+     * 
+     * @return The numeric value of the surcharge.
+     */    
     public double getValorSurcharge(){
         return surcharge.getValor();
     }
     
     //ENUM URGENCY
-    
+    /**
+     * Get the urgency level of the order.
+     * 
+     * @return The urgency of the order.
+     */
     public Urgency getUrgency() {
         return urgency;
     }
-
+    
+    /**
+     * Set the urgency level of the order.
+     * 
+     * @param urgency The new urgency level to be set.
+     */
     public void setUrgency(Urgency urgency) {
         this.urgency = urgency;
     }
     
-    public double getValorUrgency(){
+    /**
+     * Get the numeric value of the urgency.
+     * 
+     * @return The numeric value associated with the urgency.
+     */
+    public double getValorUrgency() {
         return urgency.getValor();
     }
-    
+  
 
     /**
      * Return details of the passenger, such as where it is.
-     * @return A string representation of the passenger.
+     * @return A string representation of the Order.
      */
     @Override
     public String toString()
@@ -170,6 +198,12 @@ public abstract class Order
         return getClass().getSimpleName()+" "+"delivered at: "+ getDeliveryTime() +" by: "+ getDeliveryPersonName() +" to: " + getDestinationName()+ " from: " + getSendingName();
     }
     
+    /**
+     * Show the initial information about the order, including sender, recipient,
+     * delivery time, weight, and locations.
+     * 
+     * @return A string with the initial information of the order.
+     */
     public String showInitialInfo(){
         
         return getClass().getName()+" from: "+ getSendingName() + " to: " + getDestinationName() + " at: " + getDeliveryTime() +

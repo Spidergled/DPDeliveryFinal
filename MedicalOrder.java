@@ -1,8 +1,10 @@
-
 /**
- * Write a description of class MedicalOrder here.
+ * Represents a medical order to be delivered from one location to another.
+ * Medical orders are delivered free of charge and provide a higher evaluation score
+ * for the delivery person upon successful delivery.
+ * This type of order does not include any surcharge.
  * 
- * @author (your name) 
+ * @author (Yahya, Mario, Gled)
  * @version (a version number or a date)
  */
 public class MedicalOrder extends Order

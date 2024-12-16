@@ -110,10 +110,15 @@ public void act() {
                getOrdersToDeliver().size() < getMaxLoad();
     }
     
-    @Override
+   /* @Override
 public String toString() {
     return  " - popularity: " + popularity;
-}
+}*/
+    @Override
+    public String showFinalInfo()
+    {
+         return super.showFinalInfo() + " - popularity: " + getPopularity();
+    }
 
 }
 
