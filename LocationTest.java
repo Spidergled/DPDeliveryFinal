@@ -75,23 +75,30 @@ public class LocationTest
         //TODO implementar este método
         // Testear la adyacencia entre dos localizaciones. Se puede hacer 
         // utilizando llamada al método "nextLocation".
-        
-        // Pruebas del método nextLocation para verificar adyacencia
-        Location proximoDestino = startLocation.nextLocation(destination);
-        
-        // Verificamos si el siguiente paso está un paso más cerca del destino
-        assertEquals(2, proximoDestino.getX());  // X debe ser 2 (incrementado en 1)
-        assertEquals(2, proximoDestino.getY());  // Y debe ser el mismo, ya que no cambia
-        
-        // Verificación con un destino más lejano
-        Location proximoDestino2 = startLocation.nextLocation(newDestination);
-        assertEquals(2, proximoDestino2.getX());  // X debe ser 2
-        assertEquals(3, proximoDestino2.getY());  // Y debe ser 3 (incrementado en 1)
-        
-        // Verificación de adyacencia con un movimiento en el eje Y
-        Location destinoVertical = new Location(3, 3).nextLocation(new Location(3, 5));
-        assertEquals(3, destinoVertical.getX());  // X no cambia
-        assertEquals(4, destinoVertical.getY());  // Y incrementa en 1
+         // Verificar el siguiente paso hacia un destino
+        Location nextStep = startLocation.nextLocation(destination);
+        assertEquals(2, nextStep.getX()); // X incrementa hacia el destino
+        assertEquals(2, nextStep.getY()); // Y permanece igual
+
+        // Probar movimiento hacia un destino más lejano
+        Location nextStep2 = startLocation.nextLocation(newDestination);
+        assertEquals(2, nextStep2.getX()); // X incrementa en 1
+        assertEquals(3, nextStep2.getY()); // Y incrementa en 1
+
+        // Prueba con movimiento en eje Y únicamente
+        Location verticalMove = new Location(3, 3).nextLocation(new Location(3, 5));
+        assertEquals(3, verticalMove.getX()); // X no cambia
+        assertEquals(4, verticalMove.getY()); // Y incrementa en 1
+
+        // Prueba de adyacencia directa
+        Location adjacent = new Location(4, 4).nextLocation(new Location(5, 4));
+        assertEquals(5, adjacent.getX()); // Movimiento en X hacia el destino
+        assertEquals(4, adjacent.getY()); // Y permanece igual
+
+        // Probar si nextLocation no da un paso inválido
+        Location invalidMove = startLocation.nextLocation(startLocation);
+        assertEquals(1, invalidMove.getX()); // No debe cambiar si el destino es igual
+        assertEquals(2, invalidMove.getY());
 
     }
 }
