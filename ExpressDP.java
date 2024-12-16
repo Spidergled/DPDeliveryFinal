@@ -1,3 +1,11 @@
+/**
+ * Represents a delivery person of type ExpressDP (Express Delivery Person).
+ * ExpressDP delivery persons can only carry orders of the "IMPORTANT" urgency level,
+ * and they are limited to carrying a maximum of two orders at a time.
+ * 
+ * @author (Yahya, Mario, Gled)
+ * @version (a version number or a date)
+ */
 public class ExpressDP extends DeliveryPerson {
 
     /**

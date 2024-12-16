@@ -1,9 +1,11 @@
 import java.util.*;
 /**
- * Write a description of class WareHouse here.
+ * Represents a warehouse where orders are stored before being delivered.
+ * The warehouse holds orders, keeps track of their delivery status,
+ * and associates delivered orders with the delivery persons who handled them.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Yahya, Mario, Gled
+ * @version (version number or date here)
  */
 
 public class WareHouse

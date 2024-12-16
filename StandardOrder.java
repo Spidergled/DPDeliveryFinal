@@ -4,7 +4,7 @@ public class StandardOrder extends Order {
         super(sendingName, location, destination, deliveryTime, weight, destinationName, urgency, surcharge);
     }
     public double charge() {
-        return getWeight(); 
+        return 0.0; 
     }
     public int calculateEvaluationDP(){
         return 0; 

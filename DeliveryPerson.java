@@ -23,10 +23,17 @@ public class DeliveryPerson
     private double totalCharged;
     
     /**
-     * Constructor of class DeliveryPerson
-     * @param company The delivery person's company. Must not be null.
-     * @param location The delivery person's starting point. Must not be null.
-     * @throws NullPointerException If company or location is null.
+     * Constructor for objects of class Order.
+     * 
+     * @param sendingName The sender's name.
+     * @param location The pickup location, must not be null.
+     * @param destination The destination location, must not be null.
+     * @param deliveryTime The hour of delivery.
+     * @param weight The order's weight.
+     * @param destinationName The name of the person receiving the order.
+     * @param urgency The urgency level of the order.
+     * @param surcharge The surcharge associated with the order.
+     * @throws NullPointerException If either location or destination is null.
      */
     public DeliveryPerson(DeliveryCompany company, Location location, String name)
     {
@@ -279,12 +286,6 @@ public void deliverOrder() {
         totalCharged += amount;
     }
     
-    /**
-     * @return obtener el total cobrado
-     */
-    public double obtainTotalCharge() {
-        return totalCharged;
-    }
     
     /**
      * @return incrementa la valoración
@@ -368,29 +369,62 @@ public void deliverOrder() {
         return ordersToDeliver.isEmpty() ? null : ordersToDeliver.first();
     }
     
-    public double getTotalCharged() {
-        return totalCharged;
-    }
-    
-    public TreeSet<Order> getOrdersToDeliver() {
-        return ordersToDeliver;
-    }
-    
-    public int getValuation() {
-        return valuation;
-    }
-    
-    public void setValuation(int valuation){
-        this.valuation = valuation;
-    }
-    
-    public int getMaxLoad(){
-        return maxLoad;
-    }
-    
-    public void setMaxLoad(int maxload){
-        this.maxLoad = maxload;
-    }
+/**
+ * Get the total amount charged for all delivered orders.
+ * 
+ * @return The total amount collected for delivered orders.
+ */
+public double getTotalCharged() {
+    return totalCharged;
+}
+
+/**
+ * Get the set of orders assigned to the delivery person for delivery.
+ * 
+ * @return A {@code TreeSet} containing the orders to be delivered.
+ */
+public TreeSet<Order> getOrdersToDeliver() {
+    return ordersToDeliver;
+}
+
+/**
+ * Get the valuation score of the delivery person.
+ * This score represents the performance evaluation based on delivered orders.
+ * 
+ * @return The valuation score.
+ */
+public int getValuation() {
+    return valuation;
+}
+
+/**
+ * Set the valuation score for the delivery person.
+ * 
+ * @param valuation The new valuation score to be assigned.
+ */
+public void setValuation(int valuation) {
+    this.valuation = valuation;
+}
+
+/**
+ * Get the maximum load capacity of the delivery person.
+ * This indicates the maximum number of orders the delivery person can carry at one time.
+ * 
+ * @return The maximum load capacity.
+ */
+public int getMaxLoad() {
+    return maxLoad;
+}
+
+/**
+ * Set the maximum load capacity for the delivery person.
+ * 
+ * @param maxLoad The new maximum load capacity to be set.
+ */
+public void setMaxLoad(int maxLoad) {
+    this.maxLoad = maxLoad;
+}
+
     
     
     /**

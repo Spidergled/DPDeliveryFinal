@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
  * Model the operation of a taxi company, operating different
  * delivery persons. This version operates a single type of delivery person.
  * 
- * @author David J. Barnes and Michael Kölling
+ * @author Yahya, Mario, Gled
  * @version 2024.10.07 DP classes
  */
 public class DeliveryCompany  
@@ -14,8 +14,13 @@ public class DeliveryCompany
     private String name;  //nombre de la compañía
     private List<DeliveryPerson> deliveryPersons; // Lista de repartidores
     private WareHouse wareHouse; // Almacén donde se almacenan los pedidos
+
     /**
-     * Constructor for objects of class DeliveryCompany
+     * Constructor for creating a DeliveryCompany object.
+     * Initializes the company with the given name, sets up an empty list of delivery persons,
+     * and creates a new warehouse instance.
+     * 
+     * @param name The name of the company.
      */
     public DeliveryCompany(String name)
     {
