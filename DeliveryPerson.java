@@ -305,7 +305,12 @@ public void deliverOrder() {
         return ordersDelivered;
     }
     */
-    
+        /**
+     * @return obtener el total cobrado
+     */
+    public double obtainTotalCharge() {
+        return totalCharged;
+    }
 
     /**
      * Increment the number of orders this delivery person has delivered.

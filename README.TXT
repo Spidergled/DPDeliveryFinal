@@ -5,4 +5,4 @@ Miembros del Equipo:
 
 Clase para realizar la simulación: DeliveryDemo
 
-Extras implementados: todos
+Extras implementados: Todos
