@@ -1,4 +1,5 @@
 import java.util.*;
+import java.text.DecimalFormat;
 
 /**
  * Model the operation of a taxi company, operating different
@@ -174,9 +175,10 @@ public class DeliveryCompany
      * @param order The order being dropped off.
      */
     public void arrivedAtDestination(DeliveryPerson dp, Order order) {
+        DecimalFormat df = new DecimalFormat("#.##");
         wareHouse.addDeliveredOrder(order, dp);
         System.out.println("<<<< "+dp.getClass().getName()+ " "+ dp.getName()  + " at " + dp.getLocation() + " delivers Order at: " + order.getDeliveryTime() 
-        + " from: " + order.getSendingName() + " to: " + order.getDestinationName()+ " (charge: " + order.charge() + ")");
+        + " from: " + order.getSendingName() + " to: " + order.getDestinationName()+ " (charge: " + df.format(order.charge()) + ")");
                                      
     }
 }

@@ -1,6 +1,6 @@
 import java.util.*; 
 import java.util.Set;
-
+import java.text.DecimalFormat;
 /**
  * Model the common elements of delivery persons.
  * 
@@ -411,7 +411,8 @@ public void deliverOrder() {
     public String showFinalInfo()
     {
         //TODO  implementar este método
-        return getClass().getName() + " " + getName() + " at " + getLocation() + " - orders delivered: " + getOrdersDelivered() + " - non active for: " + getIdleCount() + " times" + " - total to be collected: "+ getTotalCharged() +" - valuation: "
+        DecimalFormat df = new DecimalFormat("#.##");
+        return getClass().getName() + " " + getName() + " at " + getLocation() + " - orders delivered: " + getOrdersDelivered() + " - non active for: " + getIdleCount() + " times" + " - total to be collected: "+ df.format(getTotalCharged()) +" - valuation: "
         +getValuation() ;
 
     }
