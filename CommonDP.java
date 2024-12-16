@@ -65,6 +65,13 @@ public void act() {
         // Entrega otros pedidos con la misma ubicación de destino
         while (!getOrdersToDeliver().isEmpty() && getOrdersToDeliver().first().getDestination().equals(getTargetLocation())) {
             Order nextOrder = getOrdersToDeliver().first();
+            
+            // Actualiza la popularidad según la urgencia del pedido adicional
+            if (nextOrder.getUrgency() == Urgency.IMPORTANT) {
+                popularity += 4;
+            } else {
+                popularity += 1;
+            }
 
             // Mostrar los movimientos del siguiente pedido
             //System.out.println("@@@@  " + getClass().getName() + " " + getName() + " is moving to deliver order: " + nextOrder.getOrderId());
@@ -72,6 +79,7 @@ public void act() {
                 // Realiza los movimientos hasta el destino
                 nextMove = getLocation().nextLocation(nextOrder.getDestination());
                 setLocation(nextMove);
+                
                 System.out.println("@@@  " + getClass().getName() + " " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY());
 
             }
