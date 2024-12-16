@@ -129,9 +129,9 @@ public class DeliveryPersonTest
         assertEquals(true, pasos < 100);
         
     }
-    public void testObtenTotalCharge()
+      @Test
+    public void testObtainTotalCharge()
     {
-        // creamos varios pedidos con diferentes cargos
         Order order1 = new StandardOrder("Alice", new Location(1, 1), new Location(3, 3), 10, 2.0, "Store1", Urgency.EMERGENCY, Surcharge.MEDIUM);
         Order order2 = new StandardOrder("Bob", new Location(2, 2), new Location(4, 4), 11, 1.5, "Store2", Urgency.IMPORTANT, Surcharge.LOW);
         dp.pickup(order1);
@@ -140,10 +140,11 @@ public class DeliveryPersonTest
         dp.pickup(order2);
         dp.setLocation(order2.getDestination());
         dp.deliverOrder();
-        
+
         double totalCharge = order1.charge() + order2.charge();
-        assertEquals(totalCharge, dp.obtainTotalCharge());
+        assertEquals(totalCharge, dp.obtainTotalCharge(), 0.01);
     }
+    @Test
     public void testGetOrder()
     {
     Order order1 = new StandardOrder("Alice", new Location(1, 1), new Location(3, 3), 10, 2.0, "Store1", Urgency.EMERGENCY, Surcharge.MEDIUM);
@@ -154,6 +155,7 @@ public class DeliveryPersonTest
 
     assertEquals(order1, dp.getCurrentOrder());
     }
+    @Test
     public void testact()
     {
     Order urgentOrder = new UrgentOrder("Alice", new Location(0, 0), new Location(5, 5), 10, 1.0, "Urgent Store", Urgency.EMERGENCY, Surcharge.MEDIUM);

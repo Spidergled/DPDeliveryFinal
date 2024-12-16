@@ -222,7 +222,7 @@ public class DeliveryPerson
         }
         
         if (ordersToDeliver.size() >= maxLoad) {
-        throw new IllegalStateException("Cannot pickup more orders. Maximum load reached.");
+            return;
         }
         ordersToDeliver.add(order);
         setTargetLocation(order.getDestination());
